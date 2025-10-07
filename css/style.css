@@ -1,0 +1,110 @@
+/* すべての要素を指定*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+/* ページ全体の背景と基本色 */
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ヘッダー */
+header {
+    background: linear-gradient(135deg, #4e73df, #224abe);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+/* ナビゲーション */
+.header_nav, .login_nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.header_nav a, .login_nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.header_nav a:hover, .login_nav a:hover {
+    color: #ffdd57;
+    transform: scale(1.05);
+}
+
+/* メインコンテンツ */
+main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Discordリンクセクション */
+.discord_link {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.disocrd_link p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.disocrd_link a {
+    display: inline-block;
+    background: #5865F2;
+    color: #fff;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.disocrd_link a:hover {
+    background: #4752c4;
+    transform: translateY(-2px);
+}
+
+/* フッター */
+footer {
+    background: #222;
+    color: #ccc;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 3rem;
+}
+
+.footer_nav {
+    margin-bottom: 1rem;
+}
+
+.footer_nav a {
+    color: #ccc;
+    margin: 0 0.8rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer_nav a:hover {
+    color: #fff;
+}
