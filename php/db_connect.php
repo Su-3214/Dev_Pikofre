@@ -1,7 +1,8 @@
 <?php
     //データーベースの接続情報を格納
-    const DB_HOST = 'mysql:dbname=user_login;host=mysql320.phy.lolipop.lan;charset=utf8';
-    const DB_USER = 'LAA1553857';
+    //Suu DB Date↓
+    const DB_HOST = 'mysql:dbname=user_login;host=mysql327.phy.lolipop.lan;charset=utf8';
+    const DB_USER = 'LAA1682436';
     const DB_PASSWORD = 'Kuroru960';
     
     try{
