@@ -12,7 +12,7 @@
 <body>
     <!--ここはヘッダーです-->
     <header>
-        <h1>Chlorine_Website</h1>
+        <h1>Chlorine_Website ログイン済み</h1>
         <nav class="login_nav">
             <a href="php/login.php">ログイン</a>
         </nav>
