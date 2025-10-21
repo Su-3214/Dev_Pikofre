@@ -54,3 +54,18 @@ function validation($datas, $confirm = true) {
 
     return $errors;
 }
+function validationlogin($datas, $confirm = true) {
+     // メールアドレスの確認
+    if (empty($datas['u_mail'])) {
+        $errors['u_mail'] = 'メールアドレスを入力してください。';
+    } else if (!filter_var($datas['u_mail'], FILTER_VALIDATE_EMAIL)) {
+        $errors['u_mail'] = '正しいメールアドレスの形式で入力してください。';
+    }
+
+    // パスワードの確認
+    if (empty($datas["u_password"])) {
+        $errors['u_password'] = "パスワードを入力してください。";
+    } else if (!preg_match('/\A(?=.*[a-z])(?=.*\d)[a-z\d]{8,100}\z/i', $datas["u_password"])) {
+        $errors['u_password'] = 'パスワードは英字と数字を含む8文字以上で入力してください。';
+    }
+}

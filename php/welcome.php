@@ -1,3 +1,11 @@
+<?php
+session_start();
+// セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +28,7 @@
             <a href="../index.html">トップ</a>
             <a href="../forum.html">掲示板</a>
             <a href="gametop.php">ゲームページ</a></li>
+            <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
         </nav>
     </header>
     <!--ここからはメインです-->

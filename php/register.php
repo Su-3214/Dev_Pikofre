@@ -3,7 +3,6 @@ $errors = [];
 //ファイルの読み込み
 require_once "db_connect.php";
 require_once "functions.php";
-
 //セッションの開始
 session_start();
 
@@ -58,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $params = [
             'u_id' =>null,
             'u_name'=>$datas['u_name'],
-            'u_password'=>password_hash($datas['password'], PASSWORD_DEFAULT),
+            'u_password'=>password_hash($datas['u_password'], PASSWORD_DEFAULT),
             'u_mail'=>$datas['u_mail'],
             'u_date'=>$today
         ];
