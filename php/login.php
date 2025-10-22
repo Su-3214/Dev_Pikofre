@@ -62,7 +62,8 @@ if (empty($errors)) {
     } else {
         $login_err = 'メールアドレスまたはパスワードが違います。';
     }
-}/*else{
+}
+/*else{
    print("エラーあり：");
    print_r($errors);
 }エラー確認のために残している*/
@@ -104,7 +105,7 @@ if (empty($errors)) {
         <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
             <div class="form-group">
                 <label>メールアドレス</label>
-                <input type="text" name="u_mail"
+                <input type="text" name="u_mail" placeholder="example@mailadress.com"
                     class="form-control <?php echo (!empty($errors['u_mail']) ? 'is-invalid' : ''); ?>"
                     value="<?php echo isset($datas['u_mail']) ? h($datas['u_mail']) : ''; ?>">
                 <span
@@ -113,7 +114,7 @@ if (empty($errors)) {
 
             <div class="form-group">
                 <label>パスワード</label>
-                <input type="password" name="u_password"
+                <input type="password" name="u_password" placeholder="examplepassword"
                     class="form-control <?php echo (!empty($errors['u_password']) ? 'is-invalid' : ''); ?>"
                     value="<?php echo isset($datas['u_password']) ? h($datas['u_password']) : ''; ?>">
                 <span

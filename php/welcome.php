@@ -1,7 +1,7 @@
 <?php
 session_start();
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
@@ -11,8 +11,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -21,6 +23,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <!--ここはヘッダーです-->
     <header>
         <h1>Chlorine_Website ログイン済み</h1>
+
         <nav class="login_nav">
             <a href="php/login.php">ログイン</a>
         </nav>
@@ -28,15 +31,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <a href="../index.html">トップ</a>
             <a href="../forum.html">掲示板</a>
             <a href="gametop.php">ゲームページ</a></li>
-            <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
+            <a href="logout.php" class="btn btn-danger ml-3">ログアウト</a>
         </nav>
     </header>
     <!--ここからはメインです-->
     <main>
         <section class="login_main">
-            <p>ログインしてください</p>
+            <p>この画面はホーム画面トップになります。indexに利用していたものは削除し、<br>
+                画面レイアウト図に沿うように作成してください。お願いします。<br>
+                ログイン処理は作成完了しました。いったん待機しております。</p>
             <?php
-            
+
             ?>
         </section>
     </main>
