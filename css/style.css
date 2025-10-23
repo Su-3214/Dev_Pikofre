@@ -15,6 +15,12 @@ body {
 
 /* ヘッダー */
 header {
+    /*↓Js-header block */
+    position: sticky;
+    top: 0;
+    transition: all 0.3s ease;
+    height: 100px;
+    /*↑js-header block*/
     background: linear-gradient(135deg, #4e73df, #224abe);
     color: #fff;
     padding: 1rem 2rem;
@@ -22,7 +28,18 @@ header {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header.scrolled {
+    height: 60px;
+    background-color: #ffffff;
+    box-shadow: 0.4px 10px rgba(0, 0, 0, 0.2);
+}
+
+header.scrolled h1,
+header.scrolled nav a {
+    font-size: 0.9m
 }
 
 header h1 {
@@ -30,19 +47,22 @@ header h1 {
 }
 
 /* ナビゲーション */
-.header_nav, .login_nav {
+.header_nav,
+.login_nav {
     display: flex;
     gap: 1rem;
 }
 
-.header_nav a, .login_nav a {
+.header_nav a,
+.login_nav a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s, transform 0.2s;
 }
 
-.header_nav a:hover, .login_nav a:hover {
+.header_nav a:hover,
+.login_nav a:hover {
     color: #ffdd57;
     transform: scale(1.05);
 }
@@ -59,7 +79,7 @@ main {
     background: #fff;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     text-align: center;
     margin-top: 2rem;
 }

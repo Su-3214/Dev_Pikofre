@@ -22,7 +22,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <body>
     <!--ここはヘッダーです-->
     <header>
-        <h1>Chlorine_Website ログイン済み</h1>
+        <img src="../images/pikofre_icon.png" alt="ロゴ" height="100" width="100">
+        <h1>Chlorine_Website loggedin</h1>
 
         <nav class="login_nav">
             <a href="php/login.php">ログイン</a>
@@ -54,6 +55,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </nav>
         <p>copyright Chlorine 2025 </p>
     </footer>
+    <!--JavaScript-->
+    <script src="../javascript/index.js"></script>
+    <!--JavaScriptEnd-->
 </body>
 
 </html>
