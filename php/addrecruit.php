@@ -11,10 +11,12 @@ try{
     echo "データベースエラーが発生しました。";
     exit;
 }
-$recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
+$recruit = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
+//POSTされたデータからINSERT処理を行う
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+}
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -22,18 +24,9 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ゲーム募集ベータ版</title>
+    <title>募集作成画面</title>
 </head>
 <body>
-    <?php if (count($recruits) > 0): ?>
-            <?php foreach ($recruits as $recruit): ?>
-                <?php echo htmlspecialchars($recruit['u_name']); ?>
-                <?php  ?>
-                    
-               
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>まだレビューがありません。</p>
-        <?php endif; ?>
+    
 </body>
 </html>
