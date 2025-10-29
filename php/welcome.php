@@ -27,12 +27,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <nav class="login_nav">
             <a href="php/login.php">ログイン</a>
+            <a href="logout.php" class="btn btn-danger ml-3">ログアウト</a>
         </nav>
         <nav class="header_nav">
-            <a href="../index.html">トップ</a>
-            <a href="../forum.html">掲示板</a>
-            <a href="gametop.php">ゲームページ</a></li>
-            <a href="logout.php" class="btn btn-danger ml-3">ログアウト</a>
+            <a href="../welcome.php">攻略記事</a>
+            <a href="../forum.html">募集</a>
+            <a href="gametop.php">掲示板</a></li>
         </nav>
     </header>
     <!--ここからはメインです-->
@@ -40,7 +40,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <section class="login_main">
             <p>この画面はホーム画面トップになります。indexに利用していたものは削除し、<br>
                 画面レイアウト図に沿うように作成してください。お願いします。<br>
-                ログイン処理は作成完了しました。いったん待機しております。</p>
+                ログイン処理は作成完了しました。いったん待機しております。
+                HOME>>> NOWLOADING...SETTINGS 40% SYSTEM PROTECTED...</p>
             <?php
 
             ?>
@@ -49,7 +50,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <!--ここからはフッターです-- phpファイルのため階層構造を意識 -->
     <footer>
         <nav class="footer_nav">
-            <a href="../index.html">トップ</a>
+            <a href="#">トップ</a>
             <a href="../forum.html">掲示板</a>
             <a href="gametop.php">ゲームページ</a>
         </nav>
