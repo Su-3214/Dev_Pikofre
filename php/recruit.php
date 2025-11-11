@@ -3,6 +3,7 @@
 require_once "db_connect.php";
 
 //セッションにてゲームIDの情報取得
+$_SESSION['game_id'] = 50000;
 $game_id = $_SESSION['game_id'];
 
 
