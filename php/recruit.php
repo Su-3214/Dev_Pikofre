@@ -1,7 +1,7 @@
 <?php
 //ファイルの読み込み
 require_once "db_connect.php";
-
+//募集データの取得処理
 $sql_recruit = "SELECT * FROM game_recruitment ";
 $stmt_recruit = $pdo->prepare($sql_recruit);
 try {
@@ -11,6 +11,7 @@ try {
     echo "データベースエラーが発生しました。";
     exit;
 }
+$recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -27,7 +28,16 @@ try {
 
 
 <body>
+    <?php if (count($recruits) > 0): ?>
+        <?php foreach ($recruits as $recruit): ?>
+            <?php echo htmlspecialchars($recruit['u_name']); ?>
+            <?php ?>
 
+
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>まだレビューがありません。</p>
+    <?php endif; ?>
 </body>
 
 </html>
