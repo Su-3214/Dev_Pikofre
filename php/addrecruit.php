@@ -6,17 +6,6 @@ require_once "db_connect.php";
     $u_id = $_SESSION['u_id'];
     $game_id = $_SESSION['game_id'];
 
-//募集''データの取得処理
-$sql_recruit = "SELECT * FROM game_recruitment "; 
-$stmt_recruit = $pdo->prepare($sql_recruit);
-try{
-    $stmt_recruit->execute();
-}catch(PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
-}
-$recruit = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 
 //POSTされたデータからINSERT処理を行う
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -24,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $recruit_number = $_POST['recruit_number'] ?? null;
     $recruit_detail = $_POST['recruit_detail'] ?? null;
 }
-
+//インサート用のsql文
 if ($game_id && $u_id && $recruit_vc && $recruit_number) {
         $sql = "INSERT INTO game_recruitment 
                 (game_id, u_id, recruit_vc, recruit_number, recruit_detail, )
