@@ -1,4 +1,6 @@
 <?php
+//セッションスタート
+session_start();
 //ファイルの読み込み
 require_once "db_connect.php";
 
@@ -101,7 +103,7 @@ if ($game_id && $u_id && $recruit_vc && $recruit_number) {
         <textarea name="recruit_detail" placeholder="募集の詳細を入力してください..." required></textarea>
         <br>
 
-        <input type="hidden" name="u_name" value="<?php echo $recruit_user ?>">
+        <input type="hidden" name="u_name" value="<?php echo $recruit_user['u_name'] ?>">
         <button type="submit" >作成する</button>
       </form>
     </div>
