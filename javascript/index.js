@@ -8,7 +8,7 @@ window.addEventListener("scroll", function () {
     if (scrollPosition > 50) {
         header.classList.add("scrolled");
     } else {
-        header.classList.remove("scrollerd");
+        header.classList.remove("scrolled");
     }
 });
 //ヘッダーアニメーション
@@ -28,3 +28,61 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     )
 })
+//================CustomNav================
+//Datas
+var links = [
+    { label: '攻略記事', bg: '#c0392b' },
+    { label: '募集', bg: '#16a085' },
+    { label: '掲示板', bg: '#8e44ad' },
+]
+//AddContainer
+var container = document.createElement('div');
+container.style.position = 'fixed';
+container.style.left = '50%';
+container.style.top = '50%';
+container.style.transform = 'translate(-50%,-50%)';
+container.style.display = 'flex';
+container.style.flexDirection = 'column';
+container.style.gap = '16px';
+document.body.appendChild(container);
+
+//AddLinks
+links.forEach(function (linkData) {
+    var link = document.createElement('a');
+    link.textContent = linkData.label;
+    link.href = "#";
+    link.dataset.color = linkData.bg;
+    //Styles
+    link.style.display = 'block';
+    link.style.width = '180px';
+    link.style.padding = '12px 0';
+    link.style.textAlign = 'center';
+    link.style.borderRadius = '8px';
+    link.style.backgroundColor = '#333';
+    link.style.color = '#fff';
+    link.style.textDecoration = 'none';
+    link.style.fontFamily = 'sans-serif';
+    link.style.fontSize = '18px';
+    link.style.transition = 'all 0.3s ease';
+
+    //MouseOver
+    link.addEventListener('mouseover', function () {
+        link.style.backgroundColor = linkData.bg;
+        document.body.style.backgroundColor = linkData.bg;
+    });
+    link.addEventListener('mouseout', function () {
+        link.style.backgroundColor = '#333';
+        document.body.style.backgroundColor = '#111';
+    });
+
+    container.appendChild(link);
+});
+// Default BackgroundColor  
+document.body.style.backgroundColor = '#111';
+document.body.style.margin = '0';
+document.body.style.height = '100vh';
+document.body.style.display = 'flex';
+document.body.style.alignItems = 'center';
+document.body.style.flexDirection = 'column';
+document.body.style.justifyContent = 'center';
+//================CustomNav================
