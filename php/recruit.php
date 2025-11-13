@@ -42,15 +42,13 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <?php if (count($recruits) > 0): ?>
         <?php foreach ($recruits as $recruit): ?>
-            <?php
-            //現在テーブルに[u_name]がないためにコメントアウト中
-            //echo htmlspecialchars($recruit['u_name']); ?>
-            <span><?php echo htmlspecialchars($recruit['recruit_number']); ?></span>
-            <span><?php echo htmlspecialchars($recruit['recruit_vc']); ?></span>
-            <span><?php echo htmlspecialchars($recruit['recruit_detail']); ?> </span>
+            <?php echo htmlspecialchars($recruit['u_name']); ?> <br>
+            <?php echo htmlspecialchars($recruit['recruit_number']); ?><br>
+            <?php echo htmlspecialchars($recruit['recruit_vc']); ?><br>
+            <?php echo htmlspecialchars($recruit['recruit_detail']); ?> 
             <form action="room_number.php" method="post">
-                <input type="hidden" name="recruit_id" value="<?php echo $recruit['rectuir_id'] ?>">
-                <input type="submit" value="参加">
+                <input type="hidden" name="recruit_id" value="<?php echo $recruit['recruit_id'] ?>">
+                <input type="submit" value="参加"><br><br><br>
             </form>
         <?php endforeach; ?>
     <?php else: ?>
