@@ -29,7 +29,8 @@ require_once "db_connect.php";
     }
 
     //sql実行で得た情報の取得処理
-    $recruit_user = $stmt_addrecruit->fetchAll(PDO::FETCH_ASSOC);
+    $recruit_user = $stmt_addrecruit->fetch(PDO::FETCH_ASSOC);
+    $u_name = $recruit_user['u_name'];
 
 
 //POSTされたデータからINSERT処理を行う
@@ -37,11 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $recruit_vc = $_POST['recruit_vc'] ?? null;
     $recruit_number = $_POST['recruit_number'] ?? null;
     $recruit_detail = $_POST['recruit_detail'] ?? null;
-}
+
 //インサート用のsql文
 if ($game_id && $u_id && $recruit_vc && $recruit_number) {
         $sql = "INSERT INTO game_recruitment 
-                (game_id, u_id, u_name,recruit_vc, recruit_number, recruit_detail, )
+                (game_id, u_id, u_name,recruit_vc, recruit_number, recruit_detail )
                 VALUES (:game_id, :u_id, :u_name,:recruit_vc, :recruit_number, :recruit_detail)";
         $stmt = $pdo->prepare($sql);
         $stmt ->bindParam(':game_id', $game_id, PDO::PARAM_INT);
@@ -60,6 +61,7 @@ if ($game_id && $u_id && $recruit_vc && $recruit_number) {
     } else {
         echo "<p style='color:red;'>必須項目が未入力です。</p>";
     }
+}
 ?>
 
 
@@ -76,7 +78,6 @@ if ($game_id && $u_id && $recruit_vc && $recruit_number) {
   
       <img src="apex.jpg" alt="Apex Legends">
       <h3>Apex Legends 募集一覧</h3>
-      <button style="background:#ffa500;">募集</button>
    
 
    
@@ -103,7 +104,7 @@ if ($game_id && $u_id && $recruit_vc && $recruit_number) {
         <textarea name="recruit_detail" placeholder="募集の詳細を入力してください..." required></textarea>
         <br>
 
-        <input type="hidden" name="u_name" value="<?php echo $recruit_user['u_name'] ?>">
+        <input type="hidden" name="u_name" value="<?php echo htmlspecialchars($u_name, ENT_QUOTES, 'UTF-8'); ?>">
         <button type="submit" >作成する</button>
       </form>
     </div>
