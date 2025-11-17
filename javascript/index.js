@@ -38,12 +38,14 @@ var links = [
 //AddContainer
 var container = document.createElement('div');
 container.style.position = 'fixed';
-container.style.left = '50%';
 container.style.top = '50%';
-container.style.transform = 'translate(-50%,-50%)';
+container.style.right = '20%';
+container.style.transform = 'transY(-50%)';
 container.style.display = 'flex';
 container.style.flexDirection = 'column';
-container.style.gap = '16px';
+container.style.justifyContent = 'space-between';
+container.style.height = '240px';
+container.style.gap = '0px';
 document.body.appendChild(container);
 
 //AddLinks
@@ -82,7 +84,5 @@ document.body.style.backgroundColor = '#111';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
 document.body.style.display = 'flex';
-document.body.style.alignItems = 'center';
 document.body.style.flexDirection = 'column';
-document.body.style.justifyContent = 'center';
 //================CustomNav================
