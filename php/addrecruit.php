@@ -71,43 +71,130 @@ if ($game_id && $u_id && $recruit_vc && $recruit_number) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>募集作成画面</title>
+
+<style>
+    body {
+        background: #f0f0f0;
+        font-family: "Helvetica", "Arial", sans-serif;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    form {
+        width: 90%;
+        max-width: 500px;
+    }
+
+    /* 各項目の黒丸枠 */
+    .field-box {
+        background: #000;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 25px;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    /* ラベル（左側） */
+    .field-title {
+        font-size: 1.0em;
+        font-weight: bold;
+        color: white;
+    }
+
+    /* セレクト装飾 */
+    select {
+        background: #5ecfff;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 12px;
+        font-size: 0.9em;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    /* textarea外側の黒枠 */
+    .textarea-wrapper {
+        background: #000;
+        padding: 20px;
+        border-radius: 25px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* テキスト入力エリア */
+    textarea {
+        width: 100%;
+        min-height: 160px;
+        border-radius: 15px;
+        border: none;
+        padding: 15px;
+        font-size: 1em;
+        outline: none;
+        resize: vertical;
+        box-sizing: border-box;
+    }
+
+    /* 作成するボタン */
+    button {
+        background: #5ecfff;
+        color: black;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 1.0em;
+        cursor: pointer;
+        display: block;
+        margin-left: auto;
+    }
+
+    button:hover {
+        opacity: 0.85;
+    }
+</style>
+
 </head>
 <body>
-  
 
-  
-      <img src="apex.jpg" alt="Apex Legends">
-      <h3>Apex Legends 募集一覧</h3>
-   
+<form action="" method="POST">
 
-   
-      <form action="" method="POST">
-        
-          <span>遊ぶ人数</span>
-          <select name="recruit_number" required>
+    <!-- 🎮 遊ぶ人数 -->
+    <div class="field-box">
+        <span class="field-title">遊ぶ人数</span>
+        <select name="recruit_number" required>
             <option value="2">二人募集</option>
             <option value="3">三人募集</option>
             <option value="4">四人募集</option>
             <option value="5">五人募集</option>
-          </select>
-        <br>
+        </select>
+    </div>
 
-       
-          <span>ボイスチャット</span>
-          <select name="recruit_vc" required>
+    <!-- 🎤 ボイスチャット -->
+    <div class="field-box">
+        <span class="field-title">ボイスチャット</span>
+        <select name="recruit_vc" required>
             <option value="必須">必須</option>
             <option value="どちらでも">どちらでも</option>
             <option value="なし">なし</option>
-          </select>
-        <br>
-
-        <textarea name="recruit_detail" placeholder="募集の詳細を入力してください..." required></textarea>
-        <br>
-
-        <input type="hidden" name="u_name" value="<?php echo htmlspecialchars($u_name, ENT_QUOTES, 'UTF-8'); ?>">
-        <button type="submit" >作成する</button>
-      </form>
+        </select>
     </div>
-  </div>
+
+    <!-- 📝 募集詳細の黒丸枠 -->
+    <div class="textarea-wrapper">
+        <textarea name="recruit_detail" placeholder="募集の詳細を入力してください..." required></textarea>
+    </div>
+
+    <input type="hidden" name="u_name" value="<?php echo htmlspecialchars($u_name, ENT_QUOTES, 'UTF-8'); ?>">
+
+    <button type="submit">作成する</button>
+
+</form>
+
 </body>
 </html>

@@ -6,14 +6,11 @@ require_once "db_connect.php";
 $_SESSION['game_id'] = 50000;
 $game_id = $_SESSION['game_id'];
 
-
-//募集テーブルの情報を特定のゲームIDをもとに昇順で取得
+//募集テーブルの情報取得
 $sql_recruit = "SELECT * FROM game_recruitment WHERE game_id = :game_id ORDER BY recruit_start";
 $stmt_recruit = $pdo->prepare($sql_recruit);
-//パラメータバインディングでセキュリティ強化
 $stmt_recruit->bindParam(':game_id', $game_id, PDO::PARAM_INT);
 
-//sql実行処理
 try {
     $stmt_recruit->execute();
 } catch (PDOException $e) {
@@ -22,13 +19,8 @@ try {
     exit;
 }
 
-//sql実行で得た情報の取得処理
 $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -36,23 +28,96 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ゲーム募集ベータ版</title>
-</head>
 
+    <style>
+        body {
+            background: #f0f0f0;
+            font-family: "Helvetica", "Arial", sans-serif;
+            margin: 20px;
+
+            /* ★カード中央揃えのため追加★ */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            background: #e2e2e2;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+            width: 90%;
+            max-width: 600px;  /* 中央揃えで画面幅に依存しすぎないため */
+        }
+
+        .header-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            background: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+
+        .join-btn {
+            background: #ff30c8;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .join-btn:hover {
+            opacity: 0.85;
+        }
+    </style>
+
+</head>
 
 <body>
     <?php if (count($recruits) > 0): ?>
         <?php foreach ($recruits as $recruit): ?>
-            <?php echo htmlspecialchars($recruit['u_name']); ?> <br>
-            <?php echo htmlspecialchars($recruit['recruit_number']); ?><br>
-            <?php echo htmlspecialchars($recruit['recruit_vc']); ?><br>
-            <?php echo htmlspecialchars($recruit['recruit_detail']); ?> 
-            <form action="room_number.php" method="post">
-                <input type="hidden" name="recruit_id" value="<?php echo $recruit['recruit_id'] ?>">
-                <input type="submit" value="参加"><br><br><br>
-            </form>
+
+            <div class="card">
+
+                <div class="header-name">
+                    <?= htmlspecialchars($recruit['u_name']) ?>
+                </div>
+
+                <div class="detail-item">
+                    募集人数：<?= htmlspecialchars($recruit['recruit_number']) ?>
+                </div>
+
+                <div class="detail-item">
+                    ボイスチャット：<?= htmlspecialchars($recruit['recruit_vc']) ?>
+                </div>
+
+                <div class="detail-item">
+                    募集詳細：<br>
+                    <?= nl2br(htmlspecialchars($recruit['recruit_detail'])) ?>
+                </div>
+
+                <form action="room_number.php" method="post">
+                    <input type="hidden" name="recruit_id" value="<?= $recruit['recruit_id'] ?>">
+                    <input type="submit" value="参加" class="join-btn">
+                </form>
+
+            </div>
+
         <?php endforeach; ?>
     <?php else: ?>
-        <p>まだレビューがありません。</p>
+        <p>現在募集はありません。</p>
     <?php endif; ?>
 </body>
 
