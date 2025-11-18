@@ -34,7 +34,7 @@
 
   .login-title{
     font-weight:700;
-    font-size:16px;
+    font-size:15px;
     margin-bottom:15px;
   }
 
@@ -167,7 +167,7 @@
     <div class="username">ユーザー</div>
 
     <!-- ログアウトリンク -->
-    <a href="kanri_login.html">
+    <a href="kanri_login.php">
       <div class="logout">
         <svg viewBox="0 0 24 24">
           <path d="M9 7H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4"
@@ -185,7 +185,7 @@
   </aside>
 
   <main class="main">
-    <a href="kanri_home.html" style="text-decoration:none; color:inherit;">
+    <a href="kanri_home.php" style="text-decoration:none; color:inherit;">
   <div class="logo">
     <svg viewBox="0 0 64 64">
       <rect x="4" y="8" width="56" height="48" rx="8" fill="#3aa0ff"/>
@@ -201,10 +201,10 @@
     <h1>管理者ホーム画面</h1>
 
     <ul class="menu">
-      <li onclick="location.href='kanri_user.html'">ユーザー管理</li>
-      <li onclick="location.href='kanri_toukou.html'">投稿管理</li>
-      <li onclick="location.href='kanri_tuhouTaiou.html'">通報対応</li>
-      <li onclick="location.href='kanri_syuseiRequest.html'">修正リクエスト閲覧</li>
+      <li onclick="location.href='kanri_user.php'">ユーザー管理</li>
+      <li onclick="location.href='kanri_toukou.php'">投稿管理</li>
+      <li onclick="location.href='kanri_tuhouTaiou.php'">通報対応</li>
+      <li onclick="location.href='kanri_syuseiRequest.php'">修正リクエスト閲覧</li>
     </ul>
   </main>
 
