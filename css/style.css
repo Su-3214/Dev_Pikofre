@@ -19,11 +19,13 @@ header {
     position: sticky;
     top: 0;
     transition: all 0.3s ease;
-    height: 100px;
+    height: 120px;
+    /*Changed*/
     /*↑js-header block*/
     background: linear-gradient(135deg, #4e73df, #224abe);
     color: #fff;
     padding: 1rem 2rem;
+    padding-bottom: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -51,6 +53,7 @@ header h1 {
 .login_nav {
     display: flex;
     gap: 1rem;
+    /*Changed*/
 }
 
 .header_nav a,
