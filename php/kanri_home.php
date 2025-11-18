@@ -35,7 +35,7 @@
   .login-title{
     font-weight:700;
     font-size:15px;
-    margin-bottom:15px;
+    margin-bottom:10px;
   }
 
   .avatar{
