@@ -3,11 +3,13 @@
 ?>
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <title>PikoPikoFriends - 掲示板</title>
-  <link rel="stylesheet" href="keijiban.css">
+  <link rel="stylesheet" href="../css/keijiban.css">
 </head>
+
 <body>
 
   <header>
@@ -52,4 +54,5 @@
   <a href="reply.php">返</a>
 
 </body>
+
 </html>
