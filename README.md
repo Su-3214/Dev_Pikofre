@@ -1,7 +1,15 @@
-はじめまして。ぴこふれの使い方を説明します。
-まず初めに、このプロジェクトはデモ版です。
-このウェブサイトでは、ゲーム攻略、掲示板、募集の３つの機能を主に備えています。
-それらを最大限活用することにおいて、DiscordBotを利用したDiscordとの連携も視野に入れて開発を進めています。
-現在のバージョンは2.0です。
+1班成果物【ソースコード】
 
-なにか致命的なバグ等ございましたら同Discord上にお問い合わせください。
+メンバー情報:
+桝崎（リーダー）
+山﨑（サブリーダー）
+田島
+石松
+森田
+黒木
+
+動作アプリURL:
+https://chlorine3214.bitter.jp/Dev_Chlorine/php/welcome.php
+
+DB情報:
+https://mysqladmin.lolipop.jp/pma5/index.php?route=/&route=%2F&db=LAA1682436-chlorine3214&table=game_recruitment&server=129
