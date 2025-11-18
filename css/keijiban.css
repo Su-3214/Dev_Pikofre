@@ -1,0 +1,134 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #b4cc26;
+}
+
+/* ヘッダー */
+header {
+  background: linear-gradient(to right, #4a8dff, #b87fff);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+}
+
+header .title a {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header .menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header .menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* コンテナ全体 */
+.container {
+  display: flex;
+  min-height: calc(100vh - 50px);
+  background: #d3e4f0;
+}
+
+/* 左サイド */
+.sidebar-left {
+  width: 100px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-left a {
+  display: block;
+  width: 60px;
+  text-align: center;
+  margin: 15px 0;
+  padding: 10px 0;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  border-radius: 10px;
+  background: #f5f5f5;
+  font-size: 18px;
+}
+
+.sidebar-left a:hover {
+  background: #ddd;
+}
+
+/* メイン */
+.main {
+  flex: 1;
+  padding: 20px;
+  background: white;
+}
+
+/* 投稿カード */
+.post {
+  background: #bfbfbf;
+  border-radius: 10px;
+  padding: 15px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.post img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* いいねバー */
+.reaction-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.reaction-bar button {
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 右サイド */
+.sidebar-right {
+  width: 160px;
+  background: #b4cc26;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  gap: 25px;
+}
+
+.sidebar-right a {
+  background: #673de6;
+  color: white;
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.sidebar-right a:hover {
+  opacity: 0.8;
+}

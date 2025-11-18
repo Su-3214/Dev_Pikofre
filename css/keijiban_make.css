@@ -1,0 +1,170 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #b4cc26;
+}
+
+/* ヘッダー */
+header {
+  background: linear-gradient(to right, #4a8dff, #b87fff);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+header .title a {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header .menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header .menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* コンテナ全体 */
+.container {
+  display: flex;
+  min-height: calc(100vh - 60px);
+  background: #d3e4f0;
+}
+
+/* 左サイドバー */
+.sidebar-left {
+  width: 100px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-left a {
+  display: block;
+  width: 60px;
+  text-align: center;
+  margin: 15px 0;
+  padding: 10px 0;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  border-radius: 10px;
+  background: #f5f5f5;
+  font-size: 18px;
+}
+
+.sidebar-left a:hover {
+  background: #ddd;
+}
+
+/* メイン */
+main {
+  flex: 1;
+  background: white;
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* 投稿フォーム */
+.form-box {
+  background: #c9c9c9;
+  border-radius: 20px;
+  padding: 40px;
+  width: 70%;
+  max-width: 800px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.form-box:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.form-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 22px;
+  color: #222;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  border: none;
+  padding: 12px;
+  resize: none;
+  font-size: 16px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.upload-section {
+  margin-top: 20px;
+}
+
+input[type="file"] {
+  background: white;
+  border-radius: 10px;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  font-size: 15px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.submit-btn {
+  display: block;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 35px;
+  font-size: 17px;
+  cursor: pointer;
+  margin: 30px auto 0 auto;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* 右サイドバー */
+.sidebar-right {
+  width: 160px;
+  background: #b4cc26;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  gap: 25px;
+}
+
+.sidebar-right a {
+  background: #673de6;
+  color: white;
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.sidebar-right a:hover {
+  opacity: 0.8;
+}

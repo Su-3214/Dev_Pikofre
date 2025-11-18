@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #b4cc26;
+}
+
+/* ヘッダー */
+header {
+  background: linear-gradient(to right, #4a8dff, #b87fff);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 20px;
+}
+header .title a {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+}
+header .menu {
+  display: flex;
+  gap: 10px;
+}
+header .menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* レイアウト全体 */
+.container {
+  display: flex;
+  min-height: calc(100vh - 56px);
+  background: #d3e4f0;
+}
+
+/* 左サイドバー */
+.sidebar-left {
+  width: 100px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.sidebar-left a {
+  display: block;
+  width: 60px;
+  text-align: center;
+  margin: 15px 0;
+  padding: 10px 0;
+  background: #f5f5f5;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 10px;
+  color: black;
+  font-size: 18px;
+}
+
+/* メイン部分 */
+.main {
+  flex: 1;
+  padding-top: 30px;
+  background: white;
+}
+
+/* 投稿カード */
+.post {
+  width: 85%;
+  margin: 0 auto 20px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #bfbfbf;
+}
+.post-text {
+  padding: 15px;
+  white-space: pre-line;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.post img {
+  width: 100%;
+  display: block;
+}
+
+/* 返信フォーム */
+.reply-area {
+  width: 85%;
+  margin: 20px auto;
+  background: #e0e0e0;
+  border-radius: 12px;
+  padding: 18px;
+  box-sizing: border-box;
+}
+textarea {
+  width: 100%;
+  min-height: 120px;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #bbb;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.send-btn {
+  background: #4a8dff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin-left: auto;
+  margin-top: 12px;
+  transition: 0.2s;
+}
+.send-btn:hover {
+  background: #3a78db;
+}
+
+/* 右サイドバー */
+.sidebar-right {
+  width: 160px;
+  background: #b4cc26;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  gap: 25px;
+}
+.sidebar-right a {
+  background: #673de6;
+  color: white;
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+/* スマホ対応 */
+@media (max-width: 900px) {
+  .sidebar-left,
+  .sidebar-right {
+    display: none;
+  }
+  .post,
+  .reply-area {
+    width: 94%;
+  }
+}
