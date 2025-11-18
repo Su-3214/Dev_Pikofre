@@ -30,6 +30,46 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
     <title>ゲーム募集ベータ版</title>
 
     <style>
+        /* 左側固定メニュー（通常は左に固定） */
+        .sidebar {
+            position: fixed;
+            left: 20px;
+            top: 80px;
+            background: #ffffff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        /* 募集作成ボタン */
+        .create-btn {
+            display: inline-block;
+            background: #ff7b00;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .create-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* 画面幅が800px以下のとき、重ならないように上へ移動させる */
+        @media (max-width: 800px) {
+            .sidebar {
+                position: static;
+                /* 固定解除 */
+                width: 90%;
+                margin: 0 auto 20px auto;
+                text-align: center;
+            }
+        }
+
+
         body {
             background: #f0f0f0;
             font-family: "Helvetica", "Arial", sans-serif;
@@ -49,7 +89,8 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 
             width: 90%;
-            max-width: 600px;  /* 中央揃えで画面幅に依存しすぎないため */
+            max-width: 600px;
+            /* 中央揃えで画面幅に依存しすぎないため */
         }
 
         .header-name {
@@ -86,6 +127,10 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <div class="sidebar">
+        <a href="addrecruit.php" class="create-btn">募集作成</a>
+    </div>
+
     <?php if (count($recruits) > 0): ?>
         <?php foreach ($recruits as $recruit): ?>
 
