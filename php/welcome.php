@@ -29,19 +29,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <a href="php/login.php">ログイン</a>
             <a href="logout.php" class="btn btn-danger ml-3">ログアウト</a>
         </nav>
-        <nav class="header_nav">
+        <!--<nav class="header_nav">
             <a href="../welcome.php">攻略記事</a>
             <a href="../forum.html">募集</a>
             <a href="gametop.php">掲示板</a></li>
-        </nav>
+        </nav>　必要ないのでいったん消去してます-->
     </header>
     <!--ここからはメインです-->
     <main>
         <section class="login_main">
-            <p>この画面はホーム画面トップになります。indexに利用していたものは削除し、<br>
-                画面レイアウト図に沿うように作成してください。お願いします。<br>
-                ログイン処理は作成完了しました。いったん待機しております。
-                HOME>>> NOWLOADING...SETTINGS 40% SYSTEM PROTECTED...</p>
+            <p>修正版を公開しました。<br>
+                以下変更点候補<br>
+                ログイン、ログアウトをリンクではなくボタン化する<br>
+                ぴこふれアイコンを押下後、トップページに遷移するように<br>
+                ヘッダーフッターのリンクを仕込む、ナビの見た目を細かく修正、リンクを仕込む</p>
             <?php
 
             ?>
