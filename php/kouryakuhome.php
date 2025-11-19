@@ -26,6 +26,14 @@
             height: auto;
             margin: 20px;
         }
+
+         .vertical-line2 {
+            border-left: 2px solid black;
+            height: auto;
+            margin: 20px;
+            right: 30px;
+        }
+
     </style>
 </head>
 
@@ -117,6 +125,8 @@
                  style="position: absolute; left: 700px; top: 160px; width: 180px; height: auto;">
         </div>
     </a>
+
+     
         
 </body>
 </html>
