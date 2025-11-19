@@ -1,3 +1,24 @@
+<?php
+session_start();
+require_once "db_connect.php";
+ 
+$sql_user = "SELECT * FROM user ORDER BY u_date";
+$stmt_user = $pdo->prepare($sql_user);
+ 
+try {
+    $stmt_user->execute();
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    echo "データベースエラーが発生しました。";
+    exit;
+}
+ 
+$users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
+ 
+ 
+?>
+
+
 <!doctype html>
 <html lang="ja">
 <head>
@@ -255,35 +276,35 @@
     </div>
 
     <table>
-      <tr>
-        <th>ユーザー名</th>
-        <th>ユーザーID</th>
-        <th>登録日</th>
-      </tr>
-
-      <tr>
-        <td>キッズ</td>
-        <td>kids_1234</td>
-        <td>2025/01/11</td>
-      </tr>
-
-      <tr>
-        <td>マサムネ</td>
-        <td>masamune_gg</td>
-        <td>2025/01/12</td>
-      </tr>
-
-      <tr>
-        <td>ジブラルタル</td>
-        <td>shield_ez</td>
-        <td>2025/01/13</td>
-      </tr>
-
-      <tr><td class="placeholder">ーーー</td><td class="placeholder">ーーー</td><td class="placeholder">ーーー</td></tr>
-      <tr><td class="placeholder">ーーー</td><td class="placeholder">ーーー</td><td class="placeholder">ーーー</td></tr>
-      <tr><td class="placeholder">ーーー</td><td class="placeholder">ーーー</td><td class="placeholder">ーーー</td></tr>
-
-    </table>
+                <tr>
+                    <th>ユーザー名</th>
+                    <th>ユーザーID</th>
+                    <th>登録日</th>
+                </tr>
+ 
+                <?php foreach ($users as $user): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($user['u_name']) ?></td>
+                        <td><?= htmlspecialchars($user['u_id']) ?></td>
+                        <td><?= htmlspecialchars($user['u_date']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+ 
+                <?php
+                // 表を一定数に揃えたい場合（任意）
+                $maxRows = 6; // ここは好きな行数に変更可能
+                $emptyRows = $maxRows - count($users);
+                if ($emptyRows > 0):
+                    for ($i = 0; $i < $emptyRows; $i++): ?>
+                        <tr>
+                            <td class="placeholder">ーーー</td>
+                            <td class="placeholder">ーーー</td>
+                            <td class="placeholder">ーーー</td>
+                        </tr>
+                <?php endfor;
+                endif;
+                ?>
+            </table>
 
   </main>
 
