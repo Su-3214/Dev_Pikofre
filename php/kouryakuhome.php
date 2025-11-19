@@ -57,7 +57,7 @@
         人気なAPEX記事
     </div>
 
-    <a href="http://localhost:8080/kouryaku.php">
+    <a href="http://localhost/kouryaku.php">
         <div style="position: absolute; left: 20px; top: 450px; font-size: 20px; color: skyblue;">
             APEX全キャラクター特徴まとめ
         </div>
@@ -99,14 +99,24 @@
     </a>
 
     <a href="http://localhost/kouryaku6.php">
-        <div class="box2">
-            <p>APEXシーズン27アップデート！！<br>
-               武器の調整やマップの変更点、キャラクターの調整一覧！！</p>
+        <div class="box3">
+            <p>Apexやってるやつ<br>
+               ↑うおW</p>
 
-            <img src="" alt="ApexS27"
+            <img src="uow" alt="tyousyou"
                  style="position: absolute; left: 700px; top: 90px; width: 180px; height: auto;">
         </div>
     </a>
 
+    <a href="http://localhost/kouryaku7.php">
+        <div class="box4">
+            <p>APEX新キャラ<br>
+               </p>
+
+            <img src="leviathan-apex-legends.jpg" alt="leviathan"
+                 style="position: absolute; left: 700px; top: 160px; width: 180px; height: auto;">
+        </div>
+    </a>
+        
 </body>
 </html>
