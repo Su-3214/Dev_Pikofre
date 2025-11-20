@@ -1,3 +1,22 @@
+<?php
+session_start();
+require_once "db_connect.php";
+ 
+$sql_user = "SELECT * FROM user ORDER BY u_date";
+$stmt_user = $pdo->prepare($sql_user);
+ 
+try {
+    $stmt_user->execute();
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    echo "データベースエラーが発生しました。";
+    exit;
+}
+ 
+$users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
+ 
+ 
+?>
 <!doctype html>
 <html lang="ja">
 <head>

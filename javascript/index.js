@@ -39,8 +39,8 @@ var links = [
 var container = document.createElement('div');
 container.style.position = 'fixed';
 container.style.top = '50%';
-container.style.right = '20%';
-container.style.transform = 'transY(-50%)';
+container.style.right = '0%';
+container.style.transform = 'translateY(-50%)';
 container.style.display = 'flex';
 container.style.flexDirection = 'column';
 container.style.justifyContent = 'space-between';
@@ -61,7 +61,7 @@ links.forEach(function (linkData) {
     link.style.textAlign = 'center';
     link.style.borderRadius = '8px';
     link.style.backgroundColor = '#333';
-    link.style.color = '#fff';
+    link.style.color = '#ffffffff';
     link.style.textDecoration = 'none';
     link.style.fontFamily = 'sans-serif';
     link.style.fontSize = '18px';
@@ -74,13 +74,13 @@ links.forEach(function (linkData) {
     });
     link.addEventListener('mouseout', function () {
         link.style.backgroundColor = '#333';
-        document.body.style.backgroundColor = '#111';
+        document.body.style.backgroundColor = '#ffffffff';
     });
 
     container.appendChild(link);
 });
 // Default BackgroundColor  
-document.body.style.backgroundColor = '#111';
+document.body.style.backgroundColor = '#ffffffff';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
 document.body.style.display = 'flex';
