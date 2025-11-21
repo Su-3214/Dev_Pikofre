@@ -1,5 +1,5 @@
 <?php
-// 特に処理がなければ PHP タグは空でOK
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
