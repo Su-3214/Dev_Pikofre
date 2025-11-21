@@ -1,40 +1,36 @@
 <?php
-session_start();
 require_once "db_connect.php";
+session_start();
 
-// ★ 削除処理（POSTで t_id が送られてきたらこの画面内で削除）
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['t_id'])) {
-    $delete_id = intval($_POST['t_id']);
-
-    $sql_delete = "DELETE FROM toukou WHERE t_id = ?";
-    $stmt_delete = $pdo->prepare($sql_delete);
-
-    try {
-        $stmt_delete->execute([$delete_id]);
-    } catch (PDOException $e) {
-        error_log($e->getMessage());
-        echo "削除時にデータベースエラーが発生しました。";
-        exit;
+// $pdo が存在しない場合は空データ扱い
+if (!isset($pdo) || !$pdo) {
+    $toukous = [];
+} else {
+    // 削除処理
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
+        $delete_id = intval($_POST['post_id']);
+        try {
+            $sql_delete = "DELETE FROM piko_post WHERE post_id = ?";
+            $stmt_delete = $pdo->prepare($sql_delete);
+            $stmt_delete->execute([$delete_id]);
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } catch (PDOException $e) {
+            error_log("削除エラー: " . $e->getMessage());
+        }
     }
 
-    // 削除したら同じページへ戻す（画面更新）
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+    // 投稿取得
+    try {
+        $sql_toukou = "SELECT post_id, post_detail, status FROM piko_post ORDER BY post_date DESC";
+        $stmt_toukou = $pdo->prepare($sql_toukou);
+        $stmt_toukou->execute();
+        $toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("取得エラー: " . $e->getMessage());
+        $toukous = [];
+    }
 }
-
-// 投稿を取得
-$sql_toukou = "SELECT t_id, content, status FROM toukou ORDER BY t_date DESC";
-$stmt_toukou = $pdo->prepare($sql_toukou);
-
-try {
-    $stmt_toukou->execute();
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
-}
-
-$toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
@@ -370,16 +366,16 @@ $toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
       <?php if (count($toukous) > 0): ?>
         <?php foreach ($toukous as $tk): ?>
           <tr>
-            <td><?= htmlspecialchars($tk['t_id'], ENT_QUOTES, 'UTF-8') ?></td>
+            <td><?= htmlspecialchars($tk['post_id'], ENT_QUOTES, 'UTF-8') ?></td>
 
-            <td><?= nl2br(htmlspecialchars($tk['content'], ENT_QUOTES, 'UTF-8')) ?></td>
+            <td><?= nl2br(htmlspecialchars($tk['post_detail'], ENT_QUOTES, 'UTF-8')) ?></td>
 
             <td><?= htmlspecialchars($tk['status'], ENT_QUOTES, 'UTF-8') ?></td>
 
             <td>
               <!-- ★ 別ファイルではなく、このファイル自身にPOST -->
               <form method="post">
-                <input type="hidden" name="t_id" value="<?= $tk['t_id'] ?>">
+                <input type="hidden" name="post_id" value="<?= $tk['post_id'] ?>">
                 <button class="delete-btn" onclick="return confirm('削除しますか？')">削除</button>
               </form>
             </td>
