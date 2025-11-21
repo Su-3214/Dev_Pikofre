@@ -191,33 +191,6 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<<<<<<< HEAD
-<header>
-    <h1>chlorine_Website</h1>
-    <nav class="login_nav">
-        <a href="php/login.php">ログイン</a>
-    </nav>
-
-    <nav class="header_nav">
-        <a href="home.php">トップ</a>
-        <a href="forum.html">掲示板</a>
-        <a href="gametop.php">ゲームページ</a>
-    </nav>
-
-    <div class="header-right">
-        <button id="notifBtn">🔔 <span><?= $unreadCount ?></span></button>
-        <a href="php/logout.php">ログアウト</a>
-
-        <div class="profile">
-            <img src="<?= $avatar ?>" width="32">
-            <span><?= htmlspecialchars($user['u_name']) ?></span>
-        </div>
-    </div>
-</header>
-
-<main>
-=======
->>>>>>> c1ac18267d43fc3c87dfc47f8e6cf56951253300
 <div class="container">
 
     <!-- 最新記事 -->
@@ -270,7 +243,6 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
 </div>
 
-<<<<<<< HEAD
 <footer>
     <nav class="footer_nav">
         <a href="home.php">トホーム</a>
@@ -282,7 +254,5 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 </footer>
 
 <script src="javascript/index.js"></script>
-=======
->>>>>>> c1ac18267d43fc3c87dfc47f8e6cf56951253300
 </body>
 </html>

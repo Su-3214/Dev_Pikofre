@@ -1,6 +1,6 @@
 <?php
 
-?>てすと
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
