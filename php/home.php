@@ -1,6 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
-require_once "db_connect.php";
+require_once "db_conect.php";
 
 $_SESSION['u_id'] = 1;
 $_SESSION['game_id'] = 50000;
@@ -245,7 +248,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
 <footer>
     <nav class="footer_nav">
-        <a href="home.php">トホーム</a>
+        <a href="home.php">ホーム</a>
         <a href="recruit.php">募集</a>
         <a href="forum.html">掲示板</a>
         <a href="gametop.php">ゲームページ</a>
