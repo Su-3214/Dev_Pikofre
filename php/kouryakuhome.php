@@ -65,25 +65,25 @@
         人気なAPEX記事
     </div>
 
-    <a href="http://localhost/kouryaku.php">
+    <a href=https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryaku.php>
         <div style="position: absolute; left: 20px; top: 450px; font-size: 20px; color: skyblue;">
             APEX全キャラクター特徴まとめ
         </div>
     </a>
 
-    <a href="http://localhost/kouryaku2.php">
+    <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryaku2.php">
         <div style="position: absolute; left: 20px; top: 480px; font-size: 20px; color: skyblue;">
             今シーズンのマップまとめ
         </div>
     </a>
 
-    <a href="http://localhost/kouryaku3.php">
+    <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryaku3.php">
         <div style="position: absolute; left: 20px; top: 530px; font-size: 20px; color: skyblue;">
             使用率からみる<br>最強キャラランキング
         </div>
     </a>
 
-    <a href="http://localhost/kouryaku4.php">
+    <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryaku4.php">
         <div style="position: absolute; left: 20px; top: 600px; font-size: 20px; color: skyblue;">
             スパレジェ一覧と<br>人気ランキングまとめ
         </div>
@@ -96,7 +96,7 @@
         最新のAPEX記事
     </div>
 
-    <a href="http://localhost/kouryaku5.php">
+    <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryaku5.php">
         <div class="box2">
             <p>APEXシーズン27アップデート！！<br>
                武器の調整やマップの変更点、キャラクターの調整一覧！！</p>
