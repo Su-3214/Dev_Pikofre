@@ -55,10 +55,10 @@
 
     <div class="box"><p>Apex Legends<br>攻略一覧</p></div>
 
-    <img src="apex-legends.jpg" alt="Apex Legends"
+    <img src="/images/apex-legends.jpg" alt="Apex Legends"
          style="position: absolute; left: 8px; top: 110px; width: 300px; height: auto;">
 
-    <img src="Apex-Legends-Germany.jpg" alt="Apex-Legends-Germany"
+    <img src="/images/Apex-Legends-Germany.jpg" alt="Apex-Legends-Germany"
          style="position: absolute; left: 8px; top: 278px; width: 120px; height: 120px;">
 
     <div style="position: absolute; left: 40px; top: 400px; font-size: 30px; color: gray;">
@@ -88,7 +88,6 @@
             スパレジェ一覧と<br>人気ランキングまとめ
         </div>
     </a>
-
     <div class="vertical-line"
          style="position: absolute; left: 290px; top: 90px; height: 1000px;"></div>
 
@@ -101,12 +100,12 @@
             <p>APEXシーズン27アップデート！！<br>
                武器の調整やマップの変更点、キャラクターの調整一覧！！</p>
 
-            <img src="Apex_S27_Feature-Image-4x3.avif" alt="ApexS27"
+            <img src="/images/Apex_S27_Feature-Image-4x3.avif" alt="ApexS27"
                  style="position: absolute; left: 700px; top: 20px; width: 180px; height: auto;">
         </div>
     </a>
 
-    <a href="http://localhost/kouryaku6.php">
+    <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryaku6.php">
         <div class="box3">
             <p>Apexやってるやつ<br>
                ↑うおW</p>
@@ -116,7 +115,7 @@
         </div>
     </a>
 
-    <a href="http://localhost/kouryaku7.php">
+    <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryaku7.php">
         <div class="box4">
             <p>APEX新キャラ<br>
                </p>
