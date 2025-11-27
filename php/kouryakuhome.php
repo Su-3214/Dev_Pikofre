@@ -32,6 +32,12 @@
             right: 30px;
         }
 
+         .vertical-line3 {
+            border-left: 2px solid black;
+            height: auto;
+            margin: 20px;
+            left: 30px;
+        }
     </style>
 </head>
 
@@ -39,7 +45,7 @@
 
     <!-- バナー -->
     <div class="banner">
-        <img src="画像1.png" alt="画像1" style="position: absolute; left: 20px; top: 20px; width: 80px; height: auto;">
+        <img src="/images/画像1.png" alt="画像1" style="position: absolute; left: 20px; top: 20px; width: 80px; height: auto;">
         <div style="position: absolute; left: 115px; top: 45px; font-size: 30px; color: aqua;">
             PikoPikoFriends
         </div>
@@ -120,6 +126,24 @@
 
             <img src="leviathan-apex-legends.jpg" alt="leviathan"
                  style="position: absolute; left: 700px; top: 160px; width: 180px; height: auto;">
+        </div>
+    </a>
+
+    <a href = "https://chlorine3214.bitter.jp/Dev_Chlorine/php/recruit.php">
+        <div class="box5">
+            <p>募集</p>
+        </div>
+    </a>
+    
+    <a href = "https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryakuhome.php">
+        <div class="box6">
+            <p>攻略記事</p>
+        </div>
+    </a>
+
+    <a href = "https://chlorine3214.bitter.jp/Dev_Chlorine/php/keijiben.php">
+        <div class="box7">
+            <p>掲示板</p>
         </div>
     </a>
 
