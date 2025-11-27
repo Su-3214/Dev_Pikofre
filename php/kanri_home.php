@@ -233,13 +233,6 @@
 </a>
 
 
-    <h1>管理者ホーム画面</h1>
-
-    <ul class="menu">
-      <li onclick="location.href='kanri_user.php'">ユーザー管理</li>
-      <li onclick="location.href='kanri_toukou.php'">投稿管理</li>
-      <li onclick="location.href='kanri_tuhouTaiou.php'">通報対応</li>
-      <li onclick="location.href='kanri_syuseiRequest.php'">修正リクエスト閲覧</li>
     </ul>
   </main>
 

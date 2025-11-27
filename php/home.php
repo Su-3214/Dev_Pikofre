@@ -64,6 +64,13 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
             font-family: 'Yu Gothic', sans-serif;
         }
 
+        .sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      padding: 30px 20px;
+      text-align: center;
+      box-sizing: border-box;
+    }
         .container {
             width: 90%;
             max-width: 900px;
