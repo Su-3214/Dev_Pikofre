@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
-    <link rel="stylesheet" href="benkyo.css">
+    <link rel="stylesheet" href="../css/kouryakuhome.css">
     <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 
     <style>
@@ -24,13 +24,11 @@
         .vertical-line {
             border-left: 2px solid black;
             height: auto;
-            margin: 20px;
         }
 
          .vertical-line2 {
             border-left: 2px solid black;
             height: auto;
-            margin: 20px;
             right: 30px;
         }
 
@@ -55,10 +53,10 @@
 
     <div class="box"><p>Apex Legends<br>攻略一覧</p></div>
 
-    <img src="/images/apex-legends.jpg" alt="Apex Legends"
+    <img src="../images/apex-legends.jpg" alt="Apex Legends"
          style="position: absolute; left: 8px; top: 110px; width: 300px; height: auto;">
 
-    <img src="/images/Apex-Legends-Germany.jpg" alt="Apex-Legends-Germany"
+    <img src="../images/Apex-Legends-Germany.jpg" alt="Apex-Legends-Germany"
          style="position: absolute; left: 8px; top: 278px; width: 120px; height: 120px;">
 
     <div style="position: absolute; left: 40px; top: 400px; font-size: 30px; color: gray;">
@@ -100,7 +98,7 @@
             <p>APEXシーズン27アップデート！！<br>
                武器の調整やマップの変更点、キャラクターの調整一覧！！</p>
 
-            <img src="/images/Apex_S27_Feature-Image-4x3.avif" alt="ApexS27"
+            <img src="../images/Apex_S27_Feature-Image-4x3.avif" alt="ApexS27"
                  style="position: absolute; left: 700px; top: 20px; width: 180px; height: auto;">
         </div>
     </a>
