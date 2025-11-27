@@ -51,6 +51,11 @@ header h1 {
 /* ナビゲーション */
 .header_nav,
 .login_nav {
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+    /* 線とテキストの間に余白を作る */
+    margin-right: 10px;
+    /* 次の要素との間に余白を作る */
     display: flex;
     gap: 1rem;
     /*Changed*/

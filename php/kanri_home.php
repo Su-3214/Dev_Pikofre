@@ -33,11 +33,11 @@
       box-sizing: border-box;
     }
 
-    .login-title {
-      font-weight: 700;
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
+  .login-title{
+    font-weight:700;
+    font-size:15px;
+    margin-bottom:10px;
+  }
 
     .avatar {
       width: 80px;
@@ -158,7 +158,19 @@
     <aside class="sidebar">
       <div class="login-title">管理者ログイン</div>
 
-      <div class="avatar">
+    <div class="avatar">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="3.5" stroke="#9aa7b6" stroke-width="1.2" fill="#f3f6f9"/>
+        <path d="M4 20c0-3.3 4-6 8-6s8 2.7 8 6"
+          stroke="#9aa7b6" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="username">ユーザー</div>
+
+    <!-- ログアウトリンク -->
+    <a href="kanri_login.php">
+      <div class="logout">
         <svg viewBox="0 0 24 24">
           <circle cx="12" cy="8" r="3.5" stroke="#9aa7b6" stroke-width="1.2" fill="#f3f6f9" />
           <path d="M4 20c0-3.3 4-6 8-6s8 2.7 8 6" stroke="#9aa7b6" stroke-width="1.2" fill="none"
@@ -207,7 +219,31 @@
       </ul>
     </main>
 
+  <main class="main">
+    <a href="kanri_home.php" style="text-decoration:none; color:inherit;">
+  <div class="logo">
+    <svg viewBox="0 0 64 64">
+      <rect x="4" y="8" width="56" height="48" rx="8" fill="#3aa0ff"/>
+      <circle cx="20" cy="24" r="6" fill="#fff"/>
+      <path d="M36 26c0 6-8 12-16 12"
+        stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="brand">PikoPikoFriends</div>
   </div>
+</a>
+
+
+    <h1>管理者ホーム画面</h1>
+
+    <ul class="menu">
+      <li onclick="location.href='kanri_user.php'">ユーザー管理</li>
+      <li onclick="location.href='kanri_toukou.php'">投稿管理</li>
+      <li onclick="location.href='kanri_tuhouTaiou.php'">通報対応</li>
+      <li onclick="location.href='kanri_syuseiRequest.php'">修正リクエスト閲覧</li>
+    </ul>
+  </main>
+
+</div>
 
 </body>
 
