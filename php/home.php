@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-require_once "db_conect.php";
+require_once "db_connect.php";
 
 $_SESSION['u_id'] = 1;
 $_SESSION['game_id'] = 50000;
@@ -250,8 +250,8 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
     <nav class="footer_nav">
         <a href="home.php">ホーム</a>
         <a href="recruit.php">募集</a>
-        <a href="forum.html">掲示板</a>
-        <a href="gametop.php">ゲームページ</a>
+        <a href="keijiban.php">掲示板</a>
+        <a href="kouryaku.php">攻略</a>
     </nav>
     <p>copyright chlorine 2025</p>
 </footer>
