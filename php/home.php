@@ -8,47 +8,34 @@ require_once "db_connect.php";
 $_SESSION['u_id'] = 1;
 $_SESSION['game_id'] = 50000;
 
-//攻略記事を取得
+// 攻略記事
 $sql_info = "SELECT * FROM game_info ORDER BY update_date LIMIT 3";
 $stmt_info = $pdo->prepare($sql_info);
-
-try {
-    $stmt_info->execute();
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
-}
-
+$stmt_info->execute();
 $infos = $stmt_info->fetchAll(PDO::FETCH_ASSOC);
 
-//募集を取得
+// 募集
 $sql_recruit = "SELECT * FROM game_recruitment ORDER BY recruit_start LIMIT 3";
 $stmt_recruit = $pdo->prepare($sql_recruit);
-
-try {
-    $stmt_recruit->execute();
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
-}
-
+$stmt_recruit->execute();
 $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 
-//掲示板を取得
+// 掲示板
 $sql_post = "SELECT * FROM piko_post ORDER BY post_date LIMIT 3";
 $stmt_post = $pdo->prepare($sql_post);
-
-try {
-    $stmt_post->execute();
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
-}
-
+$stmt_post->execute();
 $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
+
+// ▼ ゲーム一覧（右サイドバー用）
+$games = [
+    "Apex Legends" => "game_apex.php",
+    "Minecraft" => "game_minecraft.php",
+    "Valorant" => "game_valorant.php",
+    "Overwatch2" => "game_overwatch2.php",
+    "スプラトゥーン3" => "game_splatoon3.php",
+    "ポケモンSV" => "game_pokemon_sv.php",
+    "Shadowverse WB" => "game_sv.php",
+];
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -74,6 +61,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
             min-height: 100vh;
         }
 
+        /* 左サイドバー */
         .sidebar {
             width: var(--sidebar-width);
             background: var(--sidebar-bg);
@@ -109,7 +97,6 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
             font-size: 14px;
         }
 
-        /* ログアウトボタン */
         .logout {
             margin-top: 30px;
             display: flex;
@@ -137,6 +124,12 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
         a {
             text-decoration: none;
             color: inherit;
+        }
+
+        /* メインコンテンツ */
+        .main-content {
+            flex: 1;
+            margin: 0 20px;
         }
 
         .container {
@@ -265,11 +258,55 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
             font-size: 14px;
         }
 
+        /* ▼右サイドバー追加 */
+        .sidebar-right {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            padding: 30px 20px;
+            text-align: left;
+            box-sizing: border-box;
+            flex-shrink: 0;
+
+            position: sticky;
+            top: 0;
+            align-self: flex-start;
+            height: 100vh;
+            overflow-y: auto;
+            border-left: 2px solid #8bbef5;
+        }
+
+        .sb-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sb-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sb-list li {
+            margin-bottom: 10px;
+        }
+
+        .sb-list a {
+            color: #003366;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .sb-list a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
 <div class="layout">
+
+    <!-- ▼左サイドバー -->
     <aside class="sidebar">
         <div class="login-title">ユーザー</div>
 
@@ -282,7 +319,6 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="username">ゲスト</div>
 
-        <!-- ログアウトリンク -->
         <a href="logout.php">
             <div class="logout">
                 <svg viewBox="0 0 24 24">
@@ -295,7 +331,31 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
         </a>
     </aside>
 
-    <div style="flex: 1;">
+    <!-- ▼右サイドバー（追加された新機能） -->
+    <aside class="sidebar-right">
+
+        <h3 class="sb-title">新着攻略</h3>
+        <ul class="sb-list">
+            <?php foreach ($infos as $info): ?>
+                <li>
+                    <a href="kouryaku_detail.php?id=<?= $info['info_id'] ?>">
+                        <?= htmlspecialchars($info['info_detail']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+        <h3 class="sb-title" style="margin-top:30px;">ゲーム一覧</h3>
+        <ul class="sb-list">
+            <?php foreach ($games as $name => $link): ?>
+                <li><a href="<?= $link ?>"><?= htmlspecialchars($name) ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+
+    </aside>
+
+    <!-- ▼メインコンテンツ -->
+    <div class="main-content">
         <div class="container">
 
             <!-- 最新記事 -->
@@ -347,17 +407,8 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
         </div>
-
-        <footer>
-            <nav class="footer_nav">
-                <a href="home.php">ホーム</a>
-                <a href="recruit.php">募集</a>
-                <a href="keijiban.php">掲示板</a>
-                <a href="kouryaku.php">攻略</a>
-            </nav>
-            <p>copyright chlorine 2025</p>
-        </footer>
     </div>
+
 </div>
 
 <script src="javascript/index.js"></script>
