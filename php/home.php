@@ -58,19 +58,87 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
     <title>ホーム画面</title>
 
     <style>
+        :root {
+            --sidebar-width: 230px;
+            --sidebar-bg: #a9d0ff;
+        }
+
         body {
             background: #f5f5f5;
             margin: 0;
             font-family: 'Yu Gothic', sans-serif;
         }
 
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
         .sidebar {
-      width: var(--sidebar-width);
-      background: var(--sidebar-bg);
-      padding: 30px 20px;
-      text-align: center;
-      box-sizing: border-box;
-    }
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            padding: 30px 20px;
+            text-align: center;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        .login-title {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #e8edf3;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .username {
+            font-size: 14px;
+        }
+
+        /* ログアウトボタン */
+        .logout {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logout svg {
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 6px;
+            padding: 6px;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .logout-text {
+            color: #e53935;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .container {
             width: 90%;
             max-width: 900px;
@@ -201,67 +269,96 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<div class="container">
+<div class="layout">
+    <aside class="sidebar">
+        <div class="login-title">ユーザー</div>
 
-    <!-- 最新記事 -->
-    <h2 class="section-title">最新の記事</h2>
-    <div class="article-card">
-
-        <?php foreach ($infos as $info): ?>
-            <div class="article-item">
-                <div class="article-thumb">サムネ</div>
-                <div class="article-text">
-                    <?= htmlspecialchars($info['info_detail']) ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-
-    </div>
-
-    <!-- 募集 -->
-    <?php foreach ($recruits as $recruit): ?>
-        <div class="recruit-card">
-            <div class="recruit-header">
-                <div>
-                    <div class="recruit-title"><?= htmlspecialchars($recruit['u_name']) ?></div>
-                    <div style="font-size:12px; color:#777;">残り<?= htmlspecialchars($recruit['recruit_number']) ?>人</div>
-                </div>
-                <div class="recruit-game-icon"></div>
-            </div>
-
-            <div class="recruit-body">
-                <?= nl2br(htmlspecialchars($recruit['recruit_detail'])) ?>
-            </div>
-
-            <a class="join-btn" href="https://2301037.perma.jp/piko/php/room_number.php">参加</a>
+        <div class="avatar">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3.5" stroke="#9aa7b6" stroke-width="1.2" fill="#f3f6f9"/>
+                <path d="M4 20c0-3.3 4-6 8-6s8 2.7 8 6" stroke="#9aa7b6" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </svg>
         </div>
-    <?php endforeach; ?>
 
-    <!-- 掲示板 -->
-    <div class="post-card">
+        <div class="username">ゲスト</div>
 
-        <?php foreach ($posts as $post): ?>
-            <div class="post-item">
-                <div class="post-thumb"></div>
-                <div class="post-text">
-                    <?= htmlspecialchars($post['post_detail']) ?>
-                </div>
+        <!-- ログアウトリンク -->
+        <a href="logout.php">
+            <div class="logout">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 7H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round" />
+                    <path d="M16 12h-7" stroke="#111" stroke-width="1.6" stroke-linecap="round" />
+                    <path d="M13 9l3 3-3 3" stroke="#111" stroke-width="1.6" stroke-linecap="round" />
+                </svg>
+                <div class="logout-text">ログアウト</div>
             </div>
-        <?php endforeach; ?>
+        </a>
+    </aside>
 
+    <div style="flex: 1;">
+        <div class="container">
+
+            <!-- 最新記事 -->
+            <h2 class="section-title">最新の記事</h2>
+            <div class="article-card">
+
+                <?php foreach ($infos as $info): ?>
+                    <div class="article-item">
+                        <div class="article-thumb">サムネ</div>
+                        <div class="article-text">
+                            <?= htmlspecialchars($info['info_detail']) ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+
+            <!-- 募集 -->
+            <?php foreach ($recruits as $recruit): ?>
+                <div class="recruit-card">
+                    <div class="recruit-header">
+                        <div>
+                            <div class="recruit-title"><?= htmlspecialchars($recruit['u_name']) ?></div>
+                            <div style="font-size:12px; color:#777;">残り<?= htmlspecialchars($recruit['recruit_number']) ?>人</div>
+                        </div>
+                        <div class="recruit-game-icon"></div>
+                    </div>
+
+                    <div class="recruit-body">
+                        <?= nl2br(htmlspecialchars($recruit['recruit_detail'])) ?>
+                    </div>
+
+                    <a class="join-btn" href="https://2301037.perma.jp/piko/php/room_number.php">参加</a>
+                </div>
+            <?php endforeach; ?>
+
+            <!-- 掲示板 -->
+            <div class="post-card">
+
+                <?php foreach ($posts as $post): ?>
+                    <div class="post-item">
+                        <div class="post-thumb"></div>
+                        <div class="post-text">
+                            <?= htmlspecialchars($post['post_detail']) ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+        <footer>
+            <nav class="footer_nav">
+                <a href="home.php">ホーム</a>
+                <a href="recruit.php">募集</a>
+                <a href="keijiban.php">掲示板</a>
+                <a href="kouryaku.php">攻略</a>
+            </nav>
+            <p>copyright chlorine 2025</p>
+        </footer>
     </div>
-
 </div>
-
-<footer>
-    <nav class="footer_nav">
-        <a href="home.php">ホーム</a>
-        <a href="recruit.php">募集</a>
-        <a href="keijiban.php">掲示板</a>
-        <a href="kouryaku.php">攻略</a>
-    </nav>
-    <p>copyright chlorine 2025</p>
-</footer>
 
 <script src="javascript/index.js"></script>
 </body>
