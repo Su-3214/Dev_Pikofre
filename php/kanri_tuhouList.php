@@ -111,7 +111,7 @@ if ($search === '') {
   .side-menu a:hover{
     opacity:0.7;
   }
-　
+
   .side-menu ul{
     list-style:none;
     padding-left:12px;
@@ -361,6 +361,7 @@ if ($search === '') {
 <div class="scroll-box">
   <table class="report-table" style="width:100%; border-collapse:collapse; font-size:16px;">
     <thead>
+
       <tr style="background:#e0f0ff;">
         <th style="border:1px solid #aaa; padding:10px;">通報ID</th>
         <th style="border:1px solid #aaa; padding:10px;">通報者ID</th>

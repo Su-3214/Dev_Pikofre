@@ -1,22 +1,32 @@
 <?php
-session_start();
+
 require_once "db_connect.php";
- 
-$sql_user = "SELECT * FROM user ORDER BY u_date";
-$stmt_user = $pdo->prepare($sql_user);
- 
-try {
-    $stmt_user->execute();
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
+session_start(); 
+
+$search = isset($_GET['q']) ? trim($_GET['q']) : '';
+$users = [];
+
+if ($search === '') {
+    // 初期表示：全件取得
+    $sql = "SELECT * FROM user ORDER BY u_date DESC";
+    $stmt = $pdo->query($sql);
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // 検索時：IDは完全一致、名前は部分一致
+    $sql = "SELECT * FROM user 
+            WHERE u_id = :search1 
+               OR u_name LIKE :search2 
+            ORDER BY u_date DESC";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':search1' => $search,          // 完全一致
+        ':search2' => "%{$search}%"     // 部分一致
+    ]);
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
- 
-$users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
- 
- 
 ?>
+
+
 
 
 <!doctype html>
@@ -159,13 +169,17 @@ $users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
     font-weight:700;
   }
 
-  .search-box{
-    margin:24px auto;
+    .search-box{
+    margin:24px auto 30px;
     width:80%;
     max-width:620px;
     display:flex;
   }
-
+.search-box form {
+  display: flex;
+  width: 99%;             /* ← 横幅を広げる */
+  max-width: 1000px;      /* ← 最大幅を広げる */
+}
   .search-box input{
     flex:1;
     font-size:16px;
@@ -234,7 +248,7 @@ $users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
       <ul>
         <li><a href="kanri_user.php">・ユーザー管理</a></li>
         <li><a href="kanri_toukou.php">・投稿管理</a></li>
-        <li><a href="kanri_tuhouTaiou.php">・通報対応</a></li>
+        <li><a href="kanri_tuhouList.php">・通報リスト</a></li>
         <li><a href="kanri_syuseiRequest.php">・修正リクエスト閲覧</a></li>
       </ul>
     </div>
@@ -270,41 +284,44 @@ $users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
 
     <h1>ユーザー管理</h1>
 
-    <div class="search-box">
-      <input type="text" placeholder="ユーザー名またはid">
-      <button>検索</button>
-    </div>
+
+
+<div class="search-box">
+  <form method="GET" action="">
+    <input type="text" name="q" 
+           placeholder="ユーザー名またはユーザーIDを検索"
+           value="<?= !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+
+
 
     <table>
-                <tr>
-                    <th>ユーザー名</th>
-                    <th>ユーザーID</th>
-                    <th>登録日</th>
-                </tr>
- 
-                <?php foreach ($users as $user): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($user['u_name']) ?></td>
-                        <td><?= htmlspecialchars($user['u_id']) ?></td>
-                        <td><?= htmlspecialchars($user['u_date']) ?></td>
-                    </tr>
-                <?php endforeach; ?>
- 
-                <?php
-                // 表を一定数に揃えたい場合（任意）
-                $maxRows = 6; // ここは好きな行数に変更可能
-                $emptyRows = $maxRows - count($users);
-                if ($emptyRows > 0):
-                    for ($i = 0; $i < $emptyRows; $i++): ?>
-                        <tr>
-                            <td class="placeholder">ーーー</td>
-                            <td class="placeholder">ーーー</td>
-                            <td class="placeholder">ーーー</td>
-                        </tr>
-                <?php endfor;
-                endif;
-                ?>
-            </table>
+  <tr>
+    <th>ユーザー名</th>
+    <th>ユーザーID</th>
+    <th>登録日</th>
+  </tr>
+
+ <?php if (count($users) > 0): ?>
+  <?php foreach ($users as $u): ?>
+    <tr>
+      <td><?= htmlspecialchars($u['u_name']) ?></td>
+      <td><?= htmlspecialchars($u['u_id']) ?></td>
+      <td><?= htmlspecialchars($u['u_date']) ?></td>
+    </tr>
+  <?php endforeach; ?>
+<?php else: ?>
+  <tr>
+    <td colspan="3" class="placeholder">該当するユーザーが見つかりません</td>
+  </tr>
+<?php endif; ?>
+
+
+</table>
+
 
   </main>
 

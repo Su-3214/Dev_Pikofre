@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_id'])) {
 } else {
     echo "通報IDが渡されていません。";
 }
+
 ?>
 
 
