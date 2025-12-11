@@ -1,22 +1,38 @@
 <?php
-session_start();
 require_once "db_connect.php";
- 
-$sql_user = "SELECT * FROM user ORDER BY u_date";
-$stmt_user = $pdo->prepare($sql_user);
- 
-try {
-    $stmt_user->execute();
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['report_id'])) {
+    $report_id = $_POST['report_id'];
+
+    // 通報情報＋通報者名・被通報者名を取得
+    $sql = "SELECT r.*, 
+                   gr1.u_name AS reporter_name, 
+                   gr2.u_name AS reported_name
+            FROM piko_report r
+            LEFT JOIN game_recruitment gr1 ON r.reporter_id = gr1.u_id
+            LEFT JOIN game_recruitment gr2 ON r.reported_id = gr2.u_id
+            WHERE r.report_id = :report_id";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':report_id' => $report_id]);
+    $report = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($report) {
+        // ここで $report['reporter_name'], $report['reported_name'] も使える
+    } else {
+        echo "該当する通報が見つかりませんでした。";
+    }
+} else {
+    echo "通報IDが渡されていません。";
 }
- 
-$users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
- 
- 
+
 ?>
+
+
+
+
+
 <!doctype html>
 <html lang="ja">
 <head>
@@ -160,31 +176,7 @@ $users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
     font-weight:700;
   }
 
-  /* 検索欄 */
-  .search-box{
-    margin:24px auto 30px;
-    width:80%;
-    max-width:620px;
-    display:flex;
-  }
-
-  .search-box input{
-    flex:1;
-    font-size:16px;
-    padding:10px 12px;
-    border:1px solid #aaa;
-    border-right:none;
-    outline:none;
-  }
-
-  .search-box button{
-    width:110px;
-    background:#1e88e5;
-    color:#fff;
-    border:none;
-    font-size:17px;
-    cursor:pointer;
-  }
+ 
 
   /* 通報情報フォーム */
   .report-box{
@@ -225,13 +217,25 @@ $users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
     border:1px solid #999;
   }
 
-  .confirm-btn{
-    padding:8px 14px;
-    background:#ddd;
-    border:1px solid #777;
-    font-size:14px;
-    cursor:pointer;
-  }
+ .confirm-btn {
+    padding: 8px 14px;
+    background: #ddd;
+    border: 1px solid #777;
+    font-size: 14px;
+    cursor: pointer;
+
+    /* 横書きに強制 */
+    writing-mode: horizontal-tb !important;
+    white-space: nowrap;}
+.report-textarea {
+  display: flex;
+  flex-direction: row; /* 横並び */
+  gap: 10px;
+}
+
+.report-textarea textarea {
+  flex: 1; /* テキストエリアを広げる */
+}
 
 </style>
 </head>
@@ -258,7 +262,7 @@ $users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
       <ul>
         <li><a href="kanri_user.php">・ユーザー管理</a></li>
         <li><a href="kanri_toukou.php">・投稿管理</a></li>
-        <li><a href="kanri_tuhouTaiou.php">・通報対応</a></li>
+        <li><a href="kanri_tuhouList.php">・通報リスト</a></li>
         <li><a href="kanri_syuseiRequest.php">・修正リクエスト閲覧</a></li>
       </ul>
     </div>
@@ -294,54 +298,63 @@ $users = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
 
     <h1>通報対応</h1>
 
-    <!-- 検索欄 -->
-    <div class="search-box">
-      <input type="text" placeholder="ユーザー名またはid">
-      <button>検索</button>
-    </div>
 
-    <!-- 通報情報フォーム -->
-    <div class="report-box">
 
-      <div class="report-item">
-        <label>通報ID</label>
-        <input type="text" value="1">
-      </div>
 
-      <div class="report-item">
-        <label>通報者ID</label>
-        <input type="text" value="aiu_aiu">
-      </div>
+<!-- 通報情報フォーム（常時表示） -->
+<div class="report-box">
+  <div class="report-item">
+    <label>通報ID</label>
+    <input type="text" value="<?= $report ? htmlspecialchars($report['report_id']) : '' ?>">
+  </div>
 
-      <div class="report-item">
-        <label>通報者名</label>
-        <input type="text" value="アイウ">
-      </div>
+  <div class="report-item">
+    <label>投稿ID</label>
+    <input type="text" value="<?= $report ? htmlspecialchars($report['post_id']) : '' ?>">
+  </div>
 
-      <div class="report-item">
-        <label>被通報者名</label>
-        <input type="text" value="スパム楽しい">
-      </div>
+  <div class="report-item">
+    <label>通報者ID</label>
+    <input type="text" value="<?= $report ? htmlspecialchars($report['reporter_id']) : '' ?>">
+  </div>
+<div class="report-item">
+  <label>通報者名</label>
+  <input type="text" value="<?= htmlspecialchars($report['reporter_name']) ?>" readonly>
+</div>
+  
+  <div class="report-item">
+    <label>被通報者ID</label>
+    <input type="text" value="<?= $report ? htmlspecialchars($report['reported_id']) : '' ?>">
+  </div>
+  
+  <div class="report-item">
+  <label>被通報者名</label>
+  <input type="text" value="<?= htmlspecialchars($report['reported_name']) ?>" readonly>
+</div>
 
-      <div class="report-item">
-        <label>被通報者ID</label>
-        <input type="text" value="supamu_tanoshi">
-      </div>
+  <div class="report-item">
+    <label>通報内容</label>
+    <div class="report-textarea">
+      <textarea><?= $report ? htmlspecialchars($report['report_detail']) : '' ?></textarea>
+     <form method="POST" action="kanri_toukou.php">
+  <input type="hidden" name="from_report" value="1">
+  <input type="hidden" name="reporter_id" value="<?= htmlspecialchars($report['reporter_id']) ?>">
+  <input type="hidden" name="reported_id" value="<?= htmlspecialchars($report['reported_id']) ?>">
 
-      <div class="report-item">
-        <label>通報内容</label>
-        <div class="report-textarea">
-          <textarea>スパム行為が見られたため</textarea>
-          <button class="confirm-btn">確認 </button>
-        </div>
-      </div>
+  <button type="submit">確認</button>
+</form>
 
-      <div class="report-item">
-        <label>通報日時</label>
-        <input type="text" value="2025/9/30　12:30:11">
-      </div>
 
-    </div>
+  <div class="report-item">
+    <label>通報日時</label>
+    <input type="text" value="<?= $report ? htmlspecialchars($report['report_date']) : '' ?>">
+  </div>
+</div>
+
+
+
+
+
 
   </main>
 

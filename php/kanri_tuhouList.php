@@ -3,29 +3,34 @@
 require_once "db_connect.php";
 session_start(); 
 
+
+
+
 $search = isset($_GET['q']) ? trim($_GET['q']) : '';
-$users = [];
+$reports = [];
 
 if ($search === '') {
     // 初期表示：全件取得
-    $sql = "SELECT * FROM user ORDER BY u_date DESC";
+    $sql = "SELECT * FROM piko_report ORDER BY report_date DESC";
     $stmt = $pdo->query($sql);
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    // 検索時：IDは完全一致、名前は部分一致
-    $sql = "SELECT * FROM user 
-            WHERE u_id = :search1 
-               OR u_name LIKE :search2 
-            ORDER BY u_date DESC";
+    // 検索時：ID一致で絞り込み
+    $sql = "SELECT * FROM piko_report 
+            WHERE reporter_id = :search1 
+               OR reported_id = :search2 
+            ORDER BY report_date DESC";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
-        ':search1' => $search,          // 完全一致
-        ':search2' => "%{$search}%"     // 部分一致
+        ':search1' => $search,
+        ':search2' => $search
     ]);
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-?>
 
+
+
+?>
 
 
 
@@ -34,7 +39,7 @@ if ($search === '') {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ユーザー管理（見た目のみ）</title>
+<title>通報リスト</title>
 
 <style>
   :root{
@@ -78,7 +83,6 @@ if ($search === '') {
     align-items:center;
     margin:8px auto 6px;
   }
-
   .avatar svg{width:50px;height:50px;}
 
   .username{
@@ -98,6 +102,16 @@ if ($search === '') {
     font-weight:600;
   }
 
+  .side-menu a{
+    color:#000;
+    text-decoration:none;
+    display:inline-block;
+    width:100%;
+  }
+  .side-menu a:hover{
+    opacity:0.7;
+  }
+
   .side-menu ul{
     list-style:none;
     padding-left:12px;
@@ -108,15 +122,7 @@ if ($search === '') {
     margin:6px 0;
   }
 
-  .side-menu a{
-    text-decoration:none;
-    color:#000;
-  }
-
-  .side-menu a:hover{
-    text-decoration:underline;
-  }
-
+  /* ★ ユーザー管理と完全一致のログアウトCSS */
   .logout{
     margin-top:28px;
     display:flex;
@@ -148,6 +154,7 @@ if ($search === '') {
     box-sizing:border-box;
   }
 
+  /* ロゴ */
   .logo{
     display:flex;
     align-items:center;
@@ -162,6 +169,7 @@ if ($search === '') {
     color:var(--accent);
   }
 
+  /* タイトル */
   h1{
     text-align:center;
     margin-top:10px;
@@ -169,7 +177,8 @@ if ($search === '') {
     font-weight:700;
   }
 
-    .search-box{
+  /* 検索欄 */
+  .search-box{
     margin:24px auto 30px;
     width:80%;
     max-width:620px;
@@ -198,38 +207,91 @@ if ($search === '') {
     cursor:pointer;
   }
 
-  table{
-    margin:20px auto;
+  /* 通報情報フォーム */
+  .report-box{
+    margin:0 auto;
     width:80%;
-    max-width:800px;
-    border-collapse:collapse;
-    font-size:18px;
+    max-width:520px;
+    font-size:16px;
   }
 
-  th{
-    padding:12px 10px;
-    border-bottom:2px solid #999;
+  .report-item{
+    margin-bottom:18px;
+  }
+
+  .report-item label{
+    display:block;
+    margin-bottom:4px;
     font-weight:600;
   }
 
-  td{
-    padding:14px 10px;
-    border-bottom:1px solid #ccc;
+  .report-item input{
+    width:100%;
+    padding:8px 10px;
+    font-size:15px;
+    border:1px solid #999;
   }
 
-  .placeholder{
-    color:#999;
-    font-size:18px;
-    letter-spacing:3px;
+  .report-textarea{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
   }
+
+  textarea{
+    width:100%;
+    height:80px;
+    padding:8px;
+    font-size:15px;
+    border:1px solid #999;
+  }
+
+ .confirm-btn {
+    padding: 8px 14px;
+    background: #ddd;
+    border: 1px solid #777;
+    font-size: 14px;
+    cursor: pointer;
+
+    /* 横書きに強制 */
+    writing-mode: horizontal-tb !important;
+    white-space: nowrap;}
+.scroll-box {
+  width: 80%;
+  max-width: 620px;
+  margin: 0 auto;
+  height: 400px;            /* ← 高さを固定 */
+  overflow-y: auto;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  height: 100%;             /* ← 枠に合わせて高さを埋める */
+}
+
+.no-report {
+  text-align: center;
+  vertical-align: middle;
+  height: 100%;             /* ← 高さを埋めて中央に配置 */
+  color: #666;
+  font-size: 16px;
+}
+
+
+
+
 </style>
-
 </head>
 <body>
 
 <div class="layout">
 
-  <!-- 左 -->
+  <!-- 左メニュー -->
   <aside class="sidebar">
     <div class="login-title">管理者ログイン</div>
 
@@ -253,6 +315,7 @@ if ($search === '') {
       </ul>
     </div>
 
+    <!-- ★ここを統一版に変更 -->
     <div class="logout" onclick="location.href='kanri_login.php'">
       <svg viewBox="0 0 24 24">
         <path d="M9 7H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4"
@@ -264,68 +327,73 @@ if ($search === '') {
       </svg>
       <div class="logout-text">ログアウト</div>
     </div>
+
   </aside>
 
-  <!-- メイン -->
   <main class="main">
 
-   <a href="kanri_home.php" style="text-decoration:none; color:inherit;">
-  <div class="logo">
-    <svg viewBox="0 0 64 64">
-      <rect x="4" y="8" width="56" height="48" rx="8" fill="#3aa0ff"/>
-      <circle cx="20" cy="24" r="6" fill="#fff"/>
-      <path d="M36 26c0 6-8 12-16 12"
-        stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
-    </svg>
-    <div class="brand">PikoPikoFriends</div>
-  </div>
-</a>
+    <a href="kanri_home.php" style="text-decoration:none; color:inherit;">
+      <div class="logo">
+        <svg viewBox="0 0 64 64">
+          <rect x="4" y="8" width="56" height="48" rx="8" fill="#3aa0ff"/>
+          <circle cx="20" cy="24" r="6" fill="#fff"/>
+          <path d="M36 26c0 6-8 12-16 12"
+            stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="brand">PikoPikoFriends</div>
+      </div>
+    </a>
+
+    <h1>通報リスト</h1>
 
 
-    <h1>ユーザー管理</h1>
-
-
-
+<!-- 検索欄 -->
 <div class="search-box">
   <form method="GET" action="">
     <input type="text" name="q" 
-           placeholder="ユーザー名またはユーザーIDを検索"
+           placeholder="通報者IDまたは被通報者IDを検索"
            value="<?= !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
     <button type="submit">検索</button>
   </form>
 </div>
 
 
+<div class="scroll-box">
+  <table class="report-table" style="width:100%; border-collapse:collapse; font-size:16px;">
+    <thead>
 
-
-    <table>
-  <tr>
-    <th>ユーザー名</th>
-    <th>ユーザーID</th>
-    <th>登録日</th>
-  </tr>
-
- <?php if (count($users) > 0): ?>
-  <?php foreach ($users as $u): ?>
-    <tr>
-      <td><?= htmlspecialchars($u['u_name']) ?></td>
-      <td><?= htmlspecialchars($u['u_id']) ?></td>
-      <td><?= htmlspecialchars($u['u_date']) ?></td>
-    </tr>
-  <?php endforeach; ?>
-<?php else: ?>
-  <tr>
-    <td colspan="3" class="placeholder">該当するユーザーが見つかりません</td>
-  </tr>
-<?php endif; ?>
-
-
-</table>
-
-
-  </main>
-
+      <tr style="background:#e0f0ff;">
+        <th style="border:1px solid #aaa; padding:10px;">通報ID</th>
+        <th style="border:1px solid #aaa; padding:10px;">通報者ID</th>
+        <th style="border:1px solid #aaa; padding:10px;">被通報者ID</th>
+        <th style="border:1px solid #aaa; padding:10px;">通報日</th>
+        <th style="border:1px solid #aaa; padding:10px;">　　</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if (!empty($reports)): ?>
+        <?php foreach ($reports as $report): ?>
+          <tr>
+            <td style="border:1px solid #aaa; padding:10px;"><?= htmlspecialchars($report['report_id']) ?></td>
+            <td style="border:1px solid #aaa; padding:10px;"><?= htmlspecialchars($report['reporter_id']) ?></td>
+            <td style="border:1px solid #aaa; padding:10px;"><?= htmlspecialchars($report['reported_id']) ?></td>
+            <td style="border:1px solid #aaa; padding:10px;"><?= htmlspecialchars($report['report_date']) ?></td>
+            <td style="border:1px solid #aaa; padding:10px; text-align:center;">
+              <form method="POST" action="kanri_tuhouTaiou.php" style="margin:0;">
+                <input type="hidden" name="report_id" value="<?= htmlspecialchars($report['report_id']) ?>">
+                <button type="submit" class="confirm-btn">確認</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <tr>
+          <td colspan="5" style="border:1px solid #aaa; padding:10px; text-align:center;">該当する通報はありません。</td>
+        </tr>
+      <?php endif; ?>
+    </tbody>
+  </table>
 </div>
-
-</body>
-</html>
+  </main>
+</div>
+</body></html>

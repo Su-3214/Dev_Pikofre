@@ -2,36 +2,56 @@
 require_once "db_connect.php";
 session_start();
 
-// $pdo が存在しない場合は空データ扱い
-if (!isset($pdo) || !$pdo) {
-    $toukous = [];
-} else {
-    // 削除処理
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
-        $delete_id = intval($_POST['post_id']);
-        try {
-            $sql_delete = "DELETE FROM piko_post WHERE post_id = ?";
-            $stmt_delete = $pdo->prepare($sql_delete);
-            $stmt_delete->execute([$delete_id]);
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit;
-        } catch (PDOException $e) {
-            error_log("削除エラー: " . $e->getMessage());
-        }
-    }
+global $pdo;
 
-    // 投稿取得
-    try {
-        $sql_toukou = "SELECT post_id, post_detail, status FROM piko_post ORDER BY post_date DESC";
-        $stmt_toukou = $pdo->prepare($sql_toukou);
-        $stmt_toukou->execute();
-        $toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("取得エラー: " . $e->getMessage());
-        $toukous = [];
-    }
+// 初期化
+$search = isset($_GET['q']) ? trim($_GET['q']) : '';
+$toukous = [];
+
+// 削除処理
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
+  $delete_id = intval($_POST['piko_id']);
+  try {
+    $sql_delete = "DELETE FROM piko_post WHERE piko_id = ?";
+    $stmt_delete = $pdo->prepare($sql_delete);
+    $stmt_delete->execute([$delete_id]);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+  } catch (PDOException $e) {
+    error_log("削除エラー: " . $e->getMessage());
+  }
 }
+
+// 投稿取得（通報関連なし）
+
+  $sql_toukou = "SELECT 
+        p.piko_id, p.piko_date, p.post_detail, p.u_id,
+        u.u_name
+    FROM piko_post p
+    LEFT JOIN user u ON p.u_id = u.u_id";
+
+  if ($search !== '') {
+    $sql_toukou .= " WHERE u.u_name LIKE :search OR p.u_id = :search_id";
+  }
+
+  $sql_toukou .= " ORDER BY p.piko_date DESC";
+
+  $stmt_toukou = $pdo->prepare($sql_toukou);
+
+  if ($search !== '') {
+    $stmt_toukou->bindValue(':search', "%{$search}%", PDO::PARAM_STR);
+    $stmt_toukou->bindValue(':search_id', intval($search), PDO::PARAM_INT);
+  }
+
+  $stmt_toukou->execute();
+  $toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
 ?>
+
+
 
 <!doctype html>
 <html lang="ja">
@@ -190,31 +210,7 @@ if (!isset($pdo) || !$pdo) {
       font-weight: 700;
     }
 
-    /* 検索欄 上段2つ */
-    .filter-row {
-      margin: 24px auto;
-      width: 80%;
-      max-width: 720px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .filter-box {
-      display: flex;
-      flex-direction: column;
-      width: 48%;
-      font-size: 15px;
-    }
-
-    .filter-box input,
-    .filter-box select {
-      margin-top: 6px;
-      padding: 10px 12px;
-      font-size: 16px;
-      border: 1px solid #aaa;
-    }
-
+  
     .search-btn-wrap {
       text-align: center;
       margin-top: 10px;
@@ -269,6 +265,81 @@ if (!isset($pdo) || !$pdo) {
       font-size: 18px;
       letter-spacing: 3px;
     }
+
+    .post-scroll-box {
+      width: 80%;
+      max-width: 900px;
+      margin: 0 auto;
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-table {
+      width: 100%;
+      border-collapse: collapse;
+      height: 100%;
+    }
+
+    .post-table tr:last-child td {
+      border-bottom: none;
+    }
+
+
+    .no-post {
+      text-align: center;
+      vertical-align: middle;
+      height: 100%;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .piko-table td:nth-child(3),
+    .piko-table th:nth-child(3) {
+      width: 200px;
+    }
+
+    .piko-table td {
+      white-space: nowrap;
+      /* ← 改行を防ぐ */
+    }
+
+    .piko-table td:nth-child(3) {
+      width: 240px;
+      /* ← 投稿者列の幅を広げる（調整可） */
+    }
+
+   .search-box{
+    margin:24px auto 30px;
+    width:80%;
+    max-width:620px;
+    display:flex;
+  }
+.search-box form {
+  display: flex;
+  width: 99%;             /* ← 横幅を広げる */
+  max-width: 1000px;      /* ← 最大幅を広げる */
+}
+  .search-box input{
+    flex:1;
+    font-size:16px;
+    padding:10px 12px;
+    border:1px solid #aaa;
+    border-right:none;
+    outline:none;
+  }
+
+  .search-box button{
+    width:110px;
+    background:#1e88e5;
+    color:#fff;
+    border:none;
+    font-size:17px;
+    cursor:pointer;
+  }
   </style>
 </head>
 
@@ -295,7 +366,7 @@ if (!isset($pdo) || !$pdo) {
         <ul>
           <li><a href="kanri_user.php">・ユーザー管理</a></li>
           <li><a href="kanri_toukou.php">・投稿管理</a></li>
-          <li><a href="kanri_tuhouTaiou.php">・通報対応</a></li>
+          <li><a href="kanri_tuhouList.php">・通報リスト</a></li>
           <li><a href="kanri_syuseiRequest.php">・修正リクエスト閲覧</a></li>
         </ul>
       </div>
@@ -335,65 +406,57 @@ if (!isset($pdo) || !$pdo) {
       <h1>投稿管理</h1>
 
       <!-- フィルター2段 -->
-      <div class="filter-row">
-        <div class="filter-box">
-          ユーザー名またはid
-          <input type="text" value="kids_1234">
-        </div>
-
-        <div class="filter-box">
-          ステータス
-          <select>
-            <option>公開中</option>
-            <option>非公開</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="search-btn-wrap">
-        <button class="search-btn">検索</button>
-      </div>
+       <div class="search-box">
+      <form method="GET" action="">
+    <input type="text" name="q" 
+           placeholder="ユーザー名またはユーザーidを検索"
+           value="<?= !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
+    <button type="submit">検索</button>
+  </form>
+       </div>
 
       <!-- テーブル -->
-     <table>
-      <tr>
-        <th>ID</th>
-        <th>内容</th>
-        <th>ステータス</th>
-        <th></th>
-      </tr>
-
-      <?php if (count($toukous) > 0): ?>
-        <?php foreach ($toukous as $tk): ?>
+      <div class="post-scroll-box">
+        <table class="piko-table">
           <tr>
-            <td><?= htmlspecialchars($tk['post_id'], ENT_QUOTES, 'UTF-8') ?></td>
-
-            <td><?= nl2br(htmlspecialchars($tk['post_detail'], ENT_QUOTES, 'UTF-8')) ?></td>
-
-            <td><?= htmlspecialchars($tk['status'], ENT_QUOTES, 'UTF-8') ?></td>
-
-            <td>
-              <!-- ★ 別ファイルではなく、このファイル自身にPOST -->
-              <form method="post">
-                <input type="hidden" name="post_id" value="<?= $tk['post_id'] ?>">
-                <button class="delete-btn" onclick="return confirm('削除しますか？')">削除</button>
-              </form>
-            </td>
+            <th>投稿ID</th>
+            <th>投稿日時</th>
+            <th>投稿者</th>
+            <th>投稿内容</th>
+            <th>操作</th>
           </tr>
-        <?php endforeach; ?>
 
-      <?php else: ?>
-        <tr>
-          <td class="placeholder">ーーー</td>
-          <td class="placeholder">データがありません</td>
-          <td class="placeholder">ーーー</td>
-          <td></td>
-        </tr>
-      <?php endif; ?>
-    </table>
+          <?php if (count($toukous) > 0): ?>
+            <?php foreach ($toukous as $tk): ?>
+              <tr>
+                <td><?= htmlspecialchars($tk['piko_id']) ?></td>
+                <td><?= htmlspecialchars($tk['piko_date']) ?></td>
+                <td>
+                  ユーザーID：<?= htmlspecialchars($tk['u_id']) ?><br>
+                  ユーザー名：<?= htmlspecialchars($tk['u_name']) ?>
+                </td>
+                <td><?= nl2br(htmlspecialchars($tk['post_detail'])) ?></td>
+                <td>
+                  <form method="post">
+                    <input type="hidden" name="piko_id" value="<?= $tk['piko_id'] ?>">
+                    <button class="delete-btn" onclick="return confirm('削除しますか？')">削除</button>
+                  </form>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr>
+              <td class="no-post" colspan="5">該当する情報が見つかりません</td>
+            </tr>
+          <?php endif; ?>
+        </table>
+      </div>
 
-  </main>
-</div>
+
+
+    </main>
+  </div>
 
 </body>
+
 </html>

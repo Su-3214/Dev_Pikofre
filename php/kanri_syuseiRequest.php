@@ -1,3 +1,14 @@
+<?php
+require_once "db_connect.php";
+session_start();
+
+$sql = "SELECT * FROM piko_request ORDER BY request_date DESC";
+$stmt = $pdo->query($sql);
+$requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+
+
 <!doctype html>
 <html lang="ja">
 <head>
@@ -138,31 +149,33 @@
 
   /* 検索欄 */
 .search-box{
-  margin:24px auto;       /* 上下24px、左右中央揃え */
-  width:80%;
-  max-width:620px;        /* 他ページと同じ */
-  display:flex;
+    margin:24px auto 30px;
+    width:80%;
+    max-width:620px;
+    display:flex;
+  }
+.search-box form {
+  display: flex;
+  width: 99%;             /* ← 横幅を広げる */
+  max-width: 1000px;      /* ← 最大幅を広げる */
 }
+  .search-box input{
+    flex:1;
+    font-size:16px;
+    padding:10px 12px;
+    border:1px solid #aaa;
+    border-right:none;
+    outline:none;
+  }
 
-.search-box input{
-  flex:1;
-  font-size:16px;
-  padding:10px 12px;
-  border:1px solid #aaa;
-  border-right:none;
-  outline:none;
-}
-
-.search-box button{
-  width:110px;
-  background:#1e88e5;
-  color:#fff;
-  border:none;
-  font-size:17px;
-  cursor:pointer;
-}
-
-
+  .search-box button{
+    width:110px;
+    background:#1e88e5;
+    color:#fff;
+    border:none;
+    font-size:17px;
+    cursor:pointer;
+  }
 
   /* テーブル */
   .table-area{
@@ -214,7 +227,7 @@
       <ul>
         <li><a href="kanri_user.php">・ユーザー管理</a></li>
         <li><a href="kanri_toukou.php">・投稿管理</a></li>
-        <li><a href="kanri_tuhouTaiou.php">・通報対応</a></li>
+        <li><a href="kanri_tuhouList.php">・通報リスト</a></li>
         <li><a href="kanri_syuseiRequest.php">・修正リクエスト閲覧</a></li>
       </ul>
     </div>
@@ -251,24 +264,32 @@
     <h1>修正リクエスト閲覧</h1>
 
    <!-- 検索欄 -->
-<div class="search-box">
-  <input type="text" placeholder="ユーザー名またはid">
-  <button>検索</button>
-</div>
 
+  <div class="search-box">
+      <form method="GET" action="">
+    <input type="text" name="q" 
+           placeholder="ユーザー名またはユーザーidを検索"
+           value="<?= !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
+    <button type="submit">検索</button>
+  </form>
+  </div>
 
     <div class="table-area">
       <table>
-        <tr>
-          <th style="width:120px;">ID</th>
-          <th>内容</th>
-        </tr>
+       <?php foreach ($requests as $r): ?>
+<tr>
+  <td><?= htmlspecialchars($r['request_id']) ?></td>
+  <td>
+    <div><strong>対象投稿ID:</strong> <?= htmlspecialchars($r['post_id']) ?></div>
+    <div><strong>修正前:</strong> <?= nl2br(htmlspecialchars($r['before_detail'])) ?></div>
+    <div><strong>依頼内容:</strong> <?= nl2br(htmlspecialchars($r['request_detail'])) ?></div>
+    <div><strong>依頼者ID:</strong> <?= htmlspecialchars($r['request_user_id']) ?></div>
+    <div><strong>対象ユーザーID:</strong> <?= htmlspecialchars($r['requested_user_id']) ?></div>
+    <div><strong>日時:</strong> <?= htmlspecialchars($r['request_date']) ?></div>
+  </td>
+</tr>
+<?php endforeach; ?>
 
-        <!-- 空行 -->
-        <tr><td></td><td></td></tr>
-        <tr><td></td><td></td></tr>
-        <tr><td></td><td></td></tr>
-        <tr><td></td><td></td></tr>
       </table>
     </div>
 
