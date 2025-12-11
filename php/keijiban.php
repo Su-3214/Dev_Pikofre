@@ -82,9 +82,9 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
   </div>
 
   <!-- 下メニュー -->
-  <a href="./keijiban.php">掲示板</a>
-  <a href="./keijiban_make.php">ピ</a>
-  <a href="reply.php">返</a>
+  <a href="/keijiban.php">掲示板</a>
+  <a href="/keijiban_make.php">ピ</a>
+  <a href="/reply.php">返</a>
 
 </body>
 
