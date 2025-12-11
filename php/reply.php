@@ -4,7 +4,7 @@ session_start();
 
 // ログインチェック（例）
 if (!isset($_SESSION['user_id'])) {
-  header("Location: php/login.php");
+  header("Location: login.php");
   exit;
 }
 
