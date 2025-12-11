@@ -3,8 +3,8 @@
 session_start();
 
 // ログインチェック（例）
-if (!isset($_SESSION['user_id'])) {
-  header("Location: php/login.php");
+if (!isset($_SESSION['u_id'])) {
+  header("Location: login.php");
   exit;
 }
 
