@@ -155,8 +155,8 @@ function initCustomNav() {
         transform: 'translateY(-50%)',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: '240px',
+        justifyContent: 'center', // 垂直方向中央揃え
+        // height: '240px', // 高さ指定は削除してコンテンツに合わせる
         gap: '0px',
         zIndex: '1000'
     });
@@ -166,13 +166,13 @@ function initCustomNav() {
     const line = document.createElement('div');
     Object.assign(line.style, {
         position: 'fixed',
-        top: '50%',
-        right: '180px',
-        transform: 'translateY(-50%)',
-        width: '3px',
-        height: '240px',
+        top: '130px',        // 画面上部から
+        right: '220px',  // ボタン幅に合わせて調整 (180px -> 220px)
+        // transform: 'translateY(-50%)', // 不要
+        width: '5px',    // 少し太くする (3px -> 5px)
+        height: '100vh', // 画面全体の高さ
         backgroundColor: '#555',
-        borderRadius: '2px',
+        // borderRadius: '2px', // 角丸は不要かもしれないが残しても良い
         zIndex: '1000'
     });
     document.body.appendChild(line);
@@ -185,17 +185,19 @@ function initCustomNav() {
 
         Object.assign(link.style, {
             display: 'block',
-            width: '180px',
-            padding: '12px 0',
+            width: '220px',    // 幅を拡大 (180px -> 220px)
+            padding: '20px 0', // パディングを拡大 (12px -> 20px)
             textAlign: 'center',
-            borderRadius: '8px',
+            borderRadius: '8px 0 0 8px', // 左側のみ角丸にすると線と馴染むかも (一旦元のまま8px) -> Design choice: keep 8px for now
             backgroundColor: '#333',
             color: '#fff',
             textDecoration: 'none',
             fontFamily: 'sans-serif',
-            fontSize: '18px',
+            fontSize: '24px',  // フォントサイズ拡大 (18px -> 24px)
+            fontWeight: 'bold', // 太字にして見やすく
             transition: 'all 0.3s ease',
-            position: 'relative'
+            position: 'relative',
+            marginBottom: '10px' // ボタン間の隙間を少し空ける
         });
 
         // 矢印作成
@@ -203,13 +205,13 @@ function initCustomNav() {
         arrow.textContent = '▶';
         Object.assign(arrow.style, {
             position: 'absolute',
-            left: '-25px',
+            left: '-35px',     // 文字サイズに合わせて位置調整
             top: '50%',
             transform: 'translateY(-50%)',
             opacity: '0',
             transition: 'opacity 0.3s ease',
             color: linkData.bg,
-            fontSize: '18px'
+            fontSize: '24px'   // 矢印も大きく
         });
         link.appendChild(arrow);
 
