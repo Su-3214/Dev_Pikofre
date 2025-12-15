@@ -9,10 +9,10 @@ $search = isset($_GET['q']) ? trim($_GET['q']) : '';
 $toukous = [];
 
 // 削除処理
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
-  $delete_id = intval($_POST['piko_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
+  $delete_id = intval($_POST['post_id']);
   try {
-    $sql_delete = "DELETE FROM piko_post WHERE piko_id = ?";
+    $sql_delete = "DELETE FROM piko_post WHERE post_id = ?";
     $stmt_delete = $pdo->prepare($sql_delete);
     $stmt_delete->execute([$delete_id]);
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
 // 投稿取得（通報関連なし）
 
   $sql_toukou = "SELECT 
-        p.piko_id, p.piko_date, p.post_detail, p.u_id,
+        p.post_id, p.post_date, p.post_detail, p.u_id,
         u.u_name
     FROM piko_post p
     LEFT JOIN user u ON p.u_id = u.u_id";
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
     $sql_toukou .= " WHERE u.u_name LIKE :search OR p.u_id = :search_id";
   }
 
-  $sql_toukou .= " ORDER BY p.piko_date DESC";
+  $sql_toukou .= " ORDER BY p.post_date DESC";
 
   $stmt_toukou = $pdo->prepare($sql_toukou);
 
@@ -429,8 +429,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
           <?php if (count($toukous) > 0): ?>
             <?php foreach ($toukous as $tk): ?>
               <tr>
-                <td><?= htmlspecialchars($tk['piko_id']) ?></td>
-                <td><?= htmlspecialchars($tk['piko_date']) ?></td>
+                <td><?= htmlspecialchars($tk['post_id']) ?></td>
+                <td><?= htmlspecialchars($tk['post_date']) ?></td>
                 <td>
                   ユーザーID：<?= htmlspecialchars($tk['u_id']) ?><br>
                   ユーザー名：<?= htmlspecialchars($tk['u_name']) ?>
@@ -438,7 +438,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
                 <td><?= nl2br(htmlspecialchars($tk['post_detail'])) ?></td>
                 <td>
                   <form method="post">
-                    <input type="hidden" name="piko_id" value="<?= $tk['piko_id'] ?>">
+                    <input type="hidden" name="post_id" value="<?= $tk['post_id'] ?>">
                     <button class="delete-btn" onclick="return confirm('削除しますか？')">削除</button>
                   </form>
                 </td>
