@@ -1,6 +1,8 @@
 <?php
-
 session_start();
+
+//ファイルの読み込み
+require_once "db_connect.php";
 
 // ログインチェック（例）
 if (!isset($_SESSION['u_id'])) {
@@ -8,7 +10,7 @@ if (!isset($_SESSION['u_id'])) {
   exit;
 }
 
-// ここで返信処理を追加することも可能
+
 ?>
 
 <!DOCTYPE html>

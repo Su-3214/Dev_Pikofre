@@ -55,7 +55,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach ($posts as $post): ?>
 
           <div class="post">
-            <p><strong><?= htmlspecialchars($post['u_id']) ?></strong>
+            <p><strong><?= htmlspecialchars($post['u_name']) ?></strong>
               <br><?= htmlspecialchars($post['post_detail']) ?>
             </p>
             <img src="<?= htmlspecialchars($post['post_image']) ?>" alt="投稿画像">
