@@ -39,7 +39,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <div class="menu">
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/announcement.php">通知</a>
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/logout.php">ログアウト</a>
+      <a href="https://2301037.perma.jp/piko/php/logout.php">ログアウト</a>
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/profile.php">プ</a>
     </div>
   </header>
@@ -47,7 +47,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
   <div class="container">
 
     <div class="sidebar-left">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/pikoru.php">ピ</a>
+      <a href="https://2301037.perma.jp/piko/php/keijiban_make.php">ピ</a>
     </div>
 
     <main class="main">
@@ -58,7 +58,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
             <p><strong><?= htmlspecialchars($post['u_name']) ?></strong>
               <br><?= htmlspecialchars($post['post_detail']) ?>
             </p>
-            <img src="<?= htmlspecialchars($post['post_image']) ?>" alt="投稿画像">
+            <img src="<?php echo htmlspecialchars($post['post_image']); ?>" alt="投稿画像">
           </div>
 
           <!--リプライ機能はすぐは無理なので一旦コメントアウト
@@ -74,18 +74,17 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
     </main>
 
     <div class="sidebar-right">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/kouryakuhome.php">攻略記事</a>
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/recruit.php">募集</a>
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/keijiban.php">掲示板</a>
+      <a href="./kouryakuhome.php">攻略記事</a>
+      <a href="./recruit.php">募集</a>
+      <a href="./keijiban.php">掲示板</a>
     </div>
 
   </div>
 
   <!-- 下メニュー -->
-  <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/keijiban.php">掲示板</a>
-  <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/keijiban_make.php">ピ</a>
-  <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/reply.php">返</a>
-
+  <a href="./keijiban.php">掲示板</a>
+  <a href="./keijiban_make.php">ピ</a>
+  <a href="./reply.php">返</a>
 </body>
 
 </html>

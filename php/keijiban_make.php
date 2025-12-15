@@ -13,6 +13,7 @@ if (!isset($_SESSION['u_id'])) {
 //テスト用にセッションに値を追加
 $_SESSION['game_id'] = 50000;
 
+
 //セッションでユーザーidを取得
 $u_id = $_SESSION['u_id'];
 $game_id = $_SESSION['game_id'];
@@ -41,23 +42,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reply_id = $_POST['reply'] ?? null;
 
     // 画像アップロード処理
-        if (isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK) {
-            $file_tmp = $_FILES['images']['tmp_name'];
-            $file_name = basename($_FILES['images']['name']);
-            $upload_dir = './images/';
+        $post_image = null;
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_name = basename($_FILES['image']['name']);
+            $upload_dir = '../images/';
             $post_image = $upload_dir . $file_name;
 
-            if (!move_uploaded_file($file_tmp, $post_img)) {
+            if (!move_uploaded_file($file_tmp, $post_image)) {
                 $error_message = "画像のアップロードに失敗しました。";
             }
         }
    
 
     //インサート用のsql文
-    if ($game_id && $u_id && $post_detail && $post_image) {
+    if ($game_id && $u_id && $post_detail && $u_name) {
         $sql = "INSERT INTO piko_post 
-                (game_id, u_id, post_detail, post_image, reply_id, u_name)
-                VALUES (:game_id, :u_id, :post_detail, :post_image, :reply_id, :u_name)";
+                (game_id, u_id, u_name, post_detail, post_image, reply_id)
+                VALUES (:game_id, :u_id, :u_name, :post_detail, :post_image, :reply_id)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':game_id', $game_id, PDO::PARAM_INT);
         $stmt->bindParam(':u_id', $u_id, PDO::PARAM_INT);
@@ -68,8 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $stmt->execute();
-            echo "<script>alert('投稿完了しました！');</script>";
-            header('Location: ./keijiban.php');
+            header('Location: ./keijiban.php'); 
         } catch (PDOException $e) {
             echo "<p style='color:red;'>投稿に失敗しました: " . htmlspecialchars($e->getMessage()) . "</p>";
         }
@@ -111,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- メインフォーム -->
     <main>
-      <form action="" method="POST">
+      <form action="" method="POST" enctype="multipart/form-data">
       <div class="form-box">
         <h2>掲示板に投稿</h2>
 
@@ -133,16 +134,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- 右側メニュー -->
     <div class="sidebar-right">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/guid.php">攻略記事</a>
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/Recruit.php">募集</a>
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/keiji.php">掲示板</a>
+      <a href="./kouryakuhome.php">攻略記事</a>
+      <a href="./recruit.php">募集</a>
+      <a href="./keijiban.php">掲示板</a>
     </div>
 
   </div>
   <!-- 下メニュー -->
-  <a href="./keijiban.html">掲示板</a>
-  <a href="./keijiban_make.html">ピ</a>
-  <a href="reply.html">返</a>
+  <a href="./keijiban.php">掲示板</a>
+  <a href="./keijiban_make.php">ピ</a>
+  <a href="./reply.php">返</a>
 
 
 </body>
