@@ -472,7 +472,7 @@ $games = [
                                 <?= nl2br(htmlspecialchars($recruit['recruit_detail'] ?? '詳細なし')) ?>
                             </div>
 
-                            <a class="join-btn" href="https://2301037.perma.jp/piko/php/recruit_room_number.php">参加</a>
+                            <a class="join-btn" href="./recruit_room_number.php">参加</a>
                             <div style="clear:both"></div>
                         </div>
                     </div>
