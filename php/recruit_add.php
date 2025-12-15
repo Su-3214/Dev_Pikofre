@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="sidebar">
-        <a href="recruit.php" class="sidebar-btn">募集ホームへ</a>
+        <a href="recruit_home.php" class="sidebar-btn">募集ホームへ</a>
     </div>
 
 

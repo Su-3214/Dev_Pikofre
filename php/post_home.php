@@ -47,7 +47,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
   <div class="container">
 
     <div class="sidebar-left">
-      <a href="./keijiban_make.php">ピ</a>
+      <a href="./post_add.php">ピ</a>
     </div>
 
     <main class="main">
@@ -75,16 +75,16 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="sidebar-right">
       <a href="./kouryakuhome.php">攻略記事</a>
-      <a href="./recruit.php">募集</a>
-      <a href="./keijiban.php">掲示板</a>
+      <a href="./recruit_home.php">募集</a>
+      <a href="./post_home.php">掲示板</a>
     </div>
 
   </div>
 
   <!-- 下メニュー -->
-  <a href="./keijiban.php">掲示板</a>
-  <a href="./keijiban_make.php">ピ</a>
-  <a href="./reply.php">返</a>
+  <a href="./post_home.php">掲示板</a>
+  <a href="./post_add.php">ピ</a>
+  <a href="./post_reply.php">返</a>
 </body>
 
 </html>

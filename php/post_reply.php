@@ -74,9 +74,9 @@ if (!isset($_SESSION['u_id'])) {
     }
   </script>
 
-  <a href="http://localhost/keijiban.html/keijiban.php">掲示板</a>
-  <a href="http://localhost/keijiban.html/keijiban_make.php">ピ</a>
-  <a href="http://localhost/keijiban.html/reply.php">返</a>
+  <a href="http://localhost/keijiban.html/post_home.php">掲示板</a>
+  <a href="http://localhost/keijiban.html/post_add.php">ピ</a>
+  <a href="http://localhost/keijiban.html/post_reply.php">返</a>
 
 
 </body>

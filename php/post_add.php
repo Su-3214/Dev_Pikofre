@@ -25,11 +25,11 @@ $stmt_addpost->bindParam(':u_id', $u_id, PDO::PARAM_INT);
 
 //sql実行処理
 try {
-    $stmt_addpost->execute();
+  $stmt_addpost->execute();
 } catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo "データベースエラーが発生しました。";
-    exit;
+  error_log($e->getMessage());
+  echo "データベースエラーが発生しました。";
+  exit;
 }
 
 //sql実行で得た情報の取得処理
@@ -38,45 +38,45 @@ $u_name = $post_user['u_name'];
 
 //POSTされたデータからINSERT処理を行う
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $post_detail = $_POST['content'] ?? null;
-    $reply_id = $_POST['reply'] ?? null;
+  $post_detail = $_POST['content'] ?? null;
+  $reply_id = $_POST['reply'] ?? null;
 
-    // 画像アップロード処理
-        $post_image = null;
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $file_tmp = $_FILES['image']['tmp_name'];
-            $file_name = basename($_FILES['image']['name']);
-            $upload_dir = '../images/';
-            $post_image = $upload_dir . $file_name;
+  // 画像アップロード処理
+  $post_image = null;
+  if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    $file_tmp = $_FILES['image']['tmp_name'];
+    $file_name = basename($_FILES['image']['name']);
+    $upload_dir = '../images/';
+    $post_image = $upload_dir . $file_name;
 
-            if (!move_uploaded_file($file_tmp, $post_image)) {
-                $error_message = "画像のアップロードに失敗しました。";
-            }
-        }
-   
+    if (!move_uploaded_file($file_tmp, $post_image)) {
+      $error_message = "画像のアップロードに失敗しました。";
+    }
+  }
 
-    //インサート用のsql文
-    if ($game_id && $u_id && $post_detail && $u_name) {
-        $sql = "INSERT INTO piko_post 
+
+  //インサート用のsql文
+  if ($game_id && $u_id && $post_detail && $u_name) {
+    $sql = "INSERT INTO piko_post 
                 (game_id, u_id, u_name, post_detail, post_image, reply_id)
                 VALUES (:game_id, :u_id, :u_name, :post_detail, :post_image, :reply_id)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':game_id', $game_id, PDO::PARAM_INT);
-        $stmt->bindParam(':u_id', $u_id, PDO::PARAM_INT);
-        $stmt->bindParam(':post_detail', $post_detail, PDO::PARAM_STR);
-        $stmt->bindParam(':reply_id', $reply_id, PDO::PARAM_INT);
-        $stmt->bindParam(':post_image', $post_image, PDO::PARAM_STR);
-        $stmt->bindParam(':u_name', $u_name, PDO::PARAM_STR);
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':game_id', $game_id, PDO::PARAM_INT);
+    $stmt->bindParam(':u_id', $u_id, PDO::PARAM_INT);
+    $stmt->bindParam(':post_detail', $post_detail, PDO::PARAM_STR);
+    $stmt->bindParam(':reply_id', $reply_id, PDO::PARAM_INT);
+    $stmt->bindParam(':post_image', $post_image, PDO::PARAM_STR);
+    $stmt->bindParam(':u_name', $u_name, PDO::PARAM_STR);
 
-        try {
-            $stmt->execute();
-            header('Location: ./keijiban.php'); 
-        } catch (PDOException $e) {
-            echo "<p style='color:red;'>投稿に失敗しました: " . htmlspecialchars($e->getMessage()) . "</p>";
-        }
-    } else {
-        echo "<p style='color:red;'>必須項目が未入力です。</p>";
+    try {
+      $stmt->execute();
+      header('Location: ./post_home.php');
+    } catch (PDOException $e) {
+      echo "<p style='color:red;'>投稿に失敗しました: " . htmlspecialchars($e->getMessage()) . "</p>";
     }
+  } else {
+    echo "<p style='color:red;'>必須項目が未入力です。</p>";
+  }
 }
 
 ?>
@@ -107,16 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- 左メニュー -->
     <div class="sidebar-left">
-      <a href="./keijiban_make.php">ピ</a>
+      <a href="./post_add.php">ピ</a>
     </div>
 
     <!-- メインフォーム -->
     <main>
       <form action="" method="POST" enctype="multipart/form-data">
-      <div class="form-box">
-        <h2>掲示板に投稿</h2>
+        <div class="form-box">
+          <h2>掲示板に投稿</h2>
 
-        
+
           <textarea name="content" placeholder="メッセージを入力..." required></textarea>
 
           <div class="upload-section">
@@ -125,9 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
 
           <button type="submit" class="submit-btn">投稿する</button>
-       
 
-      </div>
+
+        </div>
 
       </form>
     </main>
@@ -135,15 +135,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- 右側メニュー -->
     <div class="sidebar-right">
       <a href="./kouryakuhome.php">攻略記事</a>
-      <a href="./recruit.php">募集</a>
-      <a href="./keijiban.php">掲示板</a>
+      <a href="./recruit_home.php">募集</a>
+      <a href="./post_home.php">掲示板</a>
     </div>
 
   </div>
   <!-- 下メニュー -->
-  <a href="./keijiban.php">掲示板</a>
-  <a href="./keijiban_make.php">ピ</a>
-  <a href="./reply.php">返</a>
+  <a href="./post_home.php">掲示板</a>
+  <a href="./post_add.php">ピ</a>
+  <a href="./post_reply.php">返</a>
 
 
 </body>
