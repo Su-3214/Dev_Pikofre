@@ -1,0 +1,161 @@
+/* ===== 全体 ===== */
+body {
+    margin: 0;
+    background: #3f2a7a;
+    font-family: "Yu Gothic", sans-serif;
+}
+
+.content-wrap {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+    height: 70px;
+    background: linear-gradient(90deg, #5fa8ff, #ff66cc);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    color: #fff;
+}
+
+.site-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ===== LEFT ===== */
+.left-sidebar {
+    width: 260px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.left-sidebar img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.make-recruit {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.make-recruit {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 募集作成ボタン */
+.make-recruit {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.recruit-image-btn img {
+    width: 160px;
+    /* ← 超重要 */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.recruit-image-btn img:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+
+/* ===== MAIN ===== */
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.room-box {
+    width: 100%;
+    max-width: 700px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.room-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.value {
+    width: 260px;
+    padding: 12px;
+    border: 1px solid #999;
+    text-align: center;
+    font-size: 18px;
+}
+
+.room-detail {
+    background: #000;
+    color: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 30px 0;
+}
+
+.room-detail h3 {
+    margin-top: 0;
+}
+
+.discord-link {
+    display: block;
+    text-align: center;
+    color: #1a73e8;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* ===== RIGHT ===== */
+.right-sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.side-btn {
+    background: #6b4cff;
+    color: #fff;
+    text-align: center;
+    padding: 18px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    color: #fff;
+    margin: 40px 0;
+}
