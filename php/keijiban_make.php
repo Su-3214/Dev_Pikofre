@@ -93,12 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <header>
     <div class="title">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/index.html">PikoPikoFriends</a>
+      <a href="./home.php">PikoPikoFriends</a>
     </div>
 
     <div class="menu">
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/announcement.php">通知</a>
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/php/login.php">ログアウト</a>
+      <a href="./logout.php">ログアウト</a>
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/profile.php">プ</a>
     </div>
   </header>
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- 左メニュー -->
     <div class="sidebar-left">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/pikoru.php">ピ</a>
+      <a href="./keijiban_make.php">ピ</a>
     </div>
 
     <!-- メインフォーム -->

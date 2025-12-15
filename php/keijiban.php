@@ -35,11 +35,11 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
   <header>
     <div class="title">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/home/home.php">PikoPikoFriends</a>
+      <a href="./home.php">PikoPikoFriends</a>
     </div>
     <div class="menu">
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/announcement.php">通知</a>
-      <a href="https://2301037.perma.jp/piko/php/logout.php">ログアウト</a>
+      <a href="./logout.php">ログアウト</a>
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/profile.php">プ</a>
     </div>
   </header>
@@ -47,7 +47,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
   <div class="container">
 
     <div class="sidebar-left">
-      <a href="https://2301037.perma.jp/piko/php/keijiban_make.php">ピ</a>
+      <a href="./keijiban_make.php">ピ</a>
     </div>
 
     <main class="main">
