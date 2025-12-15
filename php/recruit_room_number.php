@@ -165,8 +165,8 @@ $recruits = $stmt_recruit->fetch(PDO::FETCH_ASSOC);
 
 <body>
     <div class="sidebar">
-        <a href="recruit.php" class="sidebar-btn">募集ホームへ</a>
-        <a href="addrecruit.php" class="sidebar-btn">募集作成</a>
+        <a href="recruit_home.php" class="sidebar-btn">募集ホームへ</a>
+        <a href="recruit_add.php" class="sidebar-btn">募集作成</a>
     </div>
 
 

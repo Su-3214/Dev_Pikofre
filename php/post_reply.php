@@ -1,14 +1,16 @@
 <?php
-
 session_start();
 
+//ファイルの読み込み
+require_once "db_connect.php";
+
 // ログインチェック（例）
-if (!isset($_SESSION['user_id'])) {
-  header("Location: php/login.php");
+if (!isset($_SESSION['u_id'])) {
+  header("Location: login.php");
   exit;
 }
 
-// ここで返信処理を追加することも可能
+
 ?>
 
 <!DOCTYPE html>
@@ -72,9 +74,9 @@ if (!isset($_SESSION['user_id'])) {
     }
   </script>
 
-  <a href="http://localhost/keijiban.html/keijiban.php">掲示板</a>
-  <a href="http://localhost/keijiban.html/keijiban_make.php">ピ</a>
-  <a href="http://localhost/keijiban.html/reply.php">返</a>
+  <a href="http://localhost/keijiban.html/post_home.php">掲示板</a>
+  <a href="http://localhost/keijiban.html/post_add.php">ピ</a>
+  <a href="http://localhost/keijiban.html/post_reply.php">返</a>
 
 
 </body>

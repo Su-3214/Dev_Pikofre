@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 
 session_start();
 require_once "db_connect.php";
+require_once "db_connect.php";
 
 $_SESSION['u_id'] = 1;
 

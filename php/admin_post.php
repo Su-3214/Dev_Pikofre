@@ -9,10 +9,10 @@ $search = isset($_GET['q']) ? trim($_GET['q']) : '';
 $toukous = [];
 
 // 削除処理
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
-  $delete_id = intval($_POST['piko_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
+  $delete_id = intval($_POST['post_id']);
   try {
-    $sql_delete = "DELETE FROM piko_post WHERE piko_id = ?";
+    $sql_delete = "DELETE FROM piko_post WHERE post_id = ?";
     $stmt_delete = $pdo->prepare($sql_delete);
     $stmt_delete->execute([$delete_id]);
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -24,27 +24,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
 
 // 投稿取得（通報関連なし）
 
-  $sql_toukou = "SELECT 
-        p.piko_id, p.piko_date, p.post_detail, p.u_id,
+$sql_toukou = "SELECT 
+        p.post_id, p.post_date, p.post_detail, p.u_id,
         u.u_name
     FROM piko_post p
     LEFT JOIN user u ON p.u_id = u.u_id";
 
-  if ($search !== '') {
-    $sql_toukou .= " WHERE u.u_name LIKE :search OR p.u_id = :search_id";
-  }
+if ($search !== '') {
+  $sql_toukou .= " WHERE u.u_name LIKE :search OR p.u_id = :search_id";
+}
 
-  $sql_toukou .= " ORDER BY p.piko_date DESC";
+$sql_toukou .= " ORDER BY p.post_date DESC";
 
-  $stmt_toukou = $pdo->prepare($sql_toukou);
+$stmt_toukou = $pdo->prepare($sql_toukou);
 
-  if ($search !== '') {
-    $stmt_toukou->bindValue(':search', "%{$search}%", PDO::PARAM_STR);
-    $stmt_toukou->bindValue(':search_id', intval($search), PDO::PARAM_INT);
-  }
+if ($search !== '') {
+  $stmt_toukou->bindValue(':search', "%{$search}%", PDO::PARAM_STR);
+  $stmt_toukou->bindValue(':search_id', intval($search), PDO::PARAM_INT);
+}
 
-  $stmt_toukou->execute();
-  $toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
+$stmt_toukou->execute();
+$toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
       font-weight: 700;
     }
 
-  
+
     .search-btn-wrap {
       text-align: center;
       margin-top: 10px;
@@ -312,34 +312,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
       /* ← 投稿者列の幅を広げる（調整可） */
     }
 
-   .search-box{
-    margin:24px auto 30px;
-    width:80%;
-    max-width:620px;
-    display:flex;
-  }
-.search-box form {
-  display: flex;
-  width: 99%;             /* ← 横幅を広げる */
-  max-width: 1000px;      /* ← 最大幅を広げる */
-}
-  .search-box input{
-    flex:1;
-    font-size:16px;
-    padding:10px 12px;
-    border:1px solid #aaa;
-    border-right:none;
-    outline:none;
-  }
+    .search-box {
+      margin: 24px auto 30px;
+      width: 80%;
+      max-width: 620px;
+      display: flex;
+    }
 
-  .search-box button{
-    width:110px;
-    background:#1e88e5;
-    color:#fff;
-    border:none;
-    font-size:17px;
-    cursor:pointer;
-  }
+    .search-box form {
+      display: flex;
+      width: 99%;
+      /* ← 横幅を広げる */
+      max-width: 1000px;
+      /* ← 最大幅を広げる */
+    }
+
+    .search-box input {
+      flex: 1;
+      font-size: 16px;
+      padding: 10px 12px;
+      border: 1px solid #aaa;
+      border-right: none;
+      outline: none;
+    }
+
+    .search-box button {
+      width: 110px;
+      background: #1e88e5;
+      color: #fff;
+      border: none;
+      font-size: 17px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -364,10 +368,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
       <div class="side-menu">
         <div class="section-title">●ダッシュボード</div>
         <ul>
-          <li><a href="kanri_user.php">・ユーザー管理</a></li>
-          <li><a href="kanri_toukou.php">・投稿管理</a></li>
-          <li><a href="kanri_tuhouList.php">・通報リスト</a></li>
-          <li><a href="kanri_syuseiRequest.php">・修正リクエスト閲覧</a></li>
+          <li><a href="admin_user.php">・ユーザー管理</a></li>
+          <li><a href="admin_post.php">・投稿管理</a></li>
+          <li><a href="admin_report_List.php">・通報リスト</a></li>
+          <li><a href="admin_request.php">・修正リクエスト閲覧</a></li>
         </ul>
       </div>
 
@@ -390,7 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
     <!-- メイン -->
     <main class="main">
 
-      <a href="kanri_home.php" style="text-decoration:none; color:inherit;">
+      <a href="admin_home.php" style="text-decoration:none; color:inherit;">
         <div class="logo">
           <svg viewBox="0 0 64 64">
             <rect x="4" y="8" width="56" height="48" rx="8" fill="#3aa0ff" />
@@ -406,14 +410,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
       <h1>投稿管理</h1>
 
       <!-- フィルター2段 -->
-       <div class="search-box">
-      <form method="GET" action="">
-    <input type="text" name="q" 
-           placeholder="ユーザー名またはユーザーidを検索"
-           value="<?= !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
-    <button type="submit">検索</button>
-  </form>
-       </div>
+      <div class="search-box">
+        <form method="GET" action="">
+          <input type="text" name="q"
+            placeholder="ユーザー名またはユーザーidを検索"
+            value="<?= !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
+          <button type="submit">検索</button>
+        </form>
+      </div>
 
       <!-- テーブル -->
       <div class="post-scroll-box">
@@ -429,8 +433,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
           <?php if (count($toukous) > 0): ?>
             <?php foreach ($toukous as $tk): ?>
               <tr>
-                <td><?= htmlspecialchars($tk['piko_id']) ?></td>
-                <td><?= htmlspecialchars($tk['piko_date']) ?></td>
+                <td><?= htmlspecialchars($tk['post_id']) ?></td>
+                <td><?= htmlspecialchars($tk['post_date']) ?></td>
                 <td>
                   ユーザーID：<?= htmlspecialchars($tk['u_id']) ?><br>
                   ユーザー名：<?= htmlspecialchars($tk['u_name']) ?>
@@ -438,7 +442,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['piko_id'])) {
                 <td><?= nl2br(htmlspecialchars($tk['post_detail'])) ?></td>
                 <td>
                   <form method="post">
-                    <input type="hidden" name="piko_id" value="<?= $tk['piko_id'] ?>">
+                    <input type="hidden" name="post_id" value="<?= $tk['post_id'] ?>">
                     <button class="delete-btn" onclick="return confirm('削除しますか？')">削除</button>
                   </form>
                 </td>

@@ -128,7 +128,7 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <div class="sidebar">
-        <a href="addrecruit.php" class="create-btn">募集作成</a>
+        <a href="recruit_add.php" class="create-btn">募集作成</a>
     </div>
 
     <?php if (count($recruits) > 0): ?>
@@ -153,7 +153,7 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
                     <?= nl2br(htmlspecialchars($recruit['recruit_detail'])) ?>
                 </div>
 
-                <form action="room_number.php" method="post">
+                <form action="recruit_room_number.php" method="post">
                     <input type="hidden" name="recruit_id" value="<?= $recruit['recruit_id'] ?>">
                     <input type="submit" value="参加" class="join-btn">
                 </form>
