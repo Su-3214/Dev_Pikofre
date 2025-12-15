@@ -116,7 +116,7 @@ main {
 /* フッター */
 footer {
     background: #222;
-    color: #ccc;
+    color: #fff;
     text-align: center;
     padding: 1.5rem 1rem;
     margin-top: 3rem;
@@ -127,7 +127,7 @@ footer {
 }
 
 .footer_nav a {
-    color: #ccc;
+    color: #fff;
     margin: 0 0.8rem;
     text-decoration: none;
     transition: color 0.3s;

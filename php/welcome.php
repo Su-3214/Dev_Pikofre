@@ -27,7 +27,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </main>
 
     <!-- フッターはJSで生成されます -->
-    <script src="../javascript/index.js"></script>
+    <script src="../javascript/index.js?v=<?php echo time(); ?>"></script>
 </body>
 
 </html>

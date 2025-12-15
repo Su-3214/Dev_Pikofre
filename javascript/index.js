@@ -141,16 +141,17 @@ function initHeaderAnimation() {
 function initCustomNav() {
     // データ定義
     const links = [
-        { label: '攻略記事', bg: '#c0392b' },
-        { label: '募集', bg: '#16a085' },
-        { label: '掲示板', bg: '#8e44ad' },
+        { label: '攻略記事', bg: '#FFFFBB' },
+        { label: '募集', bg: '#EEDDEE' },
+        { label: '掲示板', bg: '#DDEEAA' },
     ];
 
     // コンテナ作成
     const container = document.createElement('div');
     Object.assign(container.style, {
+        backgroundColor: '#f5f7fa', // 全体を薄いグレーで統一
         position: 'fixed',
-        top: '50%',
+        top: 'calc(50% + 60px)', // 縦線が120pxから始まるため、残り領域の中央（50% + 60px）に配置
         right: '0%',
         transform: 'translateY(-50%)',
         display: 'flex',
@@ -165,14 +166,14 @@ function initCustomNav() {
     // 縦線の追加
     const line = document.createElement('div');
     Object.assign(line.style, {
+        backgroundColor: '#333',     // 指定通り黒（ダークグレー）に
         position: 'fixed',
-        top: '130px',        // 画面上部から
+        top: '120px',        // 画面上部から
         right: '220px',  // ボタン幅に合わせて調整 (180px -> 220px)
         // transform: 'translateY(-50%)', // 不要
         width: '5px',    // 少し太くする (3px -> 5px)
         height: '100vh', // 画面全体の高さ
-        backgroundColor: '#555',
-        // borderRadius: '2px', // 角丸は不要かもしれないが残しても良い
+        // backgroundColor: '#555', // 重複していたグレー設定を削除
         zIndex: '1000'
     });
     document.body.appendChild(line);
@@ -185,19 +186,19 @@ function initCustomNav() {
 
         Object.assign(link.style, {
             display: 'block',
-            width: '220px',    // 幅を拡大 (180px -> 220px)
-            padding: '20px 0', // パディングを拡大 (12px -> 20px)
+            width: '220px',
+            padding: '50px 0', // パディングを拡大 (12px -> 20px)
             textAlign: 'center',
             borderRadius: '8px 0 0 8px', // 左側のみ角丸にすると線と馴染むかも (一旦元のまま8px) -> Design choice: keep 8px for now
-            backgroundColor: '#333',
-            color: '#fff',
+            backgroundColor: '#333',    // 指定通り黒（ダークグレー）に
+            color: '#ffffff',           // 文字色は白に
             textDecoration: 'none',
             fontFamily: 'sans-serif',
             fontSize: '24px',  // フォントサイズ拡大 (18px -> 24px)
             fontWeight: 'bold', // 太字にして見やすく
             transition: 'all 0.3s ease',
             position: 'relative',
-            marginBottom: '10px' // ボタン間の隙間を少し空ける
+            marginBottom: '50px' // ボタン間の隙間を少し空ける
         });
 
         // 矢印作成
@@ -218,14 +219,16 @@ function initCustomNav() {
         // イベントリスナー
         link.addEventListener('mouseover', function () {
             link.style.backgroundColor = linkData.bg;
+            link.style.color = '#fff'; // ホバー時は文字を白に
             arrow.style.opacity = '1';
             line.style.backgroundColor = linkData.bg;
         });
 
         link.addEventListener('mouseout', function () {
-            link.style.backgroundColor = '#333';
+            link.style.backgroundColor = '#333';    // 黒に戻す
+            link.style.color = '#ffffff';           // 文字色を白に戻す
             arrow.style.opacity = '0';
-            line.style.backgroundColor = '#555';
+            line.style.backgroundColor = '#333';    // 黒に戻す
         });
 
         container.appendChild(link);
