@@ -28,7 +28,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
 // ▼ ゲーム一覧（右サイドバー用）
 $games = [
-    "Apex Legends" => "game_apex.php",
+    "Apex Legends" => "home_game_apex.php",
     "Minecraft" => "game_minecraft.php",
     "Valorant" => "game_valorant.php",
     "モンスト" => "game_monst.php",
@@ -56,8 +56,10 @@ $games = [
 
 <header class="site-header">
     <div class="site-brand">
-        <img src="/pic/pikologo.png" alt="PikoPikoFriends">
-        <div class="site-title">PikoPikoFriends</div>
+        <a href="home.php" style="display:flex; align-items:center; text-decoration:none; color:inherit;">
+            <img src="/pic/pikologo.png" alt="PikoPikoFriends">
+            <div class="site-title">PikoPikoFriends</div>
+        </a>
     </div>
 
     <div class="header-actions">
@@ -85,7 +87,7 @@ $games = [
                     // 見出し（長すぎる場合は短縮）
                     $title = isset($info['info_title']) && $info['info_title'] !== '' ? $info['info_title'] : (isset($info['info_detail']) ? mb_substr($info['info_detail'], 0, 28) : '記事');
                 ?>
-                <li><a href="kouryaku_detail.php?id=<?= htmlspecialchars($info['info_id']) ?>"><?= htmlspecialchars($title) ?></a></li>
+                <li><a href="detail.php?info_id=<?= htmlspecialchars($info['info_id']) ?>"><?= htmlspecialchars($title) ?></a></li>
             <?php endforeach; ?>
         </ul>
     </aside>
@@ -137,7 +139,10 @@ $games = [
                             <?= nl2br(htmlspecialchars($recruit['recruit_detail'] ?? '詳細なし')) ?>
                         </div>
 
-                        <a class="join-btn" href="https://2301037.perma.jp/piko/php/room_number.php">参加</a>
+                        <form action="recruit_room_number.php" method="post">
+                            <input type="hidden" name="recruit_id" value="<?= htmlspecialchars($recruit['recruit_id'] ?? '') ?>">
+                            <input type="submit" class="join-btn" value="参加">
+                        </form>
                         <div style="clear:both"></div>
                     </div>
                 </div>
@@ -180,9 +185,9 @@ $games = [
 <footer>
     <nav>
         <a href="home.php">ホーム</a> |
-        <a href="recruit.php">募集</a> |
-        <a href="keijiban.php">掲示板</a> |
-        <a href="kouryaku.php">攻略</a>
+        <a href="recruit_home.php">募集</a> |
+        <a href="post_home.php">掲示板</a> |
+        <a href="Strategyhome.php">攻略</a>
     </nav>
     <p style="margin-top:8px;color:#999">copyright chlorine 2025</p>
 </footer>
