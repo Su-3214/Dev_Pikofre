@@ -1,49 +1,31 @@
 <?php
- //==========================================
-    // DB接続(PDO)
-    //使う理由：MySQLとPHPをつなげる役割
- //==========================================
+// DB接続
 $pdo = new PDO(
-    'mysql:host =  mysql325.phy.lolipop.lan; dbname = LAA1688829-pikopiko; charset = utf8mb4',
+    'mysql:host=mysql325.phy.lolipop.jp;dbname=LAA1688829-pikopiko;charset=utf8mb4',
     'LAA1688829',
-    'GIroku2434',
+    'GIroku2434'
 );
 
-//===========================================================
-    // game_idの設定(どのゲームの記事を出すか(今回は1(1固定)))
- //==========================================================
+// 表示するゲームID
 $game_id = 1;
 
-/*
-    SQLの準備(prepare)
-    -SQLを安全に使うための仕組み
-    -?にあとで値を入れる
-*/
-$sql = "SELECT * FROM info WEHRE game_id = ?";
+// SQL
+$sql = "SELECT * FROM info WHERE game_id = ?";
 $stmt = $pdo->prepare($sql);
-
-/*
-    SQLの実行(execute)
-    -?の部分に$game_idが入る
-*/
 $stmt->execute([$game_id]);
 
-
-//結果を全部配列で取得(fetchAll)
+// 結果取得
 $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$game_id = [
-    
-]
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
-    <link rel="stylesheet" href="benkyo.css">
+    <title>攻略記事ホーム</title>
+    <link rel="stylesheet" href="kouryakuhome.css">
     <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 
     <style>
