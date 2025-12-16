@@ -54,16 +54,31 @@ body {
     margin-top: 20px;
 }
 
-.make-btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 14px 24px;
-    border-radius: 16px;
-    background: #ff7a00;
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
+.make-recruit {
+    text-align: center;
+    margin-top: 20px;
 }
+
+/* 募集作成ボタン */
+.make-recruit {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.recruit-image-btn img {
+    width: 160px;
+    /* ← 超重要 */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.recruit-image-btn img:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
 
 /* ===== MAIN ===== */
 .main {
@@ -143,24 +158,4 @@ footer {
     text-align: center;
     color: #fff;
     margin: 40px 0;
-}
-
-/* Join Button for Recruit Card */
-.join {
-    display: inline-block;
-    margin-top: 10px;
-    background: #ff00c8;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: opacity 0.3s;
-}
-
-.join:hover {
-    opacity: 0.85;
 }
