@@ -45,9 +45,9 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
 /* 右メニュー */
 $rightMenu = [
-    "攻略記事" => "kouryaku.php?id={$game_id}",
-    "募集" => "recruit.php?id={$game_id}",
-    "掲示板" => "keijiban.php?id={$game_id}",
+    "攻略記事" => "Strategyhome.php?id={$game_id}",
+    "募集" => "recruit_home.php?id={$game_id}",
+    "掲示板" => "post_home.php?id={$game_id}",
 ];
 ?>
 <!DOCTYPE html>
@@ -63,8 +63,10 @@ $rightMenu = [
 
 <header class="site-header">
     <div class="site-brand">
-        <img src="/images/pikologo.png">
-        <span>PikoPikoFriends</span>
+        <a href="home.php" style="display:flex; align-items:center; text-decoration:none; color:inherit;">
+            <img src="/images/pikologo.png">
+            <span>PikoPikoFriends</span>
+        </a>
     </div>
     <div class="header-actions">
         <span class="bell">🔔</span>
@@ -122,9 +124,11 @@ $rightMenu = [
         </p>
 
         <!-- ★ ここが修正点 -->
-        <a class="join" href="room_number.php?recruit_id=<?= $r['recruit_id'] ?>">
-            参加
-        </a>
+        <!-- ★ 修正点: POSTフォームに変更 -->
+        <form action="recruit_room_number.php" method="post">
+            <input type="hidden" name="recruit_id" value="<?= $r['recruit_id'] ?>">
+            <input type="submit" class="join" value="参加">
+        </form>
     </div>
 
 <?php else: ?>
@@ -142,9 +146,10 @@ $rightMenu = [
             雰囲気重視
         </p>
 
-        <a class="join" href="room_number.php">
-            参加
-        </a>
+        <form action="recruit_room_number.php" method="post">
+            <input type="hidden" name="recruit_id" value="dummy">
+            <input type="submit" class="join" value="参加">
+        </form>
     </div>
 <?php endif; ?>
 </section>
@@ -186,7 +191,12 @@ $rightMenu = [
 </div>
 
 <footer>
-    <nav>ホーム | 募集 | 掲示板 | 攻略</nav>
+    <nav>
+        <a href="home.php">ホーム</a> |
+        <a href="recruit_home.php">募集</a> |
+        <a href="post_home.php">掲示板</a> |
+        <a href="Strategyhome.php">攻略</a>
+    </nav>
     <p>copyright chlorine 2025</p>
 </footer>
 

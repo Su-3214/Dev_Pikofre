@@ -144,3 +144,23 @@ footer {
     color: #fff;
     margin: 40px 0;
 }
+
+/* Join Button for Recruit Card */
+.join {
+    display: inline-block;
+    margin-top: 10px;
+    background: #ff00c8;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: opacity 0.3s;
+}
+
+.join:hover {
+    opacity: 0.85;
+}
