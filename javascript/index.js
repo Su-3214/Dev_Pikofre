@@ -198,7 +198,8 @@ function initCustomNav() {
             fontWeight: 'bold', // 太字にして見やすく
             transition: 'all 0.3s ease',
             position: 'relative',
-            marginBottom: '50px' // ボタン間の隙間を少し空ける
+            marginBottom: '50px', // ボタン間の隙間を少し空ける
+            webkitTextStroke: '1px #000' // 通常時のアウトライン（黒）
         });
 
         // 矢印作成
@@ -219,7 +220,8 @@ function initCustomNav() {
         // イベントリスナー
         link.addEventListener('mouseover', function () {
             link.style.backgroundColor = linkData.bg;
-            link.style.color = '#fff'; // ホバー時は文字を白に
+            link.style.color = '#000'; // ホバー時は文字を黒に
+            link.style.webkitTextStroke = '1px #fff'; // ホバー時のアウトライン（白）
             arrow.style.opacity = '1';
             line.style.backgroundColor = linkData.bg;
         });
@@ -227,6 +229,7 @@ function initCustomNav() {
         link.addEventListener('mouseout', function () {
             link.style.backgroundColor = '#333';    // 黒に戻す
             link.style.color = '#ffffff';           // 文字色を白に戻す
+            link.style.webkitTextStroke = '1px #000'; // アウトラインを黒に戻す
             arrow.style.opacity = '0';
             line.style.backgroundColor = '#333';    // 黒に戻す
         });
