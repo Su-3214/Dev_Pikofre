@@ -73,6 +73,12 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
         body {
             background: #f0f0f0;
             font-family: "Helvetica", "Arial", sans-serif;
+            margin: 0; 
+            padding: 0;
+            /* margin, flex, align-items removed to allow full width header/footer */
+        }
+
+        .content-wrapper {
             margin: 20px;
 
             /* ★カード中央揃えのため追加★ */
@@ -127,43 +133,46 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <div class="sidebar">
-        <a href="recruit_add.php" class="create-btn">募集作成</a>
+    <div class="content-wrapper">
+        <div class="sidebar">
+            <a href="recruit_add.php" class="create-btn">募集作成</a>
+        </div>
+
+        <?php if (count($recruits) > 0): ?>
+            <?php foreach ($recruits as $recruit): ?>
+
+                <div class="card">
+
+                    <div class="header-name">
+                        <?= htmlspecialchars($recruit['u_name']) ?>
+                    </div>
+
+                    <div class="detail-item">
+                        募集人数：<?= htmlspecialchars($recruit['recruit_number']) ?>
+                    </div>
+
+                    <div class="detail-item">
+                        ボイスチャット：<?= htmlspecialchars($recruit['recruit_vc']) ?>
+                    </div>
+
+                    <div class="detail-item">
+                        募集詳細：<br>
+                        <?= nl2br(htmlspecialchars($recruit['recruit_detail'])) ?>
+                    </div>
+
+                    <form action="recruit_room_number.php" method="post">
+                        <input type="hidden" name="recruit_id" value="<?= $recruit['recruit_id'] ?>">
+                        <input type="submit" value="参加" class="join-btn">
+                    </form>
+
+                </div>
+
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>現在募集はありません。</p>
+        <?php endif; ?>
     </div>
-
-    <?php if (count($recruits) > 0): ?>
-        <?php foreach ($recruits as $recruit): ?>
-
-            <div class="card">
-
-                <div class="header-name">
-                    <?= htmlspecialchars($recruit['u_name']) ?>
-                </div>
-
-                <div class="detail-item">
-                    募集人数：<?= htmlspecialchars($recruit['recruit_number']) ?>
-                </div>
-
-                <div class="detail-item">
-                    ボイスチャット：<?= htmlspecialchars($recruit['recruit_vc']) ?>
-                </div>
-
-                <div class="detail-item">
-                    募集詳細：<br>
-                    <?= nl2br(htmlspecialchars($recruit['recruit_detail'])) ?>
-                </div>
-
-                <form action="recruit_room_number.php" method="post">
-                    <input type="hidden" name="recruit_id" value="<?= $recruit['recruit_id'] ?>">
-                    <input type="submit" value="参加" class="join-btn">
-                </form>
-
-            </div>
-
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>現在募集はありません。</p>
-    <?php endif; ?>
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

@@ -23,6 +23,8 @@ header {
     /*Changed*/
     /*↑js-header block*/
     background: linear-gradient(135deg, #3aa6d0, #84bad0);
+    background-size: 100% 120px;
+    /* グラデーションサイズを固定 */
     color: #fff;
     padding: 1rem 2rem;
     padding-bottom: 2rem;
@@ -34,15 +36,14 @@ header {
 }
 
 header.scrolled {
-    height: 60px;
-    background-color: #ffffff;
+    /* background-color: #ffffff; 背景色上書きを無効化 */
     box-shadow: 0.4px 10px rgba(0, 0, 0, 0.2);
 }
 
-header.scrolled h1,
+/*header.scrolled h1,
 header.scrolled nav a {
-    font-size: 0.9m
-}
+    font-size: 0.9rem;
+}*/
 
 header h1 {
     font-size: 1.5rem;

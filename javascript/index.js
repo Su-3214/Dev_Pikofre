@@ -1,12 +1,15 @@
 // JavaScriptコーディング
 // ページが読み込まれたら実行する処理
 document.addEventListener("DOMContentLoaded", function () {
+    // 0. CSSの読み込み
+    loadCommonCss();
+
     // 1. 共通パーツの生成
     createHeader();
     createFooter();
 
     // 2. 既存の機能の初期化
-    initScrollObserver();
+    // initScrollObserver(); // スクロール検知を無効化
     initHeaderAnimation();
     initCustomNav();
 });
@@ -15,15 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function createHeader() {
     // 現在のパスを取得
-    const path = window.location.pathname;
-    let rootPath = "./";
+    const rootPath = getRootPath();
 
-    // パス調整
-    if (path.includes("/php/")) {
-        rootPath = "../";
-    }
 
     // ページ判定: welcome.php かどうか
+    const path = window.location.pathname;
     const isWelcomePage = path.includes("welcome.php");
 
     // <header>要素を作成
@@ -73,13 +72,8 @@ function createHeader() {
  */
 function createFooter() {
     // 現在のパスを取得
-    const path = window.location.pathname;
-    let rootPath = "./";
+    const rootPath = getRootPath();
 
-    // パス調整
-    if (path.includes("/php/")) {
-        rootPath = "../";
-    }
 
     // <footer>要素を作成
     const footer = document.createElement("footer");
@@ -139,6 +133,12 @@ function initHeaderAnimation() {
  * 右側のカスタムナビゲーションと縦線の初期化
  */
 function initCustomNav() {
+    // home.phpではナビゲーションを表示しない
+    // home.php完全一致でナビゲーションを表示しない
+    const filename = window.location.pathname.split('/').pop();
+    if (filename === "home.php") {
+        return;
+    }
     // データ定義
     const links = [
         { label: '攻略記事', bg: '#FFFFBB' },
@@ -236,4 +236,28 @@ function initCustomNav() {
 
         container.appendChild(link);
     });
+}
+
+/**
+ * ルートパスを取得するヘルパー関数
+ * @returns {string} "./" または "../"
+ */
+function getRootPath() {
+    const path = window.location.pathname;
+    // /php/ ディレクトリ内にいる場合は1つ上に戻る
+    if (path.includes("/php/")) {
+        return "../";
+    }
+    return "./";
+}
+
+/**
+ * 共通CSS (style.css) を動的に読み込む関数
+ */
+function loadCommonCss() {
+    const rootPath = getRootPath();
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = `${rootPath}css/style.css`;
+    document.head.appendChild(link);
 }

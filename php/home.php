@@ -54,27 +54,8 @@ $games = [
 </head>
 <body>
 
-<header class="site-header">
-    <div class="site-brand">
-        <a href="home.php" style="display:flex; align-items:center; text-decoration:none; color:inherit;">
-            <img src="/pic/pikologo.png" alt="PikoPikoFriends">
-            <div class="site-title">PikoPikoFriends</div>
-        </a>
-    </div>
+<!--JS生成予定-->
 
-    <div class="header-actions">
-        <div class="icon-bell" title="通知">
-            <!-- simple bell SVG -->
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 17H9a3 3 0 0 1-3-3V11a6 6 0 0 1 12 0v3a3 3 0 0 1-3 3z" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M11 20h2" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-
-        <a class="logout-link" href="logout.php">ログアウト</a>
-        <div class="avatar-dot"></div>
-    </div>
-</header>
 
 <div class="content-wrap">
 
@@ -181,19 +162,6 @@ $games = [
     </aside>
 
 </div>
-
-<footer>
-    <nav>
-        <a href="home.php">ホーム</a> |
-        <a href="recruit_home.php">募集</a> |
-        <a href="post_home.php">掲示板</a> |
-        <a href="Strategyhome.php">攻略</a>
-    </nav>
-    <p style="margin-top:8px;color:#999">copyright chlorine 2025</p>
-</footer>
-
-<script>
-    // 必要ならJSをここに追加
-</script>
+<script src="../javascript/index.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
