@@ -146,6 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <a href="./post_reply.php">返</a>
 
 
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

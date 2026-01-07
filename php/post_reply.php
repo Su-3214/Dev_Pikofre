@@ -79,6 +79,7 @@ if (!isset($_SESSION['u_id'])) {
   <a href="http://localhost/keijiban.html/post_reply.php">返</a>
 
 
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

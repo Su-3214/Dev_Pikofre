@@ -73,5 +73,6 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </a>
     <?php endforeach; ?>
     </div>
+    <script src="../javascript/index.js"></script>
 </body>
 </html>

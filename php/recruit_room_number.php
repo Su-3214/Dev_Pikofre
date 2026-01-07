@@ -87,14 +87,11 @@ $recruits = $stmt_recruit->fetch(PDO::FETCH_ASSOC);
             font-family: sans-serif;
             background-color: #fff;
             margin: 0;
-
-            /* 中央揃え */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 0;
+            /* margin:0, padding:0 is good for full width header/footer */
         }
 
+        /* ★画面の 65% の幅に調整★ */
         /* ★画面の 65% の幅に調整★ */
         .wrapper {
             text-align: center;
@@ -104,6 +101,7 @@ $recruits = $stmt_recruit->fetch(PDO::FETCH_ASSOC);
             /* PC で広がりすぎないように制限 */
             min-width: 300px;
             /* スマホ時の最低幅 */
+            margin: 50px auto; /* 上下に余白、左右中央揃え */
         }
 
         .label {
@@ -193,6 +191,7 @@ $recruits = $stmt_recruit->fetch(PDO::FETCH_ASSOC);
 
     </div>
 
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

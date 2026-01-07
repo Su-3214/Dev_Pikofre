@@ -39,5 +39,6 @@ if(!$article){
     <br><br>
     <a href="kouryakuhome.php">攻略記事一覧に戻る</a>
     
+    <script src="../javascript/index.js"></script>
 </body>
 </html>

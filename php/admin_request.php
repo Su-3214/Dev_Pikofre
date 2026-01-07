@@ -310,6 +310,7 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   </div>
 
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

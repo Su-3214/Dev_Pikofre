@@ -85,6 +85,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
   <a href="./post_home.php">掲示板</a>
   <a href="./post_add.php">ピ</a>
   <a href="./post_reply.php">返</a>
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

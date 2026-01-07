@@ -411,6 +411,7 @@ if ($search === '') {
       </div>
     </main>
   </div>
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

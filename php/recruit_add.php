@@ -116,14 +116,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         body {
             background: #f0f0f0;
             font-family: "Helvetica", "Arial", sans-serif;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .form-wrapper {
+             max-width: 500px;
+             margin: 50px auto;
+             padding: 20px;
         }
 
         form {
-            width: 90%;
-            max-width: 500px;
+            width: 100%;
         }
 
         /* 各項目の黒丸枠 */
@@ -207,40 +211,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 
-    <form action="" method="POST">
+    <div class="form-wrapper">
+        <form action="" method="POST">
 
-        <!-- 🎮 遊ぶ人数 -->
-        <div class="field-box">
-            <span class="field-title">遊ぶ人数</span>
-            <select name="recruit_number" required>
-                <option value="2">二人募集</option>
-                <option value="3">三人募集</option>
-                <option value="4">四人募集</option>
-                <option value="5">五人募集</option>
-            </select>
-        </div>
+            <!-- 🎮 遊ぶ人数 -->
+            <div class="field-box">
+                <span class="field-title">遊ぶ人数</span>
+                <select name="recruit_number" required>
+                    <option value="2">二人募集</option>
+                    <option value="3">三人募集</option>
+                    <option value="4">四人募集</option>
+                    <option value="5">五人募集</option>
+                </select>
+            </div>
 
-        <!-- 🎤 ボイスチャット -->
-        <div class="field-box">
-            <span class="field-title">ボイスチャット</span>
-            <select name="recruit_vc" required>
-                <option value="必須">必須</option>
-                <option value="どちらでも">どちらでも</option>
-                <option value="なし">なし</option>
-            </select>
-        </div>
+            <!-- 🎤 ボイスチャット -->
+            <div class="field-box">
+                <span class="field-title">ボイスチャット</span>
+                <select name="recruit_vc" required>
+                    <option value="必須">必須</option>
+                    <option value="どちらでも">どちらでも</option>
+                    <option value="なし">なし</option>
+                </select>
+            </div>
 
-        <!-- 📝 募集詳細の黒丸枠 -->
-        <div class="textarea-wrapper">
-            <textarea name="recruit_detail" placeholder="募集の詳細を入力してください..." required></textarea>
-        </div>
+            <!-- 📝 募集詳細の黒丸枠 -->
+            <div class="textarea-wrapper">
+                <textarea name="recruit_detail" placeholder="募集の詳細を入力してください..." required></textarea>
+            </div>
 
-        <input type="hidden" name="u_name" value="<?php echo htmlspecialchars($u_name, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="u_name" value="<?php echo htmlspecialchars($u_name, ENT_QUOTES, 'UTF-8'); ?>">
 
-        <button type="submit">作成する</button>
+            <button type="submit">作成する</button>
 
-    </form>
+        </form>
+    </div>
 
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

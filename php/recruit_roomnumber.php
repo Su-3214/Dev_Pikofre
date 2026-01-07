@@ -41,6 +41,7 @@ if (!$recruit) {
 
 <body>
 
+<!--
 <header class="site-header">
     <div class="site-brand">
         <img src="/images/pikologo.png">
@@ -52,6 +53,7 @@ if (!$recruit) {
         <div class="avatar"></div>
     </div>
 </header>
+-->
 
 <div class="content-wrap">
 
@@ -107,9 +109,12 @@ if (!$recruit) {
 
 </div>
 
+<!--
 <footer>
     <p>copyright chlorine 2025</p>
 </footer>
+-->
 
+    <script src="../javascript/index.js"></script>
 </body>
 </html>

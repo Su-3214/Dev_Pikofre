@@ -152,6 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>すでにアカウントをお持ちですか？ <a href="login.php">ログイン</a>はこちらから</p>
         </form>
     </div>
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

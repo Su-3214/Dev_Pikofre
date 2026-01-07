@@ -128,6 +128,7 @@ if (empty($errors)) {
             <p>アカウントをお持ちでない方はここから<a href="register.php">サインアップ</a>してください</p>
         </form>
     </div>
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

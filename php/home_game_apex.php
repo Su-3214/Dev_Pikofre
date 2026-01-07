@@ -200,5 +200,6 @@ $rightMenu = [
     <p>copyright chlorine 2025</p>
 </footer>
 
+    <script src="../javascript/index.js"></script>
 </body>
 </html>

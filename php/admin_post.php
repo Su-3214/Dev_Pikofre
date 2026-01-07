@@ -461,6 +461,7 @@ $toukous = $stmt_toukou->fetchAll(PDO::FETCH_ASSOC);
     </main>
   </div>
 
+    <script src="../javascript/index.js"></script>
 </body>
 
 </html>

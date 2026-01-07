@@ -23,7 +23,6 @@ function createHeader() {
 
     // ページ判定: welcome.php かどうか
     const path = window.location.pathname;
-    const isWelcomePage = path.includes("welcome.php");
 
     // <header>要素を作成
     const header = document.createElement("header");
@@ -32,34 +31,22 @@ function createHeader() {
     let headerContent = `
         <img src="${rootPath}images/pikofre_icon.png" alt="ロゴ" height="100" width="100">
         <h1>PikoPikoFriends</h1>
+        <style>
+            h1 {
+                margin: 0 auto;
+            }
+        </style>
     `;
 
-    // ナビゲーションボタン（ページによって切り替え）
-    if (isWelcomePage) {
-        // ログイン済み（welcome.php）の場合: ログアウトボタン
+    // 以下のファイル以外ではログアウトボタンを表示
+    const filename = window.location.pathname.split('/').pop();
+    if (filename !== "login.php") {
         headerContent += `
-            <nav class="login_nav">
+        <nav class="login_nav">
                 <a href="logout.php" class="btn btn-danger ml-3">ログアウト</a>
             </nav>
         `;
-    } else {
-        // 未ログイン（index.htmlなど）の場合: ログインボタン
-        headerContent += `
-            <nav class="login_nav">
-                <a href="${rootPath}php/login.php">ログイン</a>
-            </nav>
-        `;
     }
-
-    // 共通のナビゲーションメニュー
-    //いらないので削除しようと思います。
-    /*headerContent += `
-        <nav class="header_nav">
-            <a href="${rootPath}index.html">トップ</a>
-            <a href="${rootPath}forum.html">掲示板</a>
-            <a href="${rootPath}php/gametop.php">ゲームページ</a>
-        </nav>
-    `;*/
 
     header.innerHTML = headerContent;
 
@@ -133,10 +120,9 @@ function initHeaderAnimation() {
  * 右側のカスタムナビゲーションと縦線の初期化
  */
 function initCustomNav() {
-    // home.phpではナビゲーションを表示しない
-    // home.php完全一致でナビゲーションを表示しない
+    //以下のファイルはナビゲーションを表示しない
     const filename = window.location.pathname.split('/').pop();
-    if (filename === "home.php") {
+    if (filename === "home.php" || filename === "login.php") {
         return;
     }
     // データ定義
