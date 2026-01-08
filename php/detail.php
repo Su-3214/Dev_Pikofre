@@ -37,7 +37,7 @@ if(!$article){
     <small>更新日：<?= $article['update_date'] ?></small>
 
     <br><br>
-    <a href="kouryakuhome.php">攻略記事一覧に戻る</a>
+    <a href="conquest.php">攻略記事一覧に戻る</a>
     
     <script src="../javascript/index.js"></script>
 </body>

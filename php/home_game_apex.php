@@ -60,21 +60,6 @@ $rightMenu = [
 </head>
 
 <body>
-
-<header class="site-header">
-    <div class="site-brand">
-        <a href="home.php" style="display:flex; align-items:center; text-decoration:none; color:inherit;">
-            <img src="/images/pikologo.png">
-            <span>PikoPikoFriends</span>
-        </a>
-    </div>
-    <div class="header-actions">
-        <span class="bell">🔔</span>
-        <a href="logout.php" class="logout">ログアウト</a>
-        <div class="avatar"></div>
-    </div>
-</header>
-
 <div class="content-wrap">
 
 <!-- 左 -->
@@ -189,17 +174,6 @@ $rightMenu = [
 </aside>
 
 </div>
-
-<footer>
-    <nav>
-        <a href="home.php">ホーム</a> |
-        <a href="recruit_home.php">募集</a> |
-        <a href="post_home.php">掲示板</a> |
-        <a href="Strategyhome.php">攻略</a>
-    </nav>
-    <p>copyright chlorine 2025</p>
-</footer>
-
     <script src="../javascript/index.js"></script>
 </body>
 </html>

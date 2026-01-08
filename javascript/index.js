@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     createFooter();
 
     // 2. 既存の機能の初期化
-    // initScrollObserver(); // スクロール検知を無効化
+    //initScrollObserver(); いったん無効化しておいておきます
     initHeaderAnimation();
     initCustomNav();
 });
@@ -29,7 +29,9 @@ function createHeader() {
 
     // 共通パーツ: ロゴとタイトル
     let headerContent = `
-        <img src="${rootPath}images/pikofre_icon.png" alt="ロゴ" height="100" width="100">
+        <a href="${rootPath}php/home.php">
+            <img src="${rootPath}images/pikofre_icon.png" alt="ロゴ" height="100" width="100">
+        </a>
         <h1>PikoPikoFriends</h1>
         <style>
             h1 {
@@ -40,7 +42,7 @@ function createHeader() {
 
     // 以下のファイル以外ではログアウトボタンを表示
     const filename = window.location.pathname.split('/').pop();
-    if (filename !== "login.php") {
+    if (filename !== "login.php" && filename !== "register.php") {
         headerContent += `
         <nav class="login_nav">
                 <a href="logout.php" class="btn btn-danger ml-3">ログアウト</a>
@@ -60,20 +62,28 @@ function createHeader() {
 function createFooter() {
     // 現在のパスを取得
     const rootPath = getRootPath();
-
+    const filename = window.location.pathname.split('/').pop();
 
     // <footer>要素を作成
     const footer = document.createElement("footer");
 
-    // フッターの中身をHTMLとして記述
-    footer.innerHTML = `
+    let footerContent = '';
+
+    // login.php または register.php 以外の場合はナビゲーションを表示
+    if (filename !== "login.php" && filename !== "register.php") {
+        footerContent += `
         <nav class="footer_nav">
-            <a href="${rootPath}index.html">トップ</a>
-            <a href="${rootPath}forum.html">掲示板</a>
-            <a href="${rootPath}php/gametop.php">ゲームページ</a>
+            <a href="${rootPath}php/home.php">トップ</a>
+            <a href="${rootPath}php/post_home.php">掲示板</a>
+            <a href="${rootPath}php/recruit_home.php">募集掲示板</a>
         </nav>
-        <p>copyright Chlorine 2025 </p>
-    `;
+        `;
+    }
+
+    footerContent += `<p>copyright Chlorine 2025 </p>`;
+
+    // フッターの中身をHTMLとして記述
+    footer.innerHTML = footerContent;
 
     // 作成したfooterをbodyの一番最後に追加(appendChild)
     document.body.appendChild(footer);
@@ -122,22 +132,26 @@ function initHeaderAnimation() {
 function initCustomNav() {
     //以下のファイルはナビゲーションを表示しない
     const filename = window.location.pathname.split('/').pop();
-    if (filename === "home.php" || filename === "login.php") {
+    if (filename === "home.php" || filename === "login.php" || filename === "register.php") {
         return;
     }
+
+    // ルートパス取得
+    const rootPath = getRootPath();
+
     // データ定義
     const links = [
-        { label: '攻略記事', bg: '#FFFFBB' },
-        { label: '募集', bg: '#EEDDEE' },
-        { label: '掲示板', bg: '#DDEEAA' },
+        { label: '攻略記事', bg: '#FFFFBB', url: 'php/conquest.php' },
+        { label: '募集', bg: '#EEDDEE', url: 'php/recruit_home.php' },
+        { label: '掲示板', bg: '#DDEEAA', url: 'php/post_home.php' },
     ];
 
     // コンテナ作成
     const container = document.createElement('div');
     Object.assign(container.style, {
         backgroundColor: '#f5f7fa', // 全体を薄いグレーで統一
-        position: 'fixed',
-        top: 'calc(50% + 60px)', // 縦線が120pxから始まるため、残り領域の中央（50% + 60px）に配置
+        position: 'absolute', // JSで動かすためabsoluteのままにする
+        top: 'calc(50vh + 60px)', // 初期位置
         right: '0%',
         transform: 'translateY(-50%)',
         display: 'flex',
@@ -149,17 +163,37 @@ function initCustomNav() {
     });
     document.body.appendChild(container);
 
+    // スクロール追従アニメーション（慣性）
+    let currentY = window.scrollY + window.innerHeight / 2 + 60;
+    let targetY = 0;
+
+    function animateNav() {
+        // 目標位置：スクロール位置 + 画面中央 + ヘッダーオフセット調整
+        targetY = window.scrollY + window.innerHeight / 2 + 60;
+
+        // 現在位置を目標位置に近づける（線形補間: 0.1の係数で遅延追従）
+        // ※差が小さい時は計算を止めるなどの最適化も可能だが、
+        //  ここでは滑らかさを優先して常に更新する形にする
+        currentY += (targetY - currentY) * 0.1;
+
+        // コンテナの位置を更新
+        container.style.top = `${currentY}px`;
+
+        requestAnimationFrame(animateNav);
+    }
+    animateNav();
+
     // 縦線の追加
     const line = document.createElement('div');
     Object.assign(line.style, {
         backgroundColor: '#333',     // 指定通り黒（ダークグレー）に
-        position: 'fixed',
+        position: 'fixed',           // 線は画面に対して固定（見えなくならないように）
         top: '120px',        // 画面上部から
         right: '220px',  // ボタン幅に合わせて調整 (180px -> 220px)
         // transform: 'translateY(-50%)', // 不要
         width: '5px',    // 少し太くする (3px -> 5px)
-        height: '100vh', // 画面全体の高さ
-        // backgroundColor: '#555', // 重複していたグレー設定を削除
+        height: 'calc(100vh - 120px)', // 画面全体の高さ - ヘッダー分
+        transition: 'background-color 0.3s ease', // 色の変化を滑らかにする
         zIndex: '1000'
     });
     document.body.appendChild(line);
@@ -168,7 +202,7 @@ function initCustomNav() {
     links.forEach(function (linkData) {
         const link = document.createElement('a');
         link.textContent = linkData.label;
-        link.href = "#";
+        link.href = rootPath + linkData.url;
 
         Object.assign(link.style, {
             display: 'block',

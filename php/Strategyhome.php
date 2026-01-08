@@ -25,7 +25,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>攻略記事ホーム</title>
-    <link rel="stylesheet" href="kouryakuhome.css">
+    <link rel="stylesheet" href="../css/conquest.css">
     <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 
     <style>
