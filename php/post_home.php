@@ -84,6 +84,23 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
     .reply-btn:hover {
       opacity: 0.85;
     }
+
+    /* 返信表示エリア */
+    .reply-container {
+      margin-top: 10px;
+      margin-left: 20px;
+      border-left: 3px solid #ddd;
+      padding-left: 10px;
+    }
+
+    .reply-post {
+      background: #f0f8ff;
+      /* 少し薄い色または違う色 */
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 
@@ -98,46 +115,60 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
     <div class="title">
       <a href="./home.php">PikoPikoFriends</a>
     </div>
-    <div class="menu">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/announcement.php">通知</a>
-      <a href="./logout.php">ログアウト</a>
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/profile.php">プ</a>
-    </div>
-  </header>
-  -->
+    -->
 
   <div class="container">
 
-    <!--
-    <div class="sidebar-left">
-      <a href="./post_add.php">ピ</a>
-    </div>
-    -->
-
     <main class="main">
-      <?php if (count($posts) > 0): ?>
-        <?php foreach ($posts as $post): ?>
+      <?php
+      // 投稿を親と子（返信）に分ける
+      $parents = [];
+      $replies = [];
 
+      foreach ($posts as $post) {
+        if ($post['reply_id'] == 0 || is_null($post['reply_id'])) {
+          $parents[] = $post;
+        } else {
+          $replies[$post['reply_id']][] = $post;
+        }
+      }
+      ?>
+
+      <?php if (count($parents) > 0): ?>
+        <?php foreach ($parents as $parent): ?>
           <div class="post">
-            <p><strong><?= htmlspecialchars($post['u_name']) ?></strong>
-              <br><?= htmlspecialchars($post['post_detail']) ?>
+            <p><strong><?= htmlspecialchars($parent['u_name']) ?></strong>
+              <br><?= nl2br(htmlspecialchars($parent['post_detail'])) ?>
             </p>
-            <img src="<?php echo htmlspecialchars($post['post_image']); ?>" alt="投稿画像">
+            <?php if (!empty($parent['post_image'])): ?>
+              <img src="<?= htmlspecialchars($parent['post_image']) ?>" alt="投稿画像">
+            <?php endif; ?>
 
             <form action="post_reply.php" method="post" style="text-align: right;">
-              <input type="hidden" name="post_id" value="<?= $post['post_id'] ?? '' ?>">
+              <input type="hidden" name="post_id" value="<?= $parent['post_id'] ?>">
               <input type="submit" value="返信" class="reply-btn">
             </form>
-          </div>
 
-          <!--リプライ機能はすぐは無理なので一旦コメントアウト
-          <div class="reaction-bar">
-            <button>二年間待ったのに(´；ω；｀)ｳｯｳｯ</button>
+            <!-- 返信があれば表示 -->
+            <?php if (isset($replies[$parent['post_id']])): ?>
+              <div class="reply-container">
+                <?php foreach ($replies[$parent['post_id']] as $reply): ?>
+                  <div class="reply-post">
+                    <p><strong><?= htmlspecialchars($reply['u_name']) ?></strong>
+                      <br><?= nl2br(htmlspecialchars($reply['post_detail'])) ?>
+                    </p>
+                    <?php if (!empty($reply['post_image'])): ?>
+                      <img src="<?= htmlspecialchars($reply['post_image']) ?>" alt="返信画像" style="width:100%; border-radius:10px; margin-top:5px;">
+                    <?php endif; ?>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+            <?php endif; ?>
+
           </div>
-          -->
         <?php endforeach; ?>
       <?php else: ?>
-        <p>現在投稿はありません。</p>
+        <p style="text-align:center; margin-top:20px;">現在投稿はありません。</p>
       <?php endif; ?>
 
     </main>
