@@ -91,6 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
+  <div class="sidebar">
+    <a href="post_home.php" class="sidebar-btn">ホームに戻る</a>
+  </div>
+
   <!--
   <header>
     <div class="title">

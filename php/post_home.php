@@ -29,9 +29,52 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="UTF-8">
   <title>PikoPikoFriends - 掲示板</title>
   <link rel="stylesheet" href="../css/keijiban.css">
+  <style>
+    /* 左側固定メニュー */
+    .sidebar {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ffffff;
+      padding: 15px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+    }
+
+    /* 募集作成ボタン (ピコる) */
+    .create-btn {
+      display: inline-block;
+      background: #ff7b00;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
+
+    .create-btn:hover {
+      opacity: 0.85;
+    }
+
+    @media (max-width: 800px) {
+      .sidebar {
+        position: static;
+        width: 90%;
+        margin: 0 auto 20px auto;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
+
+  <div class="sidebar">
+    <a href="post_add.php" class="create-btn">ピコる</a>
+  </div>
 
   <!--
   <header>
