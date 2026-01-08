@@ -59,13 +59,29 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
       opacity: 0.85;
     }
 
-    @media (max-width: 800px) {
-      .sidebar {
-        position: static;
-        width: 90%;
-        margin: 0 auto 20px auto;
-        text-align: center;
-      }
+    .sidebar {
+      position: static;
+      width: 90%;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+
+
+    /* 返信ボタン */
+    .reply-btn {
+      background: #5ecfff;
+      border: none;
+      color: black;
+      padding: 8px 16px;
+      font-size: 0.9em;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .reply-btn:hover {
+      opacity: 0.85;
     }
   </style>
 </head>
@@ -106,6 +122,11 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
               <br><?= htmlspecialchars($post['post_detail']) ?>
             </p>
             <img src="<?php echo htmlspecialchars($post['post_image']); ?>" alt="投稿画像">
+
+            <form action="post_reply.php" method="post" style="text-align: right;">
+              <input type="hidden" name="post_id" value="<?= $post['post_id'] ?? '' ?>">
+              <input type="submit" value="返信" class="reply-btn">
+            </form>
           </div>
 
           <!--リプライ機能はすぐは無理なので一旦コメントアウト

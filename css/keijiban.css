@@ -83,6 +83,8 @@ header .menu a {
   padding: 15px;
   width: 80%;
   margin: 0 auto;
+  height: 300px;
+  overflow-y: auto;
 }
 
 .post img {
