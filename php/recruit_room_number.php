@@ -47,7 +47,8 @@ $recruits = $stmt_recruit->fetch(PDO::FETCH_ASSOC);
         .sidebar {
             position: fixed;
             left: 20px;
-            top: 80px;
+            top: 50%;
+            transform: translateY(-50%);
             background: #ffffff;
             padding: 15px 20px;
             border-radius: 15px;
@@ -101,7 +102,8 @@ $recruits = $stmt_recruit->fetch(PDO::FETCH_ASSOC);
             /* PC で広がりすぎないように制限 */
             min-width: 300px;
             /* スマホ時の最低幅 */
-            margin: 50px auto; /* 上下に余白、左右中央揃え */
+            margin: 50px auto;
+            /* 上下に余白、左右中央揃え */
         }
 
         .label {

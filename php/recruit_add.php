@@ -77,7 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .sidebar {
             position: fixed;
             left: 20px;
-            top: 80px;
+            top: 50%;
+            transform: translateY(-50%);
             background: #ffffff;
             padding: 15px 20px;
             border-radius: 15px;
@@ -121,9 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .form-wrapper {
-             max-width: 500px;
-             margin: 50px auto;
-             padding: 20px;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
         }
 
         form {

@@ -34,7 +34,8 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
         .sidebar {
             position: fixed;
             left: 20px;
-            top: 80px;
+            top: 50%;
+            transform: translateY(-50%);
             background: #ffffff;
             padding: 15px 20px;
             border-radius: 15px;
@@ -73,7 +74,7 @@ $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
         body {
             background: #f0f0f0;
             font-family: "Helvetica", "Arial", sans-serif;
-            margin: 0; 
+            margin: 0;
             padding: 0;
             /* margin, flex, align-items removed to allow full width header/footer */
         }
