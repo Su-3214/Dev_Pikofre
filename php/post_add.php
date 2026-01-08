@@ -87,6 +87,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <title>PikoPikoFriends - 投稿作成</title>
   <link rel="stylesheet" href="../css/keijiban_make.css">
+  <style>
+    /* 左側固定メニュー */
+    .sidebar {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ffffff;
+      padding: 15px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+    }
+
+    /* ボタンのデザイン */
+    .sidebar-btn {
+      display: block;
+      background: #ff7b00;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .sidebar-btn:hover {
+      opacity: 0.85;
+    }
+
+    /* 画面幅が800px以下のときは重ならないように上へ移動 */
+    @media (max-width: 800px) {
+      .sidebar {
+        position: static;
+        width: 90%;
+        margin: 0 auto 20px auto;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
