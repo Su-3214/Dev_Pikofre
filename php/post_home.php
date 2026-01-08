@@ -122,7 +122,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
     <!--
     <div class="sidebar-right">
-      <a href="./kouryakuhome.php">攻略記事</a>
+      <a href="./conquest.php">攻略記事</a>
       <a href="./recruit_home.php">募集</a>
       <a href="./post_home.php">掲示板</a>
     </div>
