@@ -59,13 +59,14 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
       opacity: 0.85;
     }
 
-    .sidebar {
-      position: static;
-      width: 90%;
-      margin: 0 auto 20px auto;
-      text-align: center;
+    @media (max-width: 768px) {
+      .sidebar {
+        position: static;
+        width: 90%;
+        margin: 0 auto 20px auto;
+        text-align: center;
+      }
     }
-
 
     /* 返信ボタン */
     .reply-btn {
