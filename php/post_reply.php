@@ -4,12 +4,69 @@ session_start();
 //ファイルの読み込み
 require_once "db_connect.php";
 
-// ログインチェック（例）
+// ログインチェック
 if (!isset($_SESSION['u_id'])) {
   header("Location: login.php");
   exit;
 }
 
+$u_id = $_SESSION['u_id'];
+$game_id = $_SESSION['game_id'] ?? 50000; // セッションがない場合のフォールバック
+
+// 親投稿のIDを取得 (初期表示はpost_home.phpから、とどまる場合はhiddenから)
+$parent_post_id = $_POST['post_id'] ?? null;
+
+// 親投稿データ格納用
+$parent_post = null;
+
+if ($parent_post_id) {
+  // 親投稿の情報を取得
+  $sql_parent = "SELECT * FROM piko_post WHERE post_id = :post_id";
+  $stmt_parent = $pdo->prepare($sql_parent);
+  $stmt_parent->bindValue(':post_id', $parent_post_id, PDO::PARAM_INT);
+  try {
+    $stmt_parent->execute();
+    $parent_post = $stmt_parent->fetch(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    error_log($e->getMessage());
+  }
+}
+
+// 返信投稿処理
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reply_submit'])) {
+  $reply_content = $_POST['reply_text'] ?? '';
+  // 親IDは再度POSTから取得 (上の$parent_post_idと同じはず)
+
+  if ($parent_post_id && $reply_content !== '') {
+    // ユーザー名取得 (post_add.phpと同様の処理)
+    $stmt_user = $pdo->prepare("SELECT u_name FROM user WHERE u_id = :u_id");
+    $stmt_user->bindValue(':u_id', $u_id, PDO::PARAM_INT);
+    $stmt_user->execute();
+    $user_data = $stmt_user->fetch(PDO::FETCH_ASSOC);
+    $u_name = $user_data['u_name'] ?? 'Unknown';
+
+    // INSERT処理
+    $sql_insert = "INSERT INTO piko_post (game_id, u_id, u_name, post_detail, reply_id, post_date) 
+                   VALUES (:game_id, :u_id, :u_name, :post_detail, :reply_id, NOW())";
+    $stmt_insert = $pdo->prepare($sql_insert);
+    $stmt_insert->bindValue(':game_id', $game_id, PDO::PARAM_INT);
+    $stmt_insert->bindValue(':u_id', $u_id, PDO::PARAM_INT);
+    $stmt_insert->bindValue(':u_name', $u_name, PDO::PARAM_STR);
+    $stmt_insert->bindValue(':post_detail', $reply_content, PDO::PARAM_STR);
+    $stmt_insert->bindValue(':reply_id', $parent_post_id, PDO::PARAM_INT);
+
+    try {
+      $stmt_insert->execute();
+      // 送信成功したら掲示板へ
+      header("Location: post_home.php");
+      exit;
+    } catch (PDOException $e) {
+      $error_message = "送信に失敗しました: " . $e->getMessage();
+    }
+  } else {
+    $error_message = "内容が空か、投稿元が見つかりません。";
+  }
+}
 
 ?>
 
@@ -59,6 +116,11 @@ if (!isset($_SESSION['u_id'])) {
         text-align: center;
       }
     }
+
+    .error-msg {
+      color: red;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -68,69 +130,48 @@ if (!isset($_SESSION['u_id'])) {
     <a href="post_add.php" class="create-btn">ピコる</a>
   </div>
 
-  <!--
-  <header>
-    <div class="title">
-      <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/index.php">PikoPikoFriends</a>
-    </div>
-    <div class="menu">
-      <a href="announcement.php">通知</a>
-      <a href="php/login.php">ログアウト</a>
-      <a href="profile.php">プ</a>
-    </div>
-  </header>
-  -->
-
   <div class="container">
-    <!--
-    <div class="sidebar-left">
-      <a href="pikoru.php">ピ</a>
-    </div>
-    -->
 
     <main class="main">
 
-      <div class="post">
-        <div class="post-text">
-          こいつ強化されたのに結局スパローかよ
-          #シア
-        </div>
-        <img src="https://via.placeholder.com/400x200?text=シアに強化を..." alt="">
-      </div>
+      <?php if (isset($error_message)): ?>
+        <p class="error-msg"><?= htmlspecialchars($error_message) ?></p>
+      <?php endif; ?>
 
-      <div class="reply-area">
-        <form method="post" action="reply_send.php">
-          <textarea name="reply_text" placeholder="返信を書く…" required></textarea>
-          <button class="send-btn" type="submit">返信を送信</button>
-        </form>
-      </div>
+      <?php if ($parent_post): ?>
+        <div class="post">
+          <div class="post-text">
+            <strong><?= htmlspecialchars($parent_post['u_name']) ?></strong><br>
+            <?= nl2br(htmlspecialchars($parent_post['post_detail'])) ?>
+          </div>
+          <?php if (!empty($parent_post['post_image'])): ?>
+            <img src="<?= htmlspecialchars($parent_post['post_image']) ?>" alt="投稿画像">
+          <?php endif; ?>
+        </div>
+
+        <div class="reply-area">
+          <form method="post" action="">
+            <!-- 親投稿IDを引き継ぐ -->
+            <input type="hidden" name="post_id" value="<?= htmlspecialchars($parent_post_id) ?>">
+
+            <textarea name="reply_text" placeholder="返信を書く…" required></textarea>
+            <button class="send-btn" type="submit" name="reply_submit">返信を送信</button>
+          </form>
+        </div>
+      <?php else: ?>
+        <p style="text-align:center; margin-top:20px;">
+          投稿が見つかりません。<br>
+          <a href="post_home.php">掲示板に戻る</a>
+        </p>
+      <?php endif; ?>
 
     </main>
 
-    <!--
-    <div class="sidebar-right">
-      <a href="guid.php">攻略記事</a>
-      <a href="Recruit.php">募集</a>
-      <a href="keiji.php">掲示板</a>
-    </div>
-    -->
   </div>
 
   <script>
-    function sendReply() {
-      alert("返信を送信しました（ベータ版）\n掲示板に戻ります");
-      location.href = "keiji.php";
-      return false;
-    }
+    // 必要であればJS追加
   </script>
-
-  <!--
-  <a href="http://localhost/keijiban.html/post_home.php">掲示板</a>
-  <a href="http://localhost/keijiban.html/post_add.php">ピ</a>
-  <a href="http://localhost/keijiban.html/post_reply.php">返</a>
-  -->
-
-
   <script src="../javascript/index.js"></script>
 </body>
 
