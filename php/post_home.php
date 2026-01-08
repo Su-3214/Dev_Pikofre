@@ -33,6 +33,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
 
+  <!--
   <header>
     <div class="title">
       <a href="./home.php">PikoPikoFriends</a>
@@ -43,12 +44,15 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/profile.php">プ</a>
     </div>
   </header>
+  -->
 
   <div class="container">
 
+    <!--
     <div class="sidebar-left">
       <a href="./post_add.php">ピ</a>
     </div>
+    -->
 
     <main class="main">
       <?php if (count($posts) > 0): ?>
@@ -73,19 +77,23 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
     </main>
 
+    <!--
     <div class="sidebar-right">
       <a href="./kouryakuhome.php">攻略記事</a>
       <a href="./recruit_home.php">募集</a>
       <a href="./post_home.php">掲示板</a>
     </div>
+    -->
 
   </div>
 
   <!-- 下メニュー -->
+  <!--
   <a href="./post_home.php">掲示板</a>
   <a href="./post_add.php">ピ</a>
   <a href="./post_reply.php">返</a>
-    <script src="../javascript/index.js"></script>
+  -->
+  <script src="../javascript/index.js"></script>
 </body>
 
 </html>

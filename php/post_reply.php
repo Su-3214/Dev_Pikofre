@@ -24,6 +24,7 @@ if (!isset($_SESSION['u_id'])) {
 </head>
 
 <body>
+  <!--
   <header>
     <div class="title">
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/index.php">PikoPikoFriends</a>
@@ -34,11 +35,14 @@ if (!isset($_SESSION['u_id'])) {
       <a href="profile.php">プ</a>
     </div>
   </header>
+  -->
 
   <div class="container">
+    <!--
     <div class="sidebar-left">
       <a href="pikoru.php">ピ</a>
     </div>
+    -->
 
     <main class="main">
 
@@ -59,11 +63,13 @@ if (!isset($_SESSION['u_id'])) {
 
     </main>
 
+    <!--
     <div class="sidebar-right">
       <a href="guid.php">攻略記事</a>
       <a href="Recruit.php">募集</a>
       <a href="keiji.php">掲示板</a>
     </div>
+    -->
   </div>
 
   <script>
@@ -74,12 +80,14 @@ if (!isset($_SESSION['u_id'])) {
     }
   </script>
 
+  <!--
   <a href="http://localhost/keijiban.html/post_home.php">掲示板</a>
   <a href="http://localhost/keijiban.html/post_add.php">ピ</a>
   <a href="http://localhost/keijiban.html/post_reply.php">返</a>
+  -->
 
 
-    <script src="../javascript/index.js"></script>
+  <script src="../javascript/index.js"></script>
 </body>
 
 </html>

@@ -91,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
+  <!--
   <header>
     <div class="title">
       <a href="./home.php">PikoPikoFriends</a>
@@ -102,13 +103,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <a href="https://chlorine3214.bitter.jp/Dev_Chlorine/profile.php">プ</a>
     </div>
   </header>
+  -->
 
   <div class="container">
 
     <!-- 左メニュー -->
+    <!--
     <div class="sidebar-left">
       <a href="./post_add.php">ピ</a>
     </div>
+    -->
 
     <!-- メインフォーム -->
     <main>
@@ -133,20 +137,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
     <!-- 右側メニュー -->
+    <!--
     <div class="sidebar-right">
       <a href="./kouryakuhome.php">攻略記事</a>
       <a href="./recruit_home.php">募集</a>
       <a href="./post_home.php">掲示板</a>
     </div>
+    -->
 
   </div>
   <!-- 下メニュー -->
+  <!--
   <a href="./post_home.php">掲示板</a>
   <a href="./post_add.php">ピ</a>
   <a href="./post_reply.php">返</a>
+  -->
 
 
-    <script src="../javascript/index.js"></script>
+  <script src="../javascript/index.js"></script>
 </body>
 
 </html>
