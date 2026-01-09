@@ -63,8 +63,9 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
       .sidebar {
         position: static;
         width: 90%;
-        margin: 0 auto 20px auto;
+        margin: 20px auto 20px auto;
         text-align: center;
+        transform: none;
       }
     }
 
