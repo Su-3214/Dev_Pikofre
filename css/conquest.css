@@ -1,0 +1,67 @@
+.banner h1 {
+    color: aqua;
+    font-size: 30px;
+
+}
+
+.box {
+    position: absolute;
+    left: 109px;
+    top: 278px;
+    width: 200px;
+    height: 100px;
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    padding-top: 15px;
+}
+
+.cards {
+    width: 700px;
+    margin: 20px auto;
+}
+
+.card {
+    display: flex;
+    /*横に並べる、整列させる魔法*/
+
+    gap: 20px;
+    /*画像と文章の間を綺麗に空ける魔法*/
+
+    padding: 20px;
+    /*内側の余白、枠の中を広く見せる*/
+
+    background: white;
+
+    border: 2px solid black;
+
+    border-radius: 12px;
+    /*角を丸くする(画像も可)*/
+
+    text-decoration: none;
+    /*リンクの下線を消す魔法*/
+
+    color: black;
+
+    margin-bottom: 20px;
+    /*外側の余白(要素と要素の間の距離)*/
+
+    transition: 0.2s;
+    /*ホバーしたときに”ふわっと変化”させるための効果(この場合は0.2秒で変化)*/
+}
+
+/*マウスを乗せた時のスタイル*/
+.card:hover {
+    background: #eaf4ff;
+}
+
+.thumb {
+    width: 150px;
+    border-radius: 6px;
+}
+
+.text h3 {
+    margin: 0 0 10px;
+}

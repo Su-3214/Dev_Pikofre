@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //インサート用のsql文
     if ($game_id && $u_id && $recruit_vc && $recruit_number) {
         $sql = "INSERT INTO game_recruitment 
-                (game_id, u_id, u_name,recruit_vc, recruit_number, recruit_detail )
-                VALUES (:game_id, :u_id, :u_name,:recruit_vc, :recruit_number, :recruit_detail)";
+                (game_id, u_id, u_name,recruit_vc, recruit_number, recruit_detail, room_number)
+                VALUES (:game_id, :u_id, :u_name,:recruit_vc, :recruit_number, :recruit_detail, :room_number)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':game_id', $game_id, PDO::PARAM_INT);
         $stmt->bindParam(':u_id', $u_id, PDO::PARAM_INT);
@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':recruit_vc', $recruit_vc, PDO::PARAM_STR);
         $stmt->bindParam(':recruit_number', $recruit_number, PDO::PARAM_INT);
         $stmt->bindParam(':recruit_detail', $recruit_detail, PDO::PARAM_STR);
+        $stmt->bindValue(':room_number', 10, PDO::PARAM_INT);
 
         try {
             $stmt->execute();

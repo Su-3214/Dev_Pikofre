@@ -1,16 +1,13 @@
 <?php
 // DB接続
-$pdo = new PDO(
-    'mysql:host=mysql325.phy.lolipop.jp;dbname=LAA1688829-pikopiko;charset=utf8mb4',
-    'LAA1688829',
-    'GIroku2434'
-);
+// DB接続
+require_once "db_connect.php";
 
 // 表示するゲームID
 $game_id = 1;
 
 // SQL
-$sql = "SELECT * FROM info WHERE game_id = ?";
+$sql = "SELECT * FROM game_info WHERE game_id = ?";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$game_id]);
 

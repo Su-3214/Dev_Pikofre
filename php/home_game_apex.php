@@ -165,14 +165,6 @@ $rightMenu = [
 </section>
 
 </main>
-
-<!-- 右 -->
-<aside class="right-sidebar">
-<?php foreach ($rightMenu as $label=>$link): ?>
-    <a class="side-btn" href="<?= $link ?>"><?= $label ?></a>
-<?php endforeach; ?>
-</aside>
-
 </div>
     <script src="../javascript/index.js"></script>
 </body>

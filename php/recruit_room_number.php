@@ -8,8 +8,7 @@ session_start();
 //募集IDの受け渡し
 $recruit_id = $_POST['recruit_id'];
 
-//テスト用に部屋番号を直接代入
-$room_number = 10;
+
 
 //セッションにてゲームIDの情報取得
 $_SESSION['game_id'] = 50000;
@@ -29,6 +28,42 @@ try {
 }
 
 $recruits = $stmt_recruit->fetch(PDO::FETCH_ASSOC);
+$room_number = $recruits['room_number'];
+
+// Discord Botにロール付与リクエストを送信
+if ($recruits && isset($recruits['u_name']) && isset($room_number)) {
+    $bot_url = "http://127.0.0.1:3000/assign-role";
+    $post_data = array(
+        'u_name' => $recruits['u_name'],
+        'room_number' => $room_number
+    );
+
+    $ch = curl_init($bot_url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+    // タイムアウトを短めに設定 (Botが落ちていてもページ表示を遅らせないため)
+    curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+
+    // デバッグ用: エラーとレスポンスを確認
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curl_error = curl_error($ch);
+    
+    curl_close($ch);
+
+    // デバッグ出力 (本番環境では削除またはコメントアウト)
+    echo "<div style='background:#f00; color:#fff; padding:10px;'>";
+    echo "Using Bot URL: " . htmlspecialchars($bot_url) . "<br>";
+    echo "Sending Data: " . htmlspecialchars(print_r($post_data, true)) . "<br>";
+    if ($curl_error) {
+        echo "cURL Error: " . htmlspecialchars($curl_error) . "<br>";
+    } else {
+        echo "HTTP Code: " . $http_code . "<br>";
+        echo "Response: " . htmlspecialchars($response) . "<br>";
+    }
+    echo "</div>";
+}
 
 
 
