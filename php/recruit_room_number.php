@@ -52,7 +52,8 @@ if ($recruits && isset($recruits['u_name']) && isset($room_number)) {
     
     curl_close($ch);
 
-    // デバッグ出力 (本番環境では削除またはコメントアウト)
+    // デバッグコンソール(動画撮影の為非表示としています)
+    /*
     echo "<div style='background:#f00; color:#fff; padding:10px;'>";
     echo "Using Bot URL: " . htmlspecialchars($bot_url) . "<br>";
     echo "Sending Data: " . htmlspecialchars(print_r($post_data, true)) . "<br>";
@@ -63,6 +64,7 @@ if ($recruits && isset($recruits['u_name']) && isset($room_number)) {
         echo "Response: " . htmlspecialchars($response) . "<br>";
     }
     echo "</div>";
+    */
 }
 
 
