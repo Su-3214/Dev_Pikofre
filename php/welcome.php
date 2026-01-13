@@ -20,10 +20,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <!-- ヘッダーはJSで生成されます -->
     <main>
         <section class="login_main">
-            <p>修正版を公開しました。<br>
-                ぴこふれアイコンを押下後、トップページに遷移するように<br>
-                ヘッダーフッターのリンクを仕込む、ナビの見た目を細かく修正、リンクを仕込む
-                残り二日で急いで作ります
+            <p>
+                ようこそ、PikoPikoFriendsへ。
             </p>
                
         </section>

@@ -32,28 +32,34 @@ $room_number = $recruits['room_number'];
 
 // Discord Botにロール付与リクエストを送信
 if ($recruits && isset($recruits['u_name']) && isset($room_number)) {
-    $bot_url = "http://127.0.0.1:3000/assign-role";
+
+    //$bot_url = "http://localhost:3000/assign-role";
+    //Render利用のため差し替え
+    $bot_url = "https://discord-bot-app-5ej0.onrender.com/assign-role";
     $post_data = array(
         'u_name' => $recruits['u_name'],
         'room_number' => $room_number
     );
+    // --- 修正版 cURL 処理部分 ---
+$ch = curl_init($bot_url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+curl_setopt($ch, CURLOPT_TIMEOUT, 5); // Renderによるため、タイムアウトを少し伸ばす
 
-    $ch = curl_init($bot_url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
-    // タイムアウトを短めに設定 (Botが落ちていてもページ表示を遅らせないため)
-    curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+// 【重要】IPv4での接続を強制する（Windows環境でのlocalhostエラー対策）
+curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 
-    // デバッグ用: エラーとレスポンスを確認
-    $response = curl_exec($ch);
-    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curl_error = curl_error($ch);
+// 【重要】もしlocalhostでダメなら、明示的に127.0.0.1を試す設定
+// $bot_url = "http://127.0.0.1:3000/assign-role"; 
+
+$response = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curl_error = curl_error($ch);
+curl_close($ch);
     
     curl_close($ch);
 
-    // デバッグコンソール(動画撮影の為非表示としています)
-    /*
     echo "<div style='background:#f00; color:#fff; padding:10px;'>";
     echo "Using Bot URL: " . htmlspecialchars($bot_url) . "<br>";
     echo "Sending Data: " . htmlspecialchars(print_r($post_data, true)) . "<br>";
@@ -64,7 +70,6 @@ if ($recruits && isset($recruits['u_name']) && isset($room_number)) {
         echo "Response: " . htmlspecialchars($response) . "<br>";
     }
     echo "</div>";
-    */
 }
 
 
