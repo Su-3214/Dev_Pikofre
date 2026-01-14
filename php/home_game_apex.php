@@ -32,13 +32,13 @@ $stmt_info->execute([$game_id]);
 $infos = $stmt_info->fetchAll(PDO::FETCH_ASSOC);
 
 /* 募集 */
-$sql_recruit = "SELECT * FROM game_recruitment WHERE game_id = ? ORDER BY recruit_start DESC LIMIT 1";
+$sql_recruit = "SELECT * FROM game_recruitment WHERE game_id = ? ORDER BY recruit_start DESC LIMIT 3";
 $stmt_recruit = $pdo->prepare($sql_recruit);
 $stmt_recruit->execute([$game_id]);
 $recruits = $stmt_recruit->fetchAll(PDO::FETCH_ASSOC);
 
 /* 掲示板 */
-$sql_post = "SELECT * FROM piko_post WHERE game_id = ? ORDER BY post_date DESC LIMIT 1";
+$sql_post = "SELECT * FROM piko_post WHERE game_id = ? ORDER BY post_date DESC LIMIT 3";
 $stmt_post = $pdo->prepare($sql_post);
 $stmt_post->execute([$game_id]);
 $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
@@ -84,86 +84,72 @@ $rightMenu = [
             <section class="latest-article">
                 <h2>最新の<?= htmlspecialchars($game_name) ?>記事</h2>
 
-                <?php if ($infos): $top = $infos[0]; ?>
-                    <div class="article-box">
-                        <img src="<?= $top['info_image'] ?? '/images/sample_thumb.png' ?>">
-                        <p><?= htmlspecialchars($top['info_title'] ?? $top['info_detail']) ?></p>
-                    </div>
-                <?php else: ?>
-                    <div class="article-box dummy">記事がありません</div>
+    <?php if ($infos): ?>
+        <?php foreach ($infos as $index => $info): ?>
+            <div class="article-box">
+                <img src="<?= $info['info_image'] ?? '/images/sample_thumb.png' ?>">
+                <p><a href="detail.php?id=<?= $info['info_id'] ?>"><?= htmlspecialchars($info['info_title'] ?? $info['info_detail']) ?></a></p>
+            </div>
+            <?php if ($index >= 2) break; // 3件まで表示 ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="article-box dummy">記事がありません</div>
+    <?php endif; ?>
+</section>
+
+<!-- 募集 -->
+<section class="recruit">
+    <h2>最新の募集</h2>
+    <?php if ($recruits): ?>
+        <?php foreach ($recruits as $r): ?>
+            <div class="recruit-card">
+                <div class="recruit-head">
+                    <span class="name"><?= htmlspecialchars($r['u_name']) ?></span>
+                    <span class="count">参加中 <?= htmlspecialchars($r['recruit_number']) ?></span>
+                </div>
+
+                <p class="recruit-title"><?= htmlspecialchars($r['recruit_title']) ?></p>
+
+                <p class="recruit-text">
+                    <?= nl2br(htmlspecialchars($r['recruit_detail'])) ?>
+                </p>
+                
+                <?php if (!empty($r['recruit_vc'])): ?>
+                    <p class="recruit-vc">VC: <?= htmlspecialchars($r['recruit_vc']) ?></p>
                 <?php endif; ?>
-            </section>
 
-            <!-- 募集 -->
-            <section class="recruit">
-                <?php if ($recruits): $r = $recruits[0]; ?>
-                    <div class="recruit-card">
-                        <div class="recruit-head">
-                            <span class="name"><?= htmlspecialchars($r['u_name']) ?></span>
-                            <span class="count">参加中 <?= htmlspecialchars($r['recruit_number']) ?>/3</span>
-                        </div>
+                <form action="recruit_room_number.php" method="post">
+                    <input type="hidden" name="recruit_id" value="<?= $r['recruit_id'] ?>">
+                    <input type="submit" class="join" value="参加">
+                </form>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>現在募集はありません。</p>
+    <?php endif; ?>
+</section>
 
-                        <p class="recruit-title"><?= htmlspecialchars($r['recruit_title']) ?></p>
 
-                        <p class="recruit-text">
-                            <?= nl2br(htmlspecialchars($r['recruit_detail'])) ?>
-                        </p>
-
-                        <!-- ★ ここが修正点 -->
-                        <!-- ★ 修正点: POSTフォームに変更 -->
-                        <form action="recruit_room_number.php" method="post">
-                            <input type="hidden" name="recruit_id" value="<?= $r['recruit_id'] ?>">
-                            <input type="submit" class="join" value="参加">
-                        </form>
-                    </div>
-
-                <?php else: ?>
-                    <!-- ダミー -->
-                    <div class="recruit-card">
-                        <div class="recruit-head">
-                            <span class="name">Padplayer</span>
-                            <span class="count">参加中 1/3</span>
-                        </div>
-
-                        <p class="recruit-title">マスター目指してます</p>
-
-                        <p class="recruit-text">
-                            主ダイヤ1 / VC可 / 18↑<br>
-                            雰囲気重視
-                        </p>
-
-                        <form action="recruit_room_number.php" method="post">
-                            <input type="hidden" name="recruit_id" value="dummy">
-                            <input type="submit" class="join" value="参加">
-                        </form>
-                    </div>
+<!-- 投稿 -->
+<section class="post">
+    <h2>最新の投稿</h2>
+    <?php if ($posts): ?>
+        <?php foreach ($posts as $p): ?>
+            <div class="post-card">
+                <div class="post-head">
+                    <div class="icon"></div>
+                    <span><?= htmlspecialchars($p['u_name'] ?? 'プレイヤー') ?></span>
+                </div>
+                <?php if (!empty($p['post_image'])): ?>
+                    <img src="<?= htmlspecialchars($p['post_image']) ?>">
                 <?php endif; ?>
-            </section>
-
-
-            <!-- 投稿 -->
-            <section class="post">
-                <?php if ($posts): $p = $posts[0]; ?>
-                    <div class="post-card">
-                        <div class="post-head">
-                            <div class="icon"></div>
-                            <span><?= $p['u_name'] ?? 'プレイヤー' ?></span>
-                        </div>
-                        <img src="<?= $p['post_image'] ?? '/images/sample_post.png' ?>">
-                        <p><?= $p['post_detail'] ?></p>
-                    </div>
-                <?php else: ?>
-                    <!-- ダミー -->
-                    <div class="post-card">
-                        <div class="post-head">
-                            <div class="icon"></div>
-                            <span>さすらいのプレイヤー</span>
-                        </div>
-                        <img src="/images/sample_post.png">
-                        <p>ライフラインの目がキマりすぎてるwwww</p>
-                    </div>
-                <?php endif; ?>
-            </section>
+                <p><?= nl2br(htmlspecialchars($p['post_detail'])) ?></p>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>現在投稿はありません。</p>
+    <?php endif; ?>
+</section>
 
         </main>
     </div>
