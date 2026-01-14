@@ -174,7 +174,7 @@ $rightMenu = [
             </div>
         </main>
 
-        <!-- 右メニュー -->
+        <!-- 右メニュー
         <aside class="sidebar-right">
             <h4>メニュー</h4>
             <ul class="game-list">
@@ -182,7 +182,7 @@ $rightMenu = [
                     <li><a href="<?= htmlspecialchars($link) ?>"><?= htmlspecialchars($label) ?></a></li>
                 <?php endforeach; ?>
             </ul>
-        </aside>
+        </aside> -->
     </div>
     <script src="../javascript/index.js"></script>
 </body>
