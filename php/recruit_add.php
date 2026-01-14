@@ -6,7 +6,7 @@ require_once "db_connect.php";
 
 //テスト用にセッションに値を追加
 $_SESSION['game_id'] = 50000;
-$_SESSION['u_id'] = 1;
+
 
 
 //セッションでユーザーidとゲームidを取得あ

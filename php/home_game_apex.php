@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 session_start();
 require_once "db_connect.php";
 
-$_SESSION['u_id'] = 1;
+
 
 /* game_id */
 $game_id = isset($_GET['id']) ? (int)$_GET['id'] : 1000;
@@ -52,36 +52,37 @@ $rightMenu = [
 ?>
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<title><?= htmlspecialchars($game_name) ?> ホーム</title>
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/gamehome.css">
+    <meta charset="UTF-8">
+    <title><?= htmlspecialchars($game_name) ?> ホーム</title>
+    <link rel="stylesheet" href="../css/gamehome.css">
 </head>
 
 <body>
-<div class="content-wrap">
+    <div class="content-wrap">
 
-<!-- 左 -->
-<aside class="left-sidebar">
-    <img class="game-header" src="<?= $header_img ?>">
-    <h3>人気な<?= htmlspecialchars($game_name) ?>記事</h3>
+        <!-- 左 -->
+        <aside class="left-sidebar">
+            <img class="game-header" src="<?= $header_img ?>">
+            <h3>人気な<?= htmlspecialchars($game_name) ?>記事</h3>
 
-    <ul>
-        <?php if ($infos): foreach ($infos as $info): ?>
-            <li><?= htmlspecialchars($info['info_title'] ?? mb_substr($info['info_detail'],0,20)) ?></li>
-        <?php endforeach; else: ?>
-            <li>記事がありません</li>
-        <?php endif; ?>
-    </ul>
-</aside>
+            <ul>
+                <?php if ($infos): foreach ($infos as $info): ?>
+                        <li><?= htmlspecialchars($info['info_title'] ?? mb_substr($info['info_detail'], 0, 20)) ?></li>
+                    <?php endforeach;
+                else: ?>
+                    <li>記事がありません</li>
+                <?php endif; ?>
+            </ul>
+        </aside>
 
-<!-- 中央 -->
-<main class="main">
+        <!-- 中央 -->
+        <main class="main">
 
-<!-- 最新記事 -->
-<section class="latest-article">
-    <h2>最新の<?= htmlspecialchars($game_name) ?>記事</h2>
+            <!-- 最新記事 -->
+            <section class="latest-article">
+                <h2>最新の<?= htmlspecialchars($game_name) ?>記事</h2>
 
     <?php if ($infos): ?>
         <?php foreach ($infos as $index => $info): ?>
@@ -150,8 +151,9 @@ $rightMenu = [
     <?php endif; ?>
 </section>
 
-</main>
-</div>
+        </main>
+    </div>
     <script src="../javascript/index.js"></script>
 </body>
+
 </html>
