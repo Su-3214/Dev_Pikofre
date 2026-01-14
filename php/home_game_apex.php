@@ -78,83 +78,99 @@ $rightMenu = [
 
         <!-- 中央 -->
         <main class="main">
+            <div class="container">
 
-            <!-- 最新記事 -->
-            <section class="latest-article">
-                <h2>最新の<?= htmlspecialchars($game_name) ?>記事</h2>
-
-                <?php if ($infos): ?>
-                    <?php foreach ($infos as $index => $info): ?>
-                        <div class="article-box">
-                            <img src="<?= $info['info_image'] ?? '/images/sample_thumb.png' ?>">
-                            <p><a href="detail.php?id=<?= $info['info_id'] ?>"><?= htmlspecialchars($info['info_title'] ?? $info['info_detail']) ?></a></p>
+                <!-- 最新記事 -->
+                <div class="latest-box">
+                    <div class="title">最新の<?= htmlspecialchars($game_name) ?>記事</div>
+                    <?php if (!empty($infos[0])):
+                        $top = $infos[0];
+                        $top_title = isset($top['info_title']) && $top['info_title'] !== '' ? $top['info_title'] : mb_substr($top['info_detail'], 0, 100);
+                        $thumb = isset($top['info_image']) && $top['info_image'] !== '' ? $top['info_image'] : null;
+                    ?>
+                        <div class="latest-body">
+                            <div class="latest-thumb">
+                                <?php if ($thumb): ?>
+                                    <img src="<?= htmlspecialchars($thumb) ?>" alt="thumb" style="width:100%;height:100%;object-fit:cover;">
+                                <?php else: ?>
+                                    <div class="article-box dummy">記事がありません</div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="latest-text">
+                                <a href="detail.php?id=<?= $top['info_id'] ?>" style="color:inherit;text-decoration:none;">
+                                    <?= htmlspecialchars($top_title) ?>
+                                </a>
+                            </div>
                         </div>
-                        <?php if ($index >= 2) break; // 3件まで表示 
-                        ?>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="article-box dummy">記事がありません</div>
-                <?php endif; ?>
-            </section>
+                    <?php else: ?>
+                        <div>記事がありません</div>
+                    <?php endif; ?>
+                </div>
 
-            <!-- 募集 -->
-            <section class="recruit">
-                <h2>最新の募集</h2>
+                <!-- 募集 -->
                 <?php if ($recruits): ?>
                     <?php foreach ($recruits as $r): ?>
                         <div class="recruit-card">
-                            <div class="recruit-head">
-                                <span class="name"><?= htmlspecialchars($r['u_name']) ?></span>
-                                <span class="count">参加中 <?= htmlspecialchars($r['recruit_number']) ?></span>
+                            <div class="recruit-top">
+                                <div class="name"><?= htmlspecialchars($r['u_name']) ?></div>
+                                <div class="icon"></div>
+                                <div style="margin-left:auto; font-size:12px; color:#333;">
+                                    参加中 <?= htmlspecialchars($r['recruit_number']) ?>
+                                </div>
                             </div>
 
+                            <div class="recruit-body">
+                                
+                                <div class="recruit-detail">
+                                    <?= nl2br(htmlspecialchars($r['recruit_detail'])) ?>
+                                </div>
 
+                                <?php if (!empty($r['recruit_vc'])): ?>
+                                    <p class="recruit-vc">VC: <?= htmlspecialchars($r['recruit_vc']) ?></p>
+                                <?php endif; ?>
 
-                            <p class="recruit-text">
-                                <?= nl2br(htmlspecialchars($r['recruit_detail'])) ?>
-                            </p>
+                                <?php if (!empty($r['recruit_discord'])): ?>
+                                    <p class="recruit-discord">Discord: <?= htmlspecialchars($r['recruit_discord']) ?></p>
+                                <?php endif; ?>
 
-                            <?php if (!empty($r['recruit_vc'])): ?>
-                                <p class="recruit-vc">VC: <?= htmlspecialchars($r['recruit_vc']) ?></p>
-                            <?php endif; ?>
-
-                            <?php if (!empty($r['recruit_discord'])): ?>
-                                <p class="recruit-discord">Discord: <?= htmlspecialchars($r['recruit_discord']) ?></p>
-                            <?php endif; ?>
-
-                            <form action="recruit_room_number.php" method="post">
-                                <input type="hidden" name="recruit_id" value="<?= $r['recruit_id'] ?>">
-                                <input type="submit" class="join" value="参加">
-                            </form>
+                                <form action="recruit_room_number.php" method="post">
+                                    <input type="hidden" name="recruit_id" value="<?= $r['recruit_id'] ?>">
+                                    <input type="submit" class="join-btn" value="参加">
+                                </form>
+                                <div style="clear:both"></div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <p>現在募集はありません。</p>
                 <?php endif; ?>
-            </section>
 
 
-            <!-- 投稿 -->
-            <section class="post">
-                <h2>最新の投稿</h2>
-                <?php if ($posts): ?>
-                    <?php foreach ($posts as $p): ?>
-                        <div class="post-card">
-                            <div class="post-head">
-                                <div class="icon"></div>
-                                <span><?= htmlspecialchars($p['u_name'] ?? 'プレイヤー') ?></span>
+                <!-- 投稿 -->
+                <div class="post-style">
+                    <?php if ($posts): ?>
+                        <?php foreach ($posts as $p): ?>
+                            <div class="post-row" style="margin-bottom:12px;">
+                                <div class="post-thumb">
+                                    <?php if (!empty($p['post_image'])): ?>
+                                        <img src="<?= htmlspecialchars($p['post_image']) ?>" style="width:100%;height:100%;object-fit:cover;">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="post-desc">
+                                    <div style="font-weight:bold;margin-bottom:4px;"><?= htmlspecialchars($p['u_name'] ?? 'プレイヤー') ?></div>
+                                    <?= nl2br(htmlspecialchars(mb_substr($p['post_detail'], 0, 260))) ?>
+                                    <div style="font-size:12px; color:#ddd; margin-top:8px;">
+                                        <?= htmlspecialchars($p['post_date'] ?? '') ?>
+                                    </div>
+                                </div>
                             </div>
-                            <?php if (!empty($p['post_image'])): ?>
-                                <img src="<?= htmlspecialchars($p['post_image']) ?>">
-                            <?php endif; ?>
-                            <p><?= nl2br(htmlspecialchars($p['post_detail'])) ?></p>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>現在投稿はありません。</p>
-                <?php endif; ?>
-            </section>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>現在投稿はありません。</p>
+                    <?php endif; ?>
+                </div>
 
+            </div>
         </main>
     </div>
     <script src="../javascript/index.js"></script>
