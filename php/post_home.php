@@ -28,7 +28,7 @@ $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8">
   <title>PikoPikoFriends - 掲示板</title>
-  <link rel="stylesheet" href="../css/keijiban.css">
+  <link rel="stylesheet" href="../css/keijiban.css?v=<?= time() ?>">
   <style>
     /* 左側固定メニュー */
     .sidebar {
