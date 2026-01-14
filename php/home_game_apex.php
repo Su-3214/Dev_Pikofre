@@ -55,6 +55,7 @@ $rightMenu = [
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($game_name) ?> ホーム</title>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/home.css">
 </head>
 
@@ -62,7 +63,7 @@ $rightMenu = [
     <div class="content-wrap">
 
         <!-- 左 -->
-        <aside class="left-sidebar">
+        <aside class="left-pickup">
             <img class="game-header" src="<?= $header_img ?>">
             <h3>人気な<?= htmlspecialchars($game_name) ?>記事</h3>
 
@@ -172,6 +173,16 @@ $rightMenu = [
 
             </div>
         </main>
+
+        <!-- 右メニュー -->
+        <aside class="sidebar-right">
+            <h4>メニュー</h4>
+            <ul class="game-list">
+                <?php foreach ($rightMenu as $label => $link): ?>
+                    <li><a href="<?= htmlspecialchars($link) ?>"><?= htmlspecialchars($label) ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </aside>
     </div>
     <script src="../javascript/index.js"></script>
 </body>
