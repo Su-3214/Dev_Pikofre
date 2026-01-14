@@ -9,7 +9,7 @@ require_once "functions.php";
 session_start();
 // セッション変数 $_SESSION["loggedin"]を確認。ログイン済だったらウェルカムページへリダイレクト
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: welcome.php");
+    header("location: home.php");
     exit;
 }
 
@@ -54,7 +54,7 @@ if (empty($errors)) {
             session_regenerate_id(true);
             $_SESSION["loggedin"] = true;
             $_SESSION["u_id"] = $row['u_id'];
-            header("location:home.php");
+            header("location: home.php");
             exit;
         } else {
             $login_err = 'メールアドレスまたはパスワードが違います。';
