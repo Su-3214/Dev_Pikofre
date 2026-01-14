@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 session_start();
 require_once "db_connect.php";
 
-$_SESSION['u_id'] = 1;
+
 
 /* game_id */
 $game_id = isset($_GET['id']) ? (int)$_GET['id'] : 1000;
