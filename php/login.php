@@ -54,7 +54,7 @@ if (empty($errors)) {
             session_regenerate_id(true);
             $_SESSION["loggedin"] = true;
             $_SESSION["u_id"] = $row['u_id'];
-            header("location: welcome.php");
+            header("location: home.php");
             exit;
         } else {
             $login_err = 'メールアドレスまたはパスワードが違います。';
