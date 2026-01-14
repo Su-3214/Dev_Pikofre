@@ -48,7 +48,7 @@ header .menu a {
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-left a {
@@ -82,9 +82,11 @@ header .menu a {
   border-radius: 10px;
   padding: 15px;
   width: 80%;
-  margin: 0 auto;
-  height: 300px;
-  overflow-y: auto;
+  margin: 0 auto 20px auto;
+  /* 下に余白を追加 */
+  height: auto;
+  /* 高さを自動調整 */
+  /* overflow-y: auto; 削除 */
 }
 
 .post img {
