@@ -3,7 +3,7 @@
 require_once "db_connect.php";
 
 // 表示するゲームID
-$game_id = 1;
+$game_id = 50000;
 
 // SQL
 $sql = "SELECT * FROM game_info WHERE game_id = ?";

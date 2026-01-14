@@ -86,7 +86,8 @@ header .menu a {
   /* 下に余白を追加 */
   height: auto;
   /* 高さを自動調整 */
-  /* overflow-y: auto; 削除 */
+  overflow: visible;
+  /* スクロールバー削除のため明示的にvisible指定 */
 }
 
 .post img {
