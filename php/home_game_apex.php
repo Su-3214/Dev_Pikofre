@@ -52,120 +52,122 @@ $rightMenu = [
 ?>
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<title><?= htmlspecialchars($game_name) ?> ホーム</title>
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/gamehome.css">
+    <meta charset="UTF-8">
+    <title><?= htmlspecialchars($game_name) ?> ホーム</title>
+    <link rel="stylesheet" href="../css/gamehome.css">
 </head>
 
 <body>
-<div class="content-wrap">
+    <div class="content-wrap">
 
-<!-- 左 -->
-<aside class="left-sidebar">
-    <img class="game-header" src="<?= $header_img ?>">
-    <h3>人気な<?= htmlspecialchars($game_name) ?>記事</h3>
+        <!-- 左 -->
+        <aside class="left-sidebar">
+            <img class="game-header" src="<?= $header_img ?>">
+            <h3>人気な<?= htmlspecialchars($game_name) ?>記事</h3>
 
-    <ul>
-        <?php if ($infos): foreach ($infos as $info): ?>
-            <li><?= htmlspecialchars($info['info_title'] ?? mb_substr($info['info_detail'],0,20)) ?></li>
-        <?php endforeach; else: ?>
-            <li>記事がありません</li>
-        <?php endif; ?>
-    </ul>
-</aside>
+            <ul>
+                <?php if ($infos): foreach ($infos as $info): ?>
+                        <li><?= htmlspecialchars($info['info_title'] ?? mb_substr($info['info_detail'], 0, 20)) ?></li>
+                    <?php endforeach;
+                else: ?>
+                    <li>記事がありません</li>
+                <?php endif; ?>
+            </ul>
+        </aside>
 
-<!-- 中央 -->
-<main class="main">
+        <!-- 中央 -->
+        <main class="main">
 
-<!-- 最新記事 -->
-<section class="latest-article">
-    <h2>最新の<?= htmlspecialchars($game_name) ?>記事</h2>
+            <!-- 最新記事 -->
+            <section class="latest-article">
+                <h2>最新の<?= htmlspecialchars($game_name) ?>記事</h2>
 
-    <?php if ($infos): $top = $infos[0]; ?>
-        <div class="article-box">
-            <img src="<?= $top['info_image'] ?? '/images/sample_thumb.png' ?>">
-            <p><?= htmlspecialchars($top['info_title'] ?? $top['info_detail']) ?></p>
-        </div>
-    <?php else: ?>
-        <div class="article-box dummy">記事がありません</div>
-    <?php endif; ?>
-</section>
+                <?php if ($infos): $top = $infos[0]; ?>
+                    <div class="article-box">
+                        <img src="<?= $top['info_image'] ?? '/images/sample_thumb.png' ?>">
+                        <p><?= htmlspecialchars($top['info_title'] ?? $top['info_detail']) ?></p>
+                    </div>
+                <?php else: ?>
+                    <div class="article-box dummy">記事がありません</div>
+                <?php endif; ?>
+            </section>
 
-<!-- 募集 -->
-<section class="recruit">
-<?php if ($recruits): $r=$recruits[0]; ?>
-    <div class="recruit-card">
-        <div class="recruit-head">
-            <span class="name"><?= htmlspecialchars($r['u_name']) ?></span>
-            <span class="count">参加中 <?= htmlspecialchars($r['recruit_number']) ?>/3</span>
-        </div>
+            <!-- 募集 -->
+            <section class="recruit">
+                <?php if ($recruits): $r = $recruits[0]; ?>
+                    <div class="recruit-card">
+                        <div class="recruit-head">
+                            <span class="name"><?= htmlspecialchars($r['u_name']) ?></span>
+                            <span class="count">参加中 <?= htmlspecialchars($r['recruit_number']) ?>/3</span>
+                        </div>
 
-        <p class="recruit-title"><?= htmlspecialchars($r['recruit_title']) ?></p>
+                        <p class="recruit-title"><?= htmlspecialchars($r['recruit_title']) ?></p>
 
-        <p class="recruit-text">
-            <?= nl2br(htmlspecialchars($r['recruit_detail'])) ?>
-        </p>
+                        <p class="recruit-text">
+                            <?= nl2br(htmlspecialchars($r['recruit_detail'])) ?>
+                        </p>
 
-        <!-- ★ ここが修正点 -->
-        <!-- ★ 修正点: POSTフォームに変更 -->
-        <form action="recruit_room_number.php" method="post">
-            <input type="hidden" name="recruit_id" value="<?= $r['recruit_id'] ?>">
-            <input type="submit" class="join" value="参加">
-        </form>
+                        <!-- ★ ここが修正点 -->
+                        <!-- ★ 修正点: POSTフォームに変更 -->
+                        <form action="recruit_room_number.php" method="post">
+                            <input type="hidden" name="recruit_id" value="<?= $r['recruit_id'] ?>">
+                            <input type="submit" class="join" value="参加">
+                        </form>
+                    </div>
+
+                <?php else: ?>
+                    <!-- ダミー -->
+                    <div class="recruit-card">
+                        <div class="recruit-head">
+                            <span class="name">Padplayer</span>
+                            <span class="count">参加中 1/3</span>
+                        </div>
+
+                        <p class="recruit-title">マスター目指してます</p>
+
+                        <p class="recruit-text">
+                            主ダイヤ1 / VC可 / 18↑<br>
+                            雰囲気重視
+                        </p>
+
+                        <form action="recruit_room_number.php" method="post">
+                            <input type="hidden" name="recruit_id" value="dummy">
+                            <input type="submit" class="join" value="参加">
+                        </form>
+                    </div>
+                <?php endif; ?>
+            </section>
+
+
+            <!-- 投稿 -->
+            <section class="post">
+                <?php if ($posts): $p = $posts[0]; ?>
+                    <div class="post-card">
+                        <div class="post-head">
+                            <div class="icon"></div>
+                            <span><?= $p['u_name'] ?? 'プレイヤー' ?></span>
+                        </div>
+                        <img src="<?= $p['post_image'] ?? '/images/sample_post.png' ?>">
+                        <p><?= $p['post_detail'] ?></p>
+                    </div>
+                <?php else: ?>
+                    <!-- ダミー -->
+                    <div class="post-card">
+                        <div class="post-head">
+                            <div class="icon"></div>
+                            <span>さすらいのプレイヤー</span>
+                        </div>
+                        <img src="/images/sample_post.png">
+                        <p>ライフラインの目がキマりすぎてるwwww</p>
+                    </div>
+                <?php endif; ?>
+            </section>
+
+        </main>
     </div>
-
-<?php else: ?>
-    <!-- ダミー -->
-    <div class="recruit-card">
-        <div class="recruit-head">
-            <span class="name">Padplayer</span>
-            <span class="count">参加中 1/3</span>
-        </div>
-
-        <p class="recruit-title">マスター目指してます</p>
-
-        <p class="recruit-text">
-            主ダイヤ1 / VC可 / 18↑<br>
-            雰囲気重視
-        </p>
-
-        <form action="recruit_room_number.php" method="post">
-            <input type="hidden" name="recruit_id" value="dummy">
-            <input type="submit" class="join" value="参加">
-        </form>
-    </div>
-<?php endif; ?>
-</section>
-
-
-<!-- 投稿 -->
-<section class="post">
-<?php if ($posts): $p=$posts[0]; ?>
-    <div class="post-card">
-        <div class="post-head">
-            <div class="icon"></div>
-            <span><?= $p['u_name'] ?? 'プレイヤー' ?></span>
-        </div>
-        <img src="<?= $p['post_image'] ?? '/images/sample_post.png' ?>">
-        <p><?= $p['post_detail'] ?></p>
-    </div>
-<?php else: ?>
-    <!-- ダミー -->
-    <div class="post-card">
-        <div class="post-head">
-            <div class="icon"></div>
-            <span>さすらいのプレイヤー</span>
-        </div>
-        <img src="/images/sample_post.png">
-        <p>ライフラインの目がキマりすぎてるwwww</p>
-    </div>
-<?php endif; ?>
-</section>
-
-</main>
-</div>
     <script src="../javascript/index.js"></script>
 </body>
+
 </html>
