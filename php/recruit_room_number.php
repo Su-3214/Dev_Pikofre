@@ -60,7 +60,7 @@ curl_close($ch);
     
     curl_close($ch);
 
-    echo "<div style='background:#f00; color:#fff; padding:10px;'>";
+    /*echo "<div style='background:#f00; color:#fff; padding:10px;'>";
     echo "Using Bot URL: " . htmlspecialchars($bot_url) . "<br>";
     echo "Sending Data: " . htmlspecialchars(print_r($post_data, true)) . "<br>";
     if ($curl_error) {
@@ -69,7 +69,7 @@ curl_close($ch);
         echo "HTTP Code: " . $http_code . "<br>";
         echo "Response: " . htmlspecialchars($response) . "<br>";
     }
-    echo "</div>";
+    echo "</div>";*/
 }
 
 

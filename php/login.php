@@ -54,7 +54,7 @@ if (empty($errors)) {
             session_regenerate_id(true);
             $_SESSION["loggedin"] = true;
             $_SESSION["u_id"] = $row['u_id'];
-            header("location: home.php");
+            header("location:home.php");
             exit;
         } else {
             $login_err = 'メールアドレスまたはパスワードが違います。';
@@ -128,6 +128,9 @@ if (empty($errors)) {
             <p>アカウントをお持ちでない方はここから<a href="register.php">サインアップ</a>してください</p>
         </form>
     </div>
+    <script>
+    const loginUserName = "<?php echo htmlspecialchars($userName, ENT_QUOTES, 'UTF-8'); ?>";
+</script>
     <script src="../javascript/index.js"></script>
 </body>
 

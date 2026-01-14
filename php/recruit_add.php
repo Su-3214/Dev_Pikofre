@@ -9,7 +9,7 @@ $_SESSION['game_id'] = 50000;
 
 
 
-//セッションでユーザーidとゲームidを取得あ
+//セッションでユーザーidとゲームidを取得
 $u_id = $_SESSION['u_id'];
 $game_id = $_SESSION['game_id'];
 
