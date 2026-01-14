@@ -55,7 +55,7 @@ $rightMenu = [
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($game_name) ?> ホーム</title>
-    <link rel="stylesheet" href="../css/gamehome.css">
+    <link rel="stylesheet" href="../css/home.css">
 </head>
 
 <body>
@@ -108,7 +108,7 @@ $rightMenu = [
                                 <span class="count">参加中 <?= htmlspecialchars($r['recruit_number']) ?></span>
                             </div>
 
-                            <p class="recruit-title"><?= htmlspecialchars($r['recruit_title']) ?></p>
+
 
                             <p class="recruit-text">
                                 <?= nl2br(htmlspecialchars($r['recruit_detail'])) ?>
@@ -116,6 +116,10 @@ $rightMenu = [
 
                             <?php if (!empty($r['recruit_vc'])): ?>
                                 <p class="recruit-vc">VC: <?= htmlspecialchars($r['recruit_vc']) ?></p>
+                            <?php endif; ?>
+
+                            <?php if (!empty($r['recruit_discord'])): ?>
+                                <p class="recruit-discord">Discord: <?= htmlspecialchars($r['recruit_discord']) ?></p>
                             <?php endif; ?>
 
                             <form action="recruit_room_number.php" method="post">
