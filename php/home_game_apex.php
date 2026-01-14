@@ -42,12 +42,7 @@ $stmt_post = $pdo->prepare($sql_post);
 $stmt_post->execute([$game_id]);
 $posts = $stmt_post->fetchAll(PDO::FETCH_ASSOC);
 
-/* 右メニュー */
-$rightMenu = [
-    "攻略記事" => "Strategyhome.php?id={$game_id}",
-    "募集" => "recruit_home.php?id={$game_id}",
-    "掲示板" => "post_home.php?id={$game_id}",
-];
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
