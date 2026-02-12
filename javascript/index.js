@@ -45,7 +45,7 @@ function createHeader() {
     if (filename !== "login.php" && filename !== "register.php") {
         headerContent += `
         <nav class="login_nav">
-                <a href="logout.php" class="btn btn-danger ml-3">${loginUser} ログアウト</a>
+                <a href="logout.php" class="btn btn-danger ml-3">ログアウト</a>
             </nav>
         `;
     }
