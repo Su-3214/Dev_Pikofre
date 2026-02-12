@@ -27,8 +27,6 @@ function createHeader() {
     // <header>要素を作成
     const header = document.createElement("header");
 
-    // PHP側で定義した loginUserName を使う
-    let loginUser = loginUserName;
     // 共通パーツ: ロゴとタイトル
     let headerContent = `
         <a href="${rootPath}php/home.php">
