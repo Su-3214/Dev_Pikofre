@@ -1,13 +1,3 @@
-1班成果物【ソースコード】
-
-メンバー情報:
-桝崎（リーダー）
-山﨑（サブリーダー）
-田島
-石松
-森田
-黒木
-
 動作アプリURL:
 https://chlorine3214.bitter.jp/Dev_Chlorine/php/welcome.php
 
